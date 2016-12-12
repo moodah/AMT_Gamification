@@ -1,7 +1,9 @@
 version: '2'
 services:
   java:
-    build: ./docker/java
+    build:
+      context: ./
+      dockerfile: ./docker/java/Dockerfile
     ports:
      - "8080:8080"
     links:
