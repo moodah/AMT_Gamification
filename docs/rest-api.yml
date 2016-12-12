@@ -19,6 +19,48 @@ consumes:
 produces:
   - application/json
 paths:
+  /applications:
+    post:
+      summary: Register a new application
+      description: The Applications endpoint allows to register a new application in the plateform
+      parameters:
+        - name: application
+          in: body
+          description: The application informations
+          required: true
+          schema:
+            $ref: '#/definitions/Application'
+      tags:
+        - Application
+      responses:
+        201:
+          description: Application registered
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /applications/auth:
+    post:
+      summary: Get the application token
+      description: The Applications/Auth endpoint returns the application token
+      parameters:
+        - name: application
+          in: body
+          description: The application informations
+          required: true
+          schema:
+            $ref: '#/definitions/Application'
+      tags:
+        - Application
+      responses:
+        200:
+          description: Application registered
+          schema:
+            $ref: '#/parameters/Token'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
   /users/{id}:
     get:
       summary: Get a user's reputation
@@ -474,6 +516,14 @@ parameters:
     
   
 definitions:
+  Application:
+    type: object
+    properties:
+      name:
+        type: string
+      password:
+        type: string
+
   Error:
     type: object
     properties:
