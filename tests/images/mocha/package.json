@@ -8,8 +8,9 @@
   "author": "https://github.com/moodah/AMT_Gamification",
   "license": "ISC",
   "devDependencies": {
-    "mocha": "*",
     "chai": "*",
+    "chai-http": "*",
+    "mocha": "*",
     "sinon": "*"
   }
 }

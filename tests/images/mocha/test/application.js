@@ -1,6 +1,8 @@
 // Testing the '/applications' endpoint:
 
 var chai = require('chai');
+var chaiHttp = require('chai-http');
+chai.use(chaiHttp);
 var assert = chai.assert;
 var should = chai.should();
 
