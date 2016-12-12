@@ -21,7 +21,7 @@ produces:
 paths:
   /users/{id}:
     get:
-      summary: User's reputation
+      summary: Get a user's reputation
       description: The Users endpoint returns the reputation of the user defined by the parameter {id}
       parameters:
         - name: id
@@ -29,7 +29,7 @@ paths:
           description: The user's ID
           required: true
           type: number
-          format: integer
+          format: int32
         - name: filter
           in: query
           description: Filter the desired Reputation members 
@@ -41,10 +41,8 @@ paths:
         - Users
       responses:
         200:
-          description: An object containing the user reputation
+          description: Requested user reputation
           schema:
-            type: object
-            items:
               $ref: '#/definitions/Reputation'
         default:
           description: Unexpected error
@@ -52,7 +50,7 @@ paths:
             $ref: '#/definitions/Error'
   /leaderboards:
     get:
-      summary: Top users
+      summary: Get top users
       description: The Leaderboards endpoint returns a list of the top users.
       parameters:
         - name: page
@@ -75,8 +73,6 @@ paths:
         200:
           description: An array of users, ordered by their global reputation
           schema:
-            type: array
-            items:
               $ref: '#/definitions/Reputation'
         default:
           description: Unexpected error
@@ -92,13 +88,14 @@ paths:
           schema:
             $ref: '#/definitions/Event'
           required: true
+        - $ref: '#/parameters/Token'
       tags:
         - Events
       responses:
         201:
-          description: The event is correctly recorded
+          description: Newly created event
           schema: 
-            type: null
+            $ref: '#/definitions/Event'
         default:
           description: Unexpected error
           schema:
@@ -107,6 +104,8 @@ paths:
     get:
       summary: Get Gamification rules
       description: The Rules endpoint returns the rules defined by the client
+      parameters:
+        - $ref: '#/parameters/Token'
       tags:
         - Rules
       responses:
@@ -131,76 +130,93 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/Rule'
+        - $ref: '#/parameters/Token'
       responses:
         201:
-          description: The rule is correctly recorded
-          schema: 
-            type: string
+          description: Newly created rule
+          schema:
+            $ref: '#/definitions/Rule'
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
     delete:
-      summary: todo
-      description: todo
+      summary: Delete all rules
+      description: Delete all rules for this application
       tags:
-        - todo
+        - Rules
       parameters:
-        - name: todo
+        - name: id
+          in: query
+          required: true
+          type: number
+          format: int32
+        - $ref: '#/parameters/Token'
       responses:
         204:
-          description: todo
-          schema: 
-            type: null
+          description: Void
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
   /rules/{id}:
     get:
-      summary: todo
-      description: todo
+      summary: Get a rule specified by {id}
+      description: Get a rule specified by {id}
       tags:
-        - todo
+        - Rules
       parameters:
-        - name: todo
+        - name: id
+          in: path
+          required: true
+          type: number
+          format: int32
+        - $ref: '#/parameters/Token'
       responses:
-        204:
-          description: todo
-          schema: 
-            type: null
+        200:
+          description: Requested rule
+          schema:
+            $ref: '#/definitions/Rule'
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
     delete:
-      summary: todo
-      description: todo
+      summary: Delete the rule with {id}
+      description: Delete the rule with {id}
       tags:
-        - todo
+        - Rules
       parameters:
-        - name: todo
+        - name: id
+          in: path
+          required: true
+          type: number
+          format: int32
+        - $ref: '#/parameters/Token'
       responses:
         204:
-          description: todo
-          schema: 
-            type: null
+          description: Void
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
     patch:
-      summary: todo
-      description: todo
+      summary: Update rules with {id}
+      description: Update rules with {id}
       tags:
-        - todo
+        - Rules
       parameters:
-        - name: todo
+        - name: id
+          in: path
+          required: true
+          type: number
+          format: int32¨
+        - $ref: '#/parameters/Token'
       responses:
         204:
-          description: todo
-          schema: 
-            type: null
+          description: Updated rule
+          schema:
+            $ref: '#/definitions/Rule'
         default:
           description: Unexpected error
           schema:
@@ -210,14 +226,16 @@ paths:
       summary: Get Gamification levels
       description: The levels endpoint returns the levels defined by the client
       tags:
-        - levels
+        - Levels
+      parameters:
+       - $ref: '#/parameters/Token'
       responses:
         200:
           description: An array of levels
           schema:
             type: array
             items:
-              $ref: '#/definitions/level'
+              $ref: '#/definitions/Level'
         default:
           description: Unexpected error
           schema:
@@ -226,83 +244,100 @@ paths:
       summary: Create Gamification levels
       description: The levels endpoint allows the client to submit new levels
       tags:
-        - levels
+        - Levels
       parameters:
         - name: level
           in: body
           required: true
           schema:
-            $ref: '#/definitions/level'
+            $ref: '#/definitions/Level'
+        - $ref: '#/parameters/Token'
       responses:
         201:
-          description: The level is correctly recorded
-          schema: 
-            type: string
+          description: Newly created level
+          schema:
+            $ref: '#/definitions/Level'
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
     delete:
-      summary: todo
-      description: todo
+      summary: Delete all levels
+      description: Delete all levels for this application
       tags:
-        - todo
+        - Levels
       parameters:
-        - name: todo
+        - name: id
+          in: query
+          required: true
+          type: number
+          format: int32
+        - $ref: '#/parameters/Token'
       responses:
         204:
-          description: todo
-          schema: 
-            type: null
+          description: Void
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
   /levels/{id}:
     get:
-      summary: todo
-      description: todo
+      summary: Get level with this {id}
+      description: Get level with this {id}
       tags:
-        - todo
+        - Levels
       parameters:
-        - name: todo
+        - name: id
+          in: path
+          required: true
+          type: number
+          format: int32
+        - $ref: '#/parameters/Token'
       responses:
-        204:
-          description: todo
-          schema: 
-            type: null
+        200:
+          description: Requested level
+          schema:
+            $ref: '#/definitions/Level'
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
     delete:
-      summary: todo
-      description: todo
+      summary: Delete the level with {id}
+      description: Delete the level with {id}
       tags:
-        - todo
+        - Levels
       parameters:
-        - name: todo
+        - name: id
+          in: path
+          required: true
+          type: number
+          format: int32
+        - $ref: '#/parameters/Token'
       responses:
         204:
-          description: todo
-          schema: 
-            type: null
+          description: Void
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
     patch:
-      summary: todo
-      description: todo
+      summary: Update the level with {id}
+      description: Update the level with {id}
       tags:
-        - todo
+        - Levels
       parameters:
-        - name: todo
+        - name: id
+          in: path
+          required: true
+          type: number
+          format: int32
+        - $ref: '#/parameters/Token'
       responses:
-        204:
-          description: todo
-          schema: 
-            type: null
+        200:
+          description: Updated level
+          schema:
+            $ref: '#/definitions/Level'
         default:
           description: Unexpected error
           schema:
@@ -312,7 +347,9 @@ paths:
       summary: Get Gamification badges
       description: The badges endpoint returns the badges defined by the client
       tags:
-        - badges
+        - Badges
+      parameters:
+        - $ref: '#/parameters/Token'
       responses:
         200:
           description: An array of badges
@@ -328,87 +365,113 @@ paths:
       summary: Create Gamification badges
       description: The badges endpoint allows the client to submit new badges
       tags:
-        - badges
+        - Badges
       parameters:
         - name: badge
           in: body
           required: true
           schema:
             $ref: '#/definitions/Badge'
+        - $ref: '#/parameters/Token'
       responses:
         201:
-          description: The badge is correctly recorded
+          description: Newly created badge
           schema: 
-            type: string
+            $ref: '#/definitions/Badge'
         default:
           description: Unexpected error
-          schema
+          schema:
             $ref: '#/definitions/Error'
     delete:
-      summary: todo
-      description: todo
+      summary: Delete all badges
+      description:  Delete all badges for this application
       tags:
-        - todo
+        - Badges
       parameters:
-        - name: todo
+        - name: id
+          in: query
+          required: true
+          type: number
+          format: int32
+        - $ref: '#/parameters/Token'
       responses:
         204:
-          description: todo
-          schema: 
-            type: null
+          description: Void
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
   /badges/{id}:
     get:
-      summary: todo
-      description: todo
+      summary: Get badge with {id}
+      description: Get badge with {id}
       tags:
-        - todo
+        - Badges
       parameters:
-        - name: todo
+        - name: id
+          in: path
+          required: true
+          type: number
+          format: int32
+        - $ref: '#/parameters/Token'
       responses:
-        204:
-          description: todo
-          schema: 
-            type: null
+        200:
+          description: Requested badge
+          schema:
+            $ref: '#/definitions/Badge'
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
     delete:
-      summary: todo
-      description: todo
+      summary: Delete badge with {id}
+      description: Delete badge with {id}
       tags:
-        - todo
+        - Badges
       parameters:
-        - name: todo
+        - name: id
+          in: path
+          required: true
+          type: number
+          format: int32
+        - $ref: '#/parameters/Token'
       responses:
         204:
-          description: todo
-          schema: 
-            type: null
+          description: Void
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
     patch:
-      summary: todo
-      description: todo
+      summary: Update badge with {id}
+      description: Update
       tags:
-        - todo
+        - Badges
       parameters:
-        - name: todo
+        - name: id
+          in: path
+          required: true
+          type: number
+          format: int32
+        - $ref: '#/parameters/Token'
       responses:
-        204:
-          description: todo
-          schema: 
-            type: null
+        200:
+          description: Updated badge
+          schema:
+            $ref: '#/definitions/Badge'
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+            
+parameters:
+  Token:
+    name: token
+    in: header
+    description: Authorization header JWT
+    required: true
+    type: string
+    
   
 definitions:
   Error:
@@ -421,3 +484,52 @@ definitions:
         type: string
       fields:
         type: string
+        
+  Reputation:
+    type: object
+    properties:
+      name:
+        type: string
+        
+  Rule:
+    type: object
+    properties:
+      name:
+        type: string
+      operator:
+        type: string
+      points:
+        type: number
+        format: int32
+      badge_id:
+        $ref: '#/definitions/Id'
+  
+  Level:
+    type: object
+    properties:
+      number:
+        type: number
+        format: int32
+      points:
+        type: number
+        format: int32
+  
+  Badge:
+    type: object
+    properties:
+      name:
+        type: string
+  
+  Event:
+    type: object
+    properties:
+      timestamp:
+        type: string
+        format: date-time
+      code:
+        type: number
+        format: int32
+        
+  Id:
+    type: number
+    format: int32
