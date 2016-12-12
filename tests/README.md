@@ -9,4 +9,5 @@ To run the tests:
 
 - http://mochajs.org/
 - http://chaijs.com/
+- http://chaijs.com/plugins/chai-http/
 - http://sinonjs.org/
