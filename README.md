@@ -81,3 +81,5 @@ dependencies {
     }
 }
 ```
+
+App is available at `localhost:8080/v1` (settings can be change in `src/main/resources/application.properties`)
