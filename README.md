@@ -25,3 +25,6 @@ After you've got launched the application with docker-compose, you can access :
 ## Run the app for development
 - You can also run the Spring Boot application with `./gradlew bootRun`
 - The server will listen on the port `8080`
+
+## Tests
+All the testing are in the `tests/` folder: [here](https://github.com/moodah/AMT_Gamification/tree/master/tests)
