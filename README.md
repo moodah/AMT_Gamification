@@ -10,3 +10,6 @@ Then, after cloning this repo, open `build.gradle` in your favorite IDE (we use 
 
 ## Use
 Once the app is running, you can check out the first "Hello World" by going to `localhost:8080` on your web browser.
+
+## Tests
+All the testing are in the `tests/` folder: [here](https://github.com/moodah/AMT_Gamification/tree/master/tests)

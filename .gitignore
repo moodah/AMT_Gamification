@@ -1,7 +1,7 @@
 
 .idea/
 *.iml
-*.war
+*.jar
 
 
 # Created by https://www.gitignore.io/api/intellij,gradle,latex,node

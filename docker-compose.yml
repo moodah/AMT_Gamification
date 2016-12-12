@@ -1,10 +1,9 @@
 version: '2'
 services:
-  wildfly:
-    build: ./docker/wildfly
+  java:
+    build: ./docker/java
     ports:
-     - "9090:8080"
-     - "9990:9990"
+     - "8080:8080"
     links:
      - mysql:db
   mysql:
