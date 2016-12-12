@@ -28,3 +28,56 @@ After you've got launched the application with docker-compose, you can access :
 
 ## Tests
 All the testing are in the `tests/` folder: [here](https://github.com/moodah/AMT_Gamification/tree/master/tests)
+
+## Generate server with Swagger
+- In swagger online editor, select Generate Server > Spring
+- Unzip the downloaded folder
+- At project root, run `gradle init` to create all gradle files
+- Copy paste the `src` folder in your project
+- Copy paste gradle files also
+
+Add missing dependencies in gradle
+```json
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.2.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'org.springframework.boot'
+
+group = 'io.swagger'
+version = '1.0.0'
+
+description = """swagger-spring"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+
+
+repositories {
+        
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'1.3.5.RELEASE'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version:'2.5.0'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version:'2.5.0'
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-joda', version:'2.6.6'
+    compile group: 'joda-time', name: 'joda-time', version:'2.8.2'
+    compile(group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version:'1.3.5.RELEASE') {
+       /* This dependency was originally in the Maven provided scope, but the project was not of type war.
+       This behavior is not yet supported by Gradle, so this dependency has been converted to a compile dependency.
+       Please review and delete this closure when resolved. */
+    }
+}
+```
