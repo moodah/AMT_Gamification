@@ -11,7 +11,7 @@ Before getting started you'll need [Docker 1.12+](https://docs.docker.com/) and 
 Then, after cloning this repo, run the project with the command `docker-compose up --build`. Docker images will start a MySQL database and build/run the server.
 
 - Clone this repo
-- Open your terminal and browse at the root of the folder (same level as the `docker-compose.yml` file)
+- Open your terminal and browse to the `platform` folder (same level as the `docker-compose.yml` file)
 - Run the following command `docker-compose up`
 - Open your browser and access the url `http://127.0.0.1:8080/` or `http://192.168.99.100:8080/` depending your installation (docker-machine or docker for Windows/Mac)
 - Magic happens !
