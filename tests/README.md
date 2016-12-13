@@ -1,7 +1,7 @@
 # Testing 
 
 To run the tests:
-- Start the plateform, see [here](#) (link missing atm)
+- Start the plateform, see [here](https://github.com/moodah/AMT_Gamification#how-to) 
 - Open your favorite terminal
 - Move to this directory (`AMT_Gamification/tests/`)
 - Optionally, if you changed the plateform configuration, modify this file:
