@@ -22,7 +22,7 @@ paths:
   /applications:
     post:
       summary: Register a new application
-      description: The Applications endpoint allows to register a new application in the plateform
+      description: The Applications endpoint allows to register a new application on the platform
       parameters:
         - name: application
           in: body
@@ -31,10 +31,30 @@ paths:
           schema:
             $ref: '#/definitions/Application'
       tags:
-        - Application
+        - Applications
       responses:
         201:
-          description: Application registered
+          description: Application created
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Error'
+  /applications/{id}:
+    delete:
+      summary: Delete an application
+      description: Delete the application with specified {id}
+      parameters:
+        - name: id
+          in: path
+          description: Id of the application
+          required: true
+          type: number
+          format: integer
+      tags:
+        - Applications
+      responses:
+        204:
+          description: Application was deleted
         default:
           description: Error
           schema:
@@ -51,12 +71,12 @@ paths:
           schema:
             $ref: '#/definitions/Application'
       tags:
-        - Application
+        - Applications
       responses:
-        200:
-          description: Application registered
+        201:
+          description: Application registered, token created
           schema:
-            $ref: '#/parameters/Token'
+            $ref: '#/definitions/Token'
         default:
           description: Error
           schema:
@@ -523,7 +543,13 @@ definitions:
         type: string
       password:
         type: string
-
+        
+  Token:
+    type: object
+    properties:
+      token:
+        type: string
+        
   Error:
     type: object
     properties:
