@@ -37,7 +37,7 @@ All the testing are in the `tests/` folder: [here](https://github.com/moodah/AMT
 - Copy paste gradle files also
 
 Add missing dependencies in gradle
-```json
+```
 buildscript {
     repositories {
         mavenCentral()
@@ -69,12 +69,12 @@ repositories {
      maven { url "http://repo.maven.apache.org/maven2" }
 }
 dependencies {
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'1.3.5.RELEASE'
-    compile group: 'io.springfox', name: 'springfox-swagger2', version:'2.5.0'
-    compile group: 'io.springfox', name: 'springfox-swagger-ui', version:'2.5.0'
-    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-joda', version:'2.6.6'
-    compile group: 'joda-time', name: 'joda-time', version:'2.8.2'
-    compile(group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version:'1.3.5.RELEASE') {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'1.4.2.RELEASE'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version:'2.6.1'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version:'2.6.1'
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-joda', version:'2.8.5'
+    compile group: 'joda-time', name: 'joda-time', version:'2.9.6'
+    compile(group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version:'1.4.2.RELEASE') {
        /* This dependency was originally in the Maven provided scope, but the project was not of type war.
        This behavior is not yet supported by Gradle, so this dependency has been converted to a compile dependency.
        Please review and delete this closure when resolved. */
