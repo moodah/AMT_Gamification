@@ -1,10 +1,11 @@
 // Testing the '/applications' endpoint:
 
-var chai = require('chai');
-var chaiHttp = require('chai-http');
+let chai = require('chai');
+let chaiHttp = require('chai-http');
 chai.use(chaiHttp);
-var assert = chai.assert;
-var should = chai.should();
+let assert = chai.assert;
+let should = chai.should();
+let CONFIG = require('./config');
 
 describe('/applications endpoint', function () {
 
@@ -25,5 +26,11 @@ describe('/applications endpoint', function () {
         it('should returns an error with bad credentials', function (done) {
             
         });
+    });
+
+    after(function (done) {
+        
+        // cleanup
+
     });
 });
