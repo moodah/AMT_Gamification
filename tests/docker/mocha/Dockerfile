@@ -3,7 +3,9 @@ FROM node:latest
 MAINTAINER https://github.com/moodah/AMT_Gamification
 
 # Copy local files
-ADD . .
+# build context is: ../../
+ADD mocha/package.json .
+ADD mocha/test/ ./test/
 WORKDIR .
 
 # Configure the image
