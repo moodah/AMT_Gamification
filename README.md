@@ -8,11 +8,9 @@ This repo contains the code to run a gamification API. It is a project proposed 
 Before getting started you'll need [Docker 1.12+](https://docs.docker.com/) and [Docker Compose 1.8+](https://docs.docker.com/compose/).
 
 ## Run the app
-Then, after cloning this repo, run the project with the command `docker-compose up --build`. Docker images will start a MySQL database and build/run the server.
-
 - Clone this repo
-- Open your terminal and browse at the root of the folder (same level as the `docker-compose.yml` file)
-- Run the following command `docker-compose up`
+- Open your terminal and browse the `platform` folder (same level as the `docker-compose.yml` file)
+- Run the following command `docker-compose up --build`
 - Open your browser and access the url `http://127.0.0.1:8080/` or `http://192.168.99.100:8080/` depending your installation (docker-machine or docker for Windows/Mac)
 - Magic happens !
 
@@ -23,7 +21,7 @@ After you've got launched the application with docker-compose, you can access :
 - MySQL on the port `3306`
 
 ## Run the app for development
-- You can also run the Spring Boot application with `./gradlew bootRun`
+- You can also run the Spring Boot application with `./gradlew bootRun` from the `platform` folder
 - The server will listen on the port `8080`
 
 ## Tests
