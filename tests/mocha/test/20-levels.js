@@ -17,10 +17,6 @@ describe('levels/', function () {
         
     });
 
-    describe('DELETE', function () {
-        
-    });
-
     describe('levels/{id}', function () {
         
         describe('GET', function () {
@@ -28,10 +24,6 @@ describe('levels/', function () {
         });
 
         describe('PATCH', function () {
-            
-        });
-
-        describe('DELETE', function () {
             
         });
     });

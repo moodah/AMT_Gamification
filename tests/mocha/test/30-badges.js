@@ -17,10 +17,6 @@ describe('badges/', function () {
         
     });
 
-    describe('DELETE', function () {
-        
-    });
-
     describe('badges/{id}', function () {
         
         describe('GET', function () {
@@ -28,10 +24,6 @@ describe('badges/', function () {
         });
 
         describe('PATCH', function () {
-            
-        });
-
-        describe('DELETE', function () {
             
         });
     });

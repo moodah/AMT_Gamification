@@ -17,10 +17,6 @@ describe('rules/', function () {
         
     });
 
-    describe('DELETE', function () {
-        
-    });
-
     describe('rules/{id}', function () {
         
         describe('GET', function () {
@@ -28,10 +24,6 @@ describe('rules/', function () {
         });
 
         describe('PATCH', function () {
-            
-        });
-
-        describe('DELETE', function () {
             
         });
     });
