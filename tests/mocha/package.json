@@ -1,7 +1,7 @@
 {
   "name": "amt-gamification-mocha-tests",
   "version": "1.0.0",
-  "description": "Tests of the Gamification plateform, using Mocha",
+  "description": "Tests of the Gamification platform, using Mocha",
   "scripts": {
     "test": "mocha"
   },
