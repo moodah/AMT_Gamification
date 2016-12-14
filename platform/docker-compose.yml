@@ -3,19 +3,19 @@ services:
   java:
     build:
       context: ./
-      dockerfile: ./images/java/Dockerfile
+      dockerfile: ./docker/openjdk/Dockerfile
     ports:
      - "8080:8080"
     links:
      - mysql:db
   mysql:
-    build: ./images/mysql
+    build: ./docker/mysql
     environment:
      - MYSQL_ROOT_PASSWORD=root
     ports:
      - "3306:3306"
   phpmyadmin:
-    build: ./images/phpmyadmin
+    build: ./docker/phpmyadmin
     environment:
      - MYSQL_ROOT_PASSWORD=root
     ports:

@@ -108,42 +108,6 @@ paths:
           description: Error payload
           schema:
             $ref: '#/definitions/Error'
-    post:
-      summary: Create a new user
-      description: Create a new user
-      parameters:
-        - name: username
-          in: body
-          description: The new user
-          required: true
-          schema:
-            $ref: '#/definitions/Username'
-        - $ref: '#/parameters/Token'
-      tags:
-        - Users
-      responses:
-        201:
-          description: Newly created user
-          schema:
-              $ref: '#/definitions/Username'
-        default:
-          description: Error payload
-          schema:
-            $ref: '#/definitions/Error'
-    delete:
-      summary: Delete all users
-      description: Delete all users
-      parameters:
-        - $ref: '#/parameters/Token'
-      tags:
-        - Users
-      responses:
-        204:
-          description: Deleted successfully
-        default:
-          description: Error payload
-          schema:
-            $ref: '#/definitions/Error'
   /users/{id}:
     get:
       summary: Get a user's reputation
