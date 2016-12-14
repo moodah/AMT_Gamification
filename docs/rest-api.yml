@@ -39,17 +39,10 @@ paths:
           description: Error payload
           schema:
             $ref: '#/definitions/Error'
-  /applications/{id}:
     delete:
       summary: Delete an application
-      description: Delete the application with specified {id}
+      description: Delete the application based on the id of the token passed as parameter
       parameters:
-        - name: id
-          in: path
-          description: ID of the application
-          required: true
-          type: number
-          format: integer
         - $ref: '#/parameters/Token'
       tags:
         - Applications
