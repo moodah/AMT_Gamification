@@ -59,11 +59,11 @@ describe('applications/', function () {
                 .set('content-type', 'application/json')
                 .set('authorisation', CONFIG.token)
                 .send({
-                    name: 'testapplicationname'
+                    name: CONFIG.APPNAME
                 })
                 .then(function (res) {
                     chai.expect(res).to.not.be.undefined;
-                    chai.expect(res).to.have.status(200);
+                    chai.expect(res).to.have.status(204);
                     done();
                 })
                 .catch(function (err) {
