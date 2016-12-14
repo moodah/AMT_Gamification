@@ -1,11 +1,53 @@
-// Testing applications/
-// ---------------------
+// Testing DELETE verb
+// -------------------
 
 // Utils
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 let CONFIG = require('./config');
+
+describe('rules/', function () {
+
+    describe('DELETE', function () {
+        
+    });
+
+    describe('rules/{id}', function () {
+
+        describe('DELETE', function () {
+            
+        });
+    });
+});
+
+describe('badges/', function () {
+
+    describe('DELETE', function () {
+        
+    });
+
+    describe('badges/{id}', function () {
+
+        describe('DELETE', function () {
+            
+        });
+    });
+});
+
+describe('levels/', function () {
+
+    describe('DELETE', function () {
+        
+    });
+
+    describe('levels/{id}', function () {
+
+        describe('DELETE', function () {
+            
+        });
+    });
+});
 
 describe('applications/', function () {
 
