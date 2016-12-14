@@ -6,3 +6,33 @@ let chai = require('chai');
 let chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 let CONFIG = require('./config');
+
+describe('rules/', function () {
+
+    describe('POST', function () {
+        
+    });
+
+    describe('GET', function () {
+        
+    });
+
+    describe('DELETE', function () {
+        
+    });
+
+    describe('rules/{id}', function () {
+        
+        describe('GET', function () {
+            
+        });
+
+        describe('PATCH', function () {
+            
+        });
+
+        describe('DELETE', function () {
+            
+        });
+    });
+});
