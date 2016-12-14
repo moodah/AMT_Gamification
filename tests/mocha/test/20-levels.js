@@ -1,5 +1,5 @@
-// Testing users/
-// --------------
+// Testing levels/
+// ---------------
 
 // Utils
 let chai = require('chai');
@@ -7,15 +7,23 @@ let chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 let CONFIG = require('./config');
 
-describe('users/', function () {
+describe('levels/', function () {
+
+    describe('POST', function () {
+        
+    });
 
     describe('GET', function () {
         
     });
 
-    describe('users/{id}', function () {
+    describe('levels/{id}', function () {
         
         describe('GET', function () {
+            
+        });
+
+        describe('PATCH', function () {
             
         });
     });

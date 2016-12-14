@@ -1,4 +1,4 @@
-// Testing users/
+// Testing rules/
 // --------------
 
 // Utils
@@ -7,15 +7,23 @@ let chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 let CONFIG = require('./config');
 
-describe('users/', function () {
+describe('rules/', function () {
+
+    describe('POST', function () {
+        
+    });
 
     describe('GET', function () {
         
     });
 
-    describe('users/{id}', function () {
+    describe('rules/{id}', function () {
         
         describe('GET', function () {
+            
+        });
+
+        describe('PATCH', function () {
             
         });
     });

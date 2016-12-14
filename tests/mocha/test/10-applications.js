@@ -16,8 +16,8 @@ describe('applications/', function () {
                 .post('applications/')
                 .set('content-type', 'application/json')
                 .send({
-                    name: 'testapplicationname',
-                    password: '0123456789'
+                    name: CONFIG.APPNAME,
+                    password: CONFIG.APPPWD
                 })
                 .then(function (res) {
                     chai.expect(res).to.not.be.undefined;
@@ -34,8 +34,8 @@ describe('applications/', function () {
                 .post('applications/')
                 .set('content-type', 'application/json')
                 .send({
-                    name: 'testapplicationname',
-                    password: 'abcdefghijklmnopqrstuvwxyz'
+                    name: CONFIG.APPNAME,
+                    password: CONFIG.APPPWD + '_'
                 })
                 .then(function (res) {
                     chai.expect(res).to.not.be.undefined;
@@ -57,8 +57,8 @@ describe('applications/', function () {
                     .post('applications/auth/')
                     .set('content-type', 'application/json')
                     .send({
-                        name: 'testapplicationname',
-                        password: '0123456789'
+                        name: CONFIG.APPNAME,
+                        password: CONFIG.APPPWD
                     })
                     .then(function (res) {
                         chai.expect(res).to.not.be.undefined;
@@ -77,8 +77,8 @@ describe('applications/', function () {
                     .post('applications/auth/')
                     .set('content-type', 'application/json')
                     .send({
-                        name: 'testapplicationname923804',
-                        password: '0123456789'
+                        name: CONFIG.APPNAME + '_',
+                        password: CONFIG.APPPWD
                     })
                     .then(function (res) {
                         chai.expect(res).to.not.be.undefined;
@@ -95,8 +95,8 @@ describe('applications/', function () {
                     .post('applications/auth/')
                     .set('content-type', 'application/json')
                     .send({
-                        name: 'testapplicationname',
-                        password: '1234567890'
+                        name: CONFIG.APPNAME,
+                        password: CONFIG.APPPWD + '_'
                     })
                     .then(function (res) {
                         chai.expect(res).to.not.be.undefined;
