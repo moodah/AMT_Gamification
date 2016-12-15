@@ -9,6 +9,9 @@ import ch.heigvd.amt.gamification.model.Username;
 import java.math.BigDecimal;
 import org.joda.time.DateTime;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * Event
  */

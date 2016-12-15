@@ -12,7 +12,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 @javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-13T18:36:02.067Z")
 
-@org.springframework.context.annotation.Configuration
+@Configuration
 public class SwaggerDocumentationConfig {
 
     ApiInfo apiInfo() {

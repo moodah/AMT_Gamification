@@ -8,6 +8,9 @@ import io.swagger.annotations.ApiModelProperty;
 import ch.heigvd.amt.gamification.model.Badge;
 import ch.heigvd.amt.gamification.model.Level;
 import ch.heigvd.amt.gamification.model.Username;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
