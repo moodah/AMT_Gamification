@@ -23,7 +23,9 @@ After you've got launched the application with docker-compose, you can access :
 - MySQL on the port `3306`
 
 ## Run the app for development
-- You can also run the Spring Boot application with `./gradlew bootRun` from the `platform` folder
+- Open a MySQL connection listening on port 3306 (configs are set in `platform/src/main/resources/application.properties` file)
+- Create a database `gamification`
+- Run the Spring Boot application with `./gradlew bootRun` from the `platform` folder
 - The server will listen on the port `8080`
 - Livereload is made on project build in intelliJ IDEA (Build -> Build Project)
 
