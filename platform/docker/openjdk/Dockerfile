@@ -2,10 +2,9 @@ FROM openjdk:8
 
 WORKDIR /platform
 
-ADD build.gradle .
-ADD gradlew .
-ADD gradle/* ./gradle/
-ADD src/* ./src/
+ADD ./build.gradle ./gradlew ./
+ADD ./gradle ./gradle
+ADD ./src ./src
 
 RUN chmod +x gradlew
 RUN ./gradlew build
