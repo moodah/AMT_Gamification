@@ -46,6 +46,10 @@ describe('applications/', function () {
                     done(err);
                 });
         });
+
+        it('should refuse a malformed payload', function (done) {
+            this.skip();
+        });
     });
 
     describe('applications/auth/', function () {
@@ -106,6 +110,10 @@ describe('applications/', function () {
                     .catch(function (err) {
                         done(err);
                     });
+            });
+
+            it('should refuse a malformed payload', function (done) {
+                this.skip();
             });
         });
     }); 

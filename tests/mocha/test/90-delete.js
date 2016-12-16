@@ -57,7 +57,7 @@ describe('applications/', function () {
             chai.request(CONFIG.API)
                 .delete('application/')
                 .set('content-type', 'application/json')
-                .set('authorisation', CONFIG.token)
+                .set('authorization', CONFIG.token)
                 .send({
                     name: CONFIG.APPNAME
                 })
