@@ -2,10 +2,12 @@ FROM openjdk:8
 
 WORKDIR /platform
 
-ADD ./build.gradle ./gradlew ./
-ADD ./gradle ./gradle
-ADD ./src ./src
+ADD build.gradle .
+ADD gradlew .
+ADD gradle/* ./gradle/
+ADD src/* ./src/
 
+RUN chmod +x gradlew
 RUN ./gradlew build
 
 RUN bash -c 'touch /platform/build/libs/amt-gamification-platform-0.0.1.jar'
