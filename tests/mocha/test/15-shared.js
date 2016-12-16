@@ -1,14 +1,14 @@
-// Config check
+// Shared check
 // ------------
 
 // Utils
 let chai = require('chai');
-let CONFIG = require('./config');
+let shared = require('./shared');
 
-describe('CONFIG', function () {
+describe('SHARED', function () {
             
     it('should have a valid token to continue tests', function (done) {
-        chai.assert.notEqual(CONFIG.token, null);
+        chai.assert.notEqual(shared.token, null);
         done();
     });
 });

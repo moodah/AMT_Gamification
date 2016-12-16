@@ -6,6 +6,7 @@ let chai = require('chai');
 let chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 let CONFIG = require('./config');
+let shared = require('./shared');
 
 describe('applications/', function () {
 
@@ -68,7 +69,7 @@ describe('applications/', function () {
                         chai.expect(res).to.not.be.undefined;
                         chai.expect(res).to.have.status(200);
                         chai.expect(res.body).to.have.property('token');
-                        CONFIG.token = res.body.token;
+                        shared.token = res.body.token;
                         done();
                     })
                     .catch(function (err) {

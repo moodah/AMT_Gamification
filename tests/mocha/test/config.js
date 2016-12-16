@@ -11,8 +11,5 @@ module.exports = {
     HOST: HOST,
     API: HOST + API,
     APPNAME: APPNAME,
-    APPPWD: APPPWD,
-
-    // application token
-    token: null
+    APPPWD: APPPWD
 };

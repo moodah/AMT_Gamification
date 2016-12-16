@@ -6,6 +6,7 @@ let chai = require('chai');
 let chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 let CONFIG = require('./config');
+let shared = require('./shared');
 
 describe('rules/', function () {
 
@@ -57,7 +58,7 @@ describe('applications/', function () {
             chai.request(CONFIG.API)
                 .delete('application/')
                 .set('content-type', 'application/json')
-                .set('authorization', CONFIG.token)
+                .set('authorization', shared.token)
                 .send({
                     name: CONFIG.APPNAME
                 })
