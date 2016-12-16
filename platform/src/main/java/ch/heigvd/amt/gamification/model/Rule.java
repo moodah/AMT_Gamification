@@ -5,29 +5,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import ch.heigvd.amt.gamification.model.Id;
-
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import java.math.BigDecimal;
+import ch.heigvd.amt.gamification.model.Achievement;
+import ch.heigvd.amt.gamification.model.Badge;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Rule
  */
-@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-13T18:36:02.067Z")
+@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-16T15:16:07.537Z")
 
 public class Rule   {
   @JsonProperty("name")
   private String name = null;
 
-  @JsonProperty("operator")
-  private String operator = null;
+  @JsonProperty("achievements")
+  private List<Achievement> achievements = new ArrayList<Achievement>();
 
-  @JsonProperty("points")
-  private BigDecimal points = null;
-
-  @JsonProperty("badge_id")
-  private Id badgeId = null;
+  @JsonProperty("badge")
+  private Badge badge = null;
 
   public Rule name(String name) {
     this.name = name;
@@ -47,58 +43,45 @@ public class Rule   {
     this.name = name;
   }
 
-  public Rule operator(String operator) {
-    this.operator = operator;
+  public Rule achievements(List<Achievement> achievements) {
+    this.achievements = achievements;
+    return this;
+  }
+
+  public Rule addAchievementsItem(Achievement achievementsItem) {
+    this.achievements.add(achievementsItem);
     return this;
   }
 
    /**
-   * Get operator
-   * @return operator
+   * Get achievements
+   * @return achievements
   **/
   @ApiModelProperty(value = "")
-  public String getOperator() {
-    return operator;
+  public List<Achievement> getAchievements() {
+    return achievements;
   }
 
-  public void setOperator(String operator) {
-    this.operator = operator;
+  public void setAchievements(List<Achievement> achievements) {
+    this.achievements = achievements;
   }
 
-  public Rule points(BigDecimal points) {
-    this.points = points;
+  public Rule badge(Badge badge) {
+    this.badge = badge;
     return this;
   }
 
    /**
-   * Get points
-   * @return points
+   * Get badge
+   * @return badge
   **/
   @ApiModelProperty(value = "")
-  public BigDecimal getPoints() {
-    return points;
+  public Badge getBadge() {
+    return badge;
   }
 
-  public void setPoints(BigDecimal points) {
-    this.points = points;
-  }
-
-  public Rule badgeId(Id badgeId) {
-    this.badgeId = badgeId;
-    return this;
-  }
-
-   /**
-   * Get badgeId
-   * @return badgeId
-  **/
-  @ApiModelProperty(value = "")
-  public Id getBadgeId() {
-    return badgeId;
-  }
-
-  public void setBadgeId(Id badgeId) {
-    this.badgeId = badgeId;
+  public void setBadge(Badge badge) {
+    this.badge = badge;
   }
 
 
@@ -112,14 +95,13 @@ public class Rule   {
     }
     Rule rule = (Rule) o;
     return Objects.equals(this.name, rule.name) &&
-        Objects.equals(this.operator, rule.operator) &&
-        Objects.equals(this.points, rule.points) &&
-        Objects.equals(this.badgeId, rule.badgeId);
+        Objects.equals(this.achievements, rule.achievements) &&
+        Objects.equals(this.badge, rule.badge);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, operator, points, badgeId);
+    return Objects.hash(name, achievements, badge);
   }
 
   @Override
@@ -128,9 +110,8 @@ public class Rule   {
     sb.append("class Rule {\n");
     
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    operator: ").append(toIndentedString(operator)).append("\n");
-    sb.append("    points: ").append(toIndentedString(points)).append("\n");
-    sb.append("    badgeId: ").append(toIndentedString(badgeId)).append("\n");
+    sb.append("    achievements: ").append(toIndentedString(achievements)).append("\n");
+    sb.append("    badge: ").append(toIndentedString(badge)).append("\n");
     sb.append("}");
     return sb.toString();
   }

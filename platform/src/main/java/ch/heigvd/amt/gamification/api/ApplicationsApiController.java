@@ -1,8 +1,6 @@
 package ch.heigvd.amt.gamification.api;
 
-import ch.heigvd.amt.gamification.ExampleUser;
 import ch.heigvd.amt.gamification.dao.ApplicationDao;
-import ch.heigvd.amt.gamification.model.Error;
 import ch.heigvd.amt.gamification.model.Token;
 import ch.heigvd.amt.gamification.model.Application;
 import java.math.BigDecimal;
@@ -13,9 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 @javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-13T18:36:02.067Z")
 

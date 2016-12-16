@@ -7,21 +7,21 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import ch.heigvd.amt.gamification.model.Badge;
 import ch.heigvd.amt.gamification.model.Level;
-import ch.heigvd.amt.gamification.model.Username;
-
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Reputation
+ * User
  */
-@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-13T18:36:02.067Z")
+@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-16T15:16:07.537Z")
 
-public class Reputation   {
-  @JsonProperty("user")
-  private Username user = null;
+public class User   {
+  @JsonProperty("username")
+  private String username = null;
+
+  @JsonProperty("points")
+  private BigDecimal points = null;
 
   @JsonProperty("level")
   private Level level = null;
@@ -29,25 +29,43 @@ public class Reputation   {
   @JsonProperty("badges")
   private List<Badge> badges = new ArrayList<Badge>();
 
-  public Reputation user(Username user) {
-    this.user = user;
+  public User username(String username) {
+    this.username = username;
     return this;
   }
 
    /**
-   * Get user
-   * @return user
+   * Get username
+   * @return username
   **/
   @ApiModelProperty(value = "")
-  public Username getUser() {
-    return user;
+  public String getUsername() {
+    return username;
   }
 
-  public void setUser(Username user) {
-    this.user = user;
+  public void setUsername(String username) {
+    this.username = username;
   }
 
-  public Reputation level(Level level) {
+  public User points(BigDecimal points) {
+    this.points = points;
+    return this;
+  }
+
+   /**
+   * Get points
+   * @return points
+  **/
+  @ApiModelProperty(value = "")
+  public BigDecimal getPoints() {
+    return points;
+  }
+
+  public void setPoints(BigDecimal points) {
+    this.points = points;
+  }
+
+  public User level(Level level) {
     this.level = level;
     return this;
   }
@@ -65,12 +83,12 @@ public class Reputation   {
     this.level = level;
   }
 
-  public Reputation badges(List<Badge> badges) {
+  public User badges(List<Badge> badges) {
     this.badges = badges;
     return this;
   }
 
-  public Reputation addBadgesItem(Badge badgesItem) {
+  public User addBadgesItem(Badge badgesItem) {
     this.badges.add(badgesItem);
     return this;
   }
@@ -97,23 +115,25 @@ public class Reputation   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Reputation reputation = (Reputation) o;
-    return Objects.equals(this.user, reputation.user) &&
-        Objects.equals(this.level, reputation.level) &&
-        Objects.equals(this.badges, reputation.badges);
+    User user = (User) o;
+    return Objects.equals(this.username, user.username) &&
+        Objects.equals(this.points, user.points) &&
+        Objects.equals(this.level, user.level) &&
+        Objects.equals(this.badges, user.badges);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(user, level, badges);
+    return Objects.hash(username, points, level, badges);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Reputation {\n");
+    sb.append("class User {\n");
     
-    sb.append("    user: ").append(toIndentedString(user)).append("\n");
+    sb.append("    username: ").append(toIndentedString(username)).append("\n");
+    sb.append("    points: ").append(toIndentedString(points)).append("\n");
     sb.append("    level: ").append(toIndentedString(level)).append("\n");
     sb.append("    badges: ").append(toIndentedString(badges)).append("\n");
     sb.append("}");
