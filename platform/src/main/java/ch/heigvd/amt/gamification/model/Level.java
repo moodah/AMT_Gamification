@@ -5,39 +5,36 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.math.BigDecimal;
 
 /**
  * Level
  */
-@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-13T18:36:02.067Z")
+@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-16T15:16:07.537Z")
 
 public class Level   {
-  @JsonProperty("number")
-  private BigDecimal number = null;
+  @JsonProperty("name")
+  private String name = null;
 
   @JsonProperty("points")
   private BigDecimal points = null;
 
-  public Level number(BigDecimal number) {
-    this.number = number;
+  public Level name(String name) {
+    this.name = name;
     return this;
   }
 
    /**
-   * Get number
-   * @return number
+   * Get name
+   * @return name
   **/
   @ApiModelProperty(value = "")
-  public BigDecimal getNumber() {
-    return number;
+  public String getName() {
+    return name;
   }
 
-  public void setNumber(BigDecimal number) {
-    this.number = number;
+  public void setName(String name) {
+    this.name = name;
   }
 
   public Level points(BigDecimal points) {
@@ -68,13 +65,13 @@ public class Level   {
       return false;
     }
     Level level = (Level) o;
-    return Objects.equals(this.number, level.number) &&
+    return Objects.equals(this.name, level.name) &&
         Objects.equals(this.points, level.points);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(number, points);
+    return Objects.hash(name, points);
   }
 
   @Override
@@ -82,7 +79,7 @@ public class Level   {
     StringBuilder sb = new StringBuilder();
     sb.append("class Level {\n");
     
-    sb.append("    number: ").append(toIndentedString(number)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    points: ").append(toIndentedString(points)).append("\n");
     sb.append("}");
     return sb.toString();

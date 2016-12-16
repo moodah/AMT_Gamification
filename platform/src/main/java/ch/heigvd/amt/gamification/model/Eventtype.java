@@ -5,20 +5,39 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
 
 /**
- * Error
+ * Eventtype
  */
 @javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-16T15:16:07.537Z")
 
-public class Error   {
+public class Eventtype   {
+  @JsonProperty("name")
+  private String name = null;
+
   @JsonProperty("code")
-  private Integer code = null;
+  private BigDecimal code = null;
 
-  @JsonProperty("message")
-  private String message = null;
+  public Eventtype name(String name) {
+    this.name = name;
+    return this;
+  }
 
-  public Error code(Integer code) {
+   /**
+   * Get name
+   * @return name
+  **/
+  @ApiModelProperty(value = "")
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public Eventtype code(BigDecimal code) {
     this.code = code;
     return this;
   }
@@ -28,30 +47,12 @@ public class Error   {
    * @return code
   **/
   @ApiModelProperty(value = "")
-  public Integer getCode() {
+  public BigDecimal getCode() {
     return code;
   }
 
-  public void setCode(Integer code) {
+  public void setCode(BigDecimal code) {
     this.code = code;
-  }
-
-  public Error message(String message) {
-    this.message = message;
-    return this;
-  }
-
-   /**
-   * Get message
-   * @return message
-  **/
-  @ApiModelProperty(value = "")
-  public String getMessage() {
-    return message;
-  }
-
-  public void setMessage(String message) {
-    this.message = message;
   }
 
 
@@ -63,23 +64,23 @@ public class Error   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Error error = (Error) o;
-    return Objects.equals(this.code, error.code) &&
-        Objects.equals(this.message, error.message);
+    Eventtype eventtype = (Eventtype) o;
+    return Objects.equals(this.name, eventtype.name) &&
+        Objects.equals(this.code, eventtype.code);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, message);
+    return Objects.hash(name, code);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Error {\n");
+    sb.append("class Eventtype {\n");
     
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
-    sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("}");
     return sb.toString();
   }

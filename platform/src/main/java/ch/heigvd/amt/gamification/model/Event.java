@@ -5,27 +5,24 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import ch.heigvd.amt.gamification.model.Username;
-import java.math.BigDecimal;
+import ch.heigvd.amt.gamification.model.Eventtype;
+import ch.heigvd.amt.gamification.model.User;
 import org.joda.time.DateTime;
-
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
 /**
  * Event
  */
-@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-13T18:36:02.067Z")
+@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-16T15:16:07.537Z")
 
 public class Event   {
   @JsonProperty("timestamp")
   private DateTime timestamp = null;
 
-  @JsonProperty("code")
-  private BigDecimal code = null;
-
   @JsonProperty("user")
-  private Username user = null;
+  private User user = null;
+
+  @JsonProperty("eventtype")
+  private Eventtype eventtype = null;
 
   public Event timestamp(DateTime timestamp) {
     this.timestamp = timestamp;
@@ -45,25 +42,7 @@ public class Event   {
     this.timestamp = timestamp;
   }
 
-  public Event code(BigDecimal code) {
-    this.code = code;
-    return this;
-  }
-
-   /**
-   * Get code
-   * @return code
-  **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getCode() {
-    return code;
-  }
-
-  public void setCode(BigDecimal code) {
-    this.code = code;
-  }
-
-  public Event user(Username user) {
+  public Event user(User user) {
     this.user = user;
     return this;
   }
@@ -73,12 +52,30 @@ public class Event   {
    * @return user
   **/
   @ApiModelProperty(value = "")
-  public Username getUser() {
+  public User getUser() {
     return user;
   }
 
-  public void setUser(Username user) {
+  public void setUser(User user) {
     this.user = user;
+  }
+
+  public Event eventtype(Eventtype eventtype) {
+    this.eventtype = eventtype;
+    return this;
+  }
+
+   /**
+   * Get eventtype
+   * @return eventtype
+  **/
+  @ApiModelProperty(value = "")
+  public Eventtype getEventtype() {
+    return eventtype;
+  }
+
+  public void setEventtype(Eventtype eventtype) {
+    this.eventtype = eventtype;
   }
 
 
@@ -92,13 +89,13 @@ public class Event   {
     }
     Event event = (Event) o;
     return Objects.equals(this.timestamp, event.timestamp) &&
-        Objects.equals(this.code, event.code) &&
-        Objects.equals(this.user, event.user);
+        Objects.equals(this.user, event.user) &&
+        Objects.equals(this.eventtype, event.eventtype);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(timestamp, code, user);
+    return Objects.hash(timestamp, user, eventtype);
   }
 
   @Override
@@ -107,8 +104,8 @@ public class Event   {
     sb.append("class Event {\n");
     
     sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
-    sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    user: ").append(toIndentedString(user)).append("\n");
+    sb.append("    eventtype: ").append(toIndentedString(eventtype)).append("\n");
     sb.append("}");
     return sb.toString();
   }

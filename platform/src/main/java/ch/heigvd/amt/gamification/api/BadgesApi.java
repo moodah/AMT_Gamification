@@ -1,8 +1,8 @@
 package ch.heigvd.amt.gamification.api;
 
 import ch.heigvd.amt.gamification.model.Error;
-import java.math.BigDecimal;
 import ch.heigvd.amt.gamification.model.Badge;
+import java.math.BigDecimal;
 
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-13T18:36:02.067Z")
+@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-16T15:16:07.537Z")
 
 @Api(value = "badges", description = "the badges API")
 public interface BadgesApi {
@@ -30,8 +30,7 @@ public interface BadgesApi {
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.DELETE)
-    ResponseEntity<Void> badgesDelete(@ApiParam(value = "", required = true) @RequestParam(value = "id", required = true) BigDecimal id,
-        @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization);
+    ResponseEntity<Void> badgesDelete(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization);
 
 
     @ApiOperation(value = "Get Gamification badges", notes = "The badges endpoint returns the badges defined by the client", response = Badge.class, responseContainer = "List", tags={ "Badges", })

@@ -5,53 +5,55 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import ch.heigvd.amt.gamification.model.Eventtype;
+import java.math.BigDecimal;
 
 /**
- * Error
+ * Achievement
  */
 @javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-16T15:16:07.537Z")
 
-public class Error   {
-  @JsonProperty("code")
-  private Integer code = null;
+public class Achievement   {
+  @JsonProperty("count")
+  private BigDecimal count = null;
 
-  @JsonProperty("message")
-  private String message = null;
+  @JsonProperty("eventType")
+  private Eventtype eventType = null;
 
-  public Error code(Integer code) {
-    this.code = code;
+  public Achievement count(BigDecimal count) {
+    this.count = count;
     return this;
   }
 
    /**
-   * Get code
-   * @return code
+   * Get count
+   * @return count
   **/
   @ApiModelProperty(value = "")
-  public Integer getCode() {
-    return code;
+  public BigDecimal getCount() {
+    return count;
   }
 
-  public void setCode(Integer code) {
-    this.code = code;
+  public void setCount(BigDecimal count) {
+    this.count = count;
   }
 
-  public Error message(String message) {
-    this.message = message;
+  public Achievement eventType(Eventtype eventType) {
+    this.eventType = eventType;
     return this;
   }
 
    /**
-   * Get message
-   * @return message
+   * Get eventType
+   * @return eventType
   **/
   @ApiModelProperty(value = "")
-  public String getMessage() {
-    return message;
+  public Eventtype getEventType() {
+    return eventType;
   }
 
-  public void setMessage(String message) {
-    this.message = message;
+  public void setEventType(Eventtype eventType) {
+    this.eventType = eventType;
   }
 
 
@@ -63,23 +65,23 @@ public class Error   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Error error = (Error) o;
-    return Objects.equals(this.code, error.code) &&
-        Objects.equals(this.message, error.message);
+    Achievement achievement = (Achievement) o;
+    return Objects.equals(this.count, achievement.count) &&
+        Objects.equals(this.eventType, achievement.eventType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, message);
+    return Objects.hash(count, eventType);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Error {\n");
+    sb.append("class Achievement {\n");
     
-    sb.append("    code: ").append(toIndentedString(code)).append("\n");
-    sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("    count: ").append(toIndentedString(count)).append("\n");
+    sb.append("    eventType: ").append(toIndentedString(eventType)).append("\n");
     sb.append("}");
     return sb.toString();
   }
