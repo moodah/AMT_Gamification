@@ -14,5 +14,5 @@ public interface ApplicationDao extends CrudRepository<Application, Long> {
      * Note that this method is not implemented and its working code will be
      * automatically generated from its signature by Spring Data JPA.
      */
-    public Application findByNameAndPassword(String name, String password);
+    public Application findByName(String name);
 }

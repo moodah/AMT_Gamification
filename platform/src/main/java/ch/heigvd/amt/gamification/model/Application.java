@@ -47,6 +47,10 @@ public class Application   {
         return this;
     }
 
+    public long getId() {
+        return id;
+    }
+
     /**
      * Get name
      * @return name

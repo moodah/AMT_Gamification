@@ -54,6 +54,6 @@ public interface ApplicationsApi {
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)
-    ResponseEntity<Void> applicationsPost(@ApiParam(value = "The application informations" ,required=true ) @RequestBody Application application);
+    ResponseEntity<String> applicationsPost(@ApiParam(value = "The application informations" ,required=true ) @RequestBody Application application);
 
 }
