@@ -1,6 +1,5 @@
 package ch.heigvd.amt.gamification.api;
 
-import ch.heigvd.amt.gamification.model.Error;
 import ch.heigvd.amt.gamification.model.Level;
 import java.math.BigDecimal;
 
@@ -11,9 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
