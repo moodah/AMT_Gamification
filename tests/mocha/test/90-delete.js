@@ -12,12 +12,22 @@ describe('rules/', function () {
 
     describe('DELETE', function () {
         
+        it('should allow to delete all rules', function (done) {
+            this.skip();
+        });
     });
 
     describe('rules/{id}', function () {
 
         describe('DELETE', function () {
             
+            it('should allow to delete a specific rule', function (done) {
+                this.skip();
+            });
+
+            it('should not allow an undefined ID', function (done) {
+                this.skip();
+            });
         });
     });
 });
@@ -25,13 +35,23 @@ describe('rules/', function () {
 describe('badges/', function () {
 
     describe('DELETE', function () {
-        
+                
+        it('should allow to delete all badges', function (done) {
+            this.skip();
+        });
     });
 
     describe('badges/{id}', function () {
 
         describe('DELETE', function () {
-            
+                        
+            it('should allow to delete a specific badge', function (done) {
+                this.skip();
+            });
+
+            it('should not allow an undefined ID', function (done) {
+                this.skip();
+            });
         });
     });
 });
@@ -39,13 +59,23 @@ describe('badges/', function () {
 describe('levels/', function () {
 
     describe('DELETE', function () {
-        
+                
+        it('should allow to delete all levels', function (done) {
+            this.skip();
+        });
     });
 
     describe('levels/{id}', function () {
 
         describe('DELETE', function () {
-            
+                        
+            it('should allow to delete a specific level', function (done) {
+                this.skip();
+            });
+
+            it('should not allow an undefined ID', function (done) {
+                this.skip();
+            });
         });
     });
 });

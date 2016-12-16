@@ -233,11 +233,6 @@ paths:
       tags:
         - Rules
       parameters:
-        - name: id
-          in: query
-          required: true
-          type: number
-          format: int32
         - $ref: '#/parameters/Token'
       responses:
         204:
@@ -354,11 +349,6 @@ paths:
       tags:
         - Levels
       parameters:
-        - name: id
-          in: query
-          required: true
-          type: number
-          format: int32
         - $ref: '#/parameters/Token'
       responses:
         204:
@@ -475,11 +465,6 @@ paths:
       tags:
         - Badges
       parameters:
-        - name: id
-          in: query
-          required: true
-          type: number
-          format: int32
         - $ref: '#/parameters/Token'
       responses:
         204:
