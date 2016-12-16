@@ -1,1 +1,1 @@
-USE amt_gamification;
+USE gamification;
