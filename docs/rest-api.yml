@@ -103,7 +103,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Reputation'
+              $ref: '#/definitions/User'
         default:
           description: Error payload
           schema:
@@ -126,7 +126,7 @@ paths:
         200:
           description: Requested user reputation
           schema:
-              $ref: '#/definitions/Reputation'
+              $ref: '#/definitions/User'
         default:
           description: Error payload
           schema:
@@ -159,7 +159,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Reputation'
+              $ref: '#/definitions/User'
         default:
           description: Error payload
           schema:
@@ -570,11 +570,14 @@ definitions:
       message:
         type: string
         
-  Reputation:
+  User:
     type: object
     properties:
-      user:
-        $ref: '#/definitions/Username'
+      username:
+        type: string
+      points:
+        type: number
+        format: int32
       level:
         $ref: '#/definitions/Level'
       badges:
@@ -587,20 +590,18 @@ definitions:
     properties:
       name:
         type: string
-      operator:
-        type: string
-      points:
-        type: number
-        format: int32
-      badge_id:
-        $ref: '#/definitions/Id'
-  
+      achievements:
+        type: array
+        items:
+          $ref: '#/definitions/Achievement'
+      badge:
+        $ref: '#/definitions/Badge'
+      
   Level:
     type: object
     properties:
-      number:
-        type: number
-        format: int32
+      name:
+        type: string
       points:
         type: number
         format: int32
@@ -610,6 +611,8 @@ definitions:
     properties:
       name:
         type: string
+      description:
+        type: string
   
   Event:
     type: object
@@ -617,15 +620,25 @@ definitions:
       timestamp:
         type: string
         format: date-time
+      user:
+        $ref: '#/definitions/User'
+      eventtype:
+        $ref: '#/definitions/Eventtype'
+        
+  Achievement:
+    type: object
+    properties:
+      count:
+        type: number
+        format: int32
+      eventType:
+        $ref: '#/definitions/Eventtype'
+        
+  Eventtype:
+    type: object
+    properties:
+      name:
+        type: string
       code:
         type: number
         format: int32
-      user:
-        $ref: '#/definitions/Username'
-        
-  Username:
-    type: string
-        
-  Id:
-    type: number
-    format: int32
