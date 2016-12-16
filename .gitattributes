@@ -1,2 +1,2 @@
 # OpenJDK Dockerfile permission workaround
-platform/gradlew text eol=lf
+**/gradlew text eol=lf
