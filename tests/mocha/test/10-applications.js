@@ -110,11 +110,3 @@ describe('applications/', function () {
         });
     }); 
 });
-
-describe('CONFIG', function () {
-            
-    it('should have a valid token to continue tests', function (done) {
-        chai.assert.notEqual(CONFIG.token, null);
-        done();
-    });
-});
