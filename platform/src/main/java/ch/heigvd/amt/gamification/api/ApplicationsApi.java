@@ -1,6 +1,5 @@
 package ch.heigvd.amt.gamification.api;
 
-import ch.heigvd.amt.gamification.model.Error;
 import ch.heigvd.amt.gamification.model.Token;
 import ch.heigvd.amt.gamification.model.Application;
 import java.math.BigDecimal;
