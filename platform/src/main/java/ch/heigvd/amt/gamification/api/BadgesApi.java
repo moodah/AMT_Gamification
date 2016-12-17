@@ -23,7 +23,7 @@ public interface BadgesApi {
     @ApiOperation(value = "Delete all badges", notes = "Delete all badges for this application", response = Void.class, tags={ "Badges", })
     @ApiResponses(value = { 
         @ApiResponse(code = 204, message = "Deleted successfully", response = Void.class),
-        @ApiResponse(code = 200, message = "Error payload", response = Void.class) })
+        @ApiResponse(code = 200, message = "HttpErrorResponse payload", response = Void.class) })
     @RequestMapping(value = "/badges",
         produces = { "application/json" }, 
         consumes = { "application/json" },
@@ -34,7 +34,7 @@ public interface BadgesApi {
     @ApiOperation(value = "Get Gamification badges", notes = "The badges endpoint returns the badges defined by the client", response = Badge.class, responseContainer = "List", tags={ "Badges", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "An array of badges", response = Badge.class),
-        @ApiResponse(code = 200, message = "Error payload", response = Badge.class) })
+        @ApiResponse(code = 200, message = "HttpErrorResponse payload", response = Badge.class) })
     @RequestMapping(value = "/badges",
         produces = { "application/json" }, 
         consumes = { "application/json" },
@@ -45,7 +45,7 @@ public interface BadgesApi {
     @ApiOperation(value = "Delete badge with {id}", notes = "Delete badge with {id}", response = Void.class, tags={ "Badges", })
     @ApiResponses(value = { 
         @ApiResponse(code = 204, message = "Deleted successfully", response = Void.class),
-        @ApiResponse(code = 200, message = "Error payload", response = Void.class) })
+        @ApiResponse(code = 200, message = "HttpErrorResponse payload", response = Void.class) })
     @RequestMapping(value = "/badges/{id}",
         produces = { "application/json" }, 
         consumes = { "application/json" },
@@ -57,7 +57,7 @@ public interface BadgesApi {
     @ApiOperation(value = "Get badge with {id}", notes = "Get badge with {id}", response = Badge.class, tags={ "Badges", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Requested badge", response = Badge.class),
-        @ApiResponse(code = 200, message = "Error payload", response = Badge.class) })
+        @ApiResponse(code = 200, message = "HttpErrorResponse payload", response = Badge.class) })
     @RequestMapping(value = "/badges/{id}",
         produces = { "application/json" }, 
         consumes = { "application/json" },
@@ -69,7 +69,7 @@ public interface BadgesApi {
     @ApiOperation(value = "Update badge with {id}", notes = "Update", response = Badge.class, tags={ "Badges", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Updated badge", response = Badge.class),
-        @ApiResponse(code = 200, message = "Error payload", response = Badge.class) })
+        @ApiResponse(code = 200, message = "HttpErrorResponse payload", response = Badge.class) })
     @RequestMapping(value = "/badges/{id}",
         produces = { "application/json" }, 
         consumes = { "application/json" },
@@ -81,7 +81,7 @@ public interface BadgesApi {
     @ApiOperation(value = "Create Gamification badges", notes = "The badges endpoint allows the client to submit new badges", response = Badge.class, tags={ "Badges", })
     @ApiResponses(value = { 
         @ApiResponse(code = 201, message = "Newly created badge", response = Badge.class),
-        @ApiResponse(code = 200, message = "Error payload", response = Badge.class) })
+        @ApiResponse(code = 200, message = "HttpErrorResponse payload", response = Badge.class) })
     @RequestMapping(value = "/badges",
         produces = { "application/json" }, 
         consumes = { "application/json" },

@@ -22,7 +22,7 @@ public interface UsersApi {
     @ApiOperation(value = "Get a list of all users", notes = "The Users endpoint returns the reputation of the number of users passed in parameter", response = User.class, responseContainer = "List", tags={ "Users", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Requested user reputation", response = User.class),
-        @ApiResponse(code = 200, message = "Error payload", response = User.class) })
+        @ApiResponse(code = 200, message = "HttpErrorResponse payload", response = User.class) })
     @RequestMapping(value = "/users",
         produces = { "application/json" }, 
         consumes = { "application/json" },
@@ -35,7 +35,7 @@ public interface UsersApi {
     @ApiOperation(value = "Get a user's reputation", notes = "The Users endpoint returns the reputation of the user defined by the parameter {id}", response = User.class, tags={ "Users", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Requested user reputation", response = User.class),
-        @ApiResponse(code = 200, message = "Error payload", response = User.class) })
+        @ApiResponse(code = 200, message = "HttpErrorResponse payload", response = User.class) })
     @RequestMapping(value = "/users/{id}",
         produces = { "application/json" }, 
         consumes = { "application/json" },

@@ -29,7 +29,7 @@ public class ExampleUserController {
             userId = String.valueOf(user.getId());
         }
         catch (Exception ex) {
-            return "Error creating the user: " + ex.toString();
+            return "HttpErrorResponse creating the user: " + ex.toString();
         }
         return "User succesfully created with id = " + userId;
     }
@@ -48,7 +48,7 @@ public class ExampleUserController {
             userDao.delete(user);
         }
         catch (Exception ex) {
-            return "Error deleting the user: " + ex.toString();
+            return "HttpErrorResponse deleting the user: " + ex.toString();
         }
         return "User succesfully deleted!";
     }
@@ -92,7 +92,7 @@ public class ExampleUserController {
             userDao.save(user);
         }
         catch (Exception ex) {
-            return "Error updating the user: " + ex.toString();
+            return "HttpErrorResponse updating the user: " + ex.toString();
         }
         return "User succesfully updated!";
     }
