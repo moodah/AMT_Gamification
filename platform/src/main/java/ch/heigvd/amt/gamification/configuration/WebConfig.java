@@ -1,5 +1,6 @@
-package ch.heigvd.amt.gamification.filters;
+package ch.heigvd.amt.gamification.configuration;
 
+import ch.heigvd.amt.gamification.filters.AuthenticationFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,11 +19,18 @@ public class WebConfig {
         registrationBean.setFilter(authFilter);
         registrationBean.setOrder(1);
 
-        // TODO : voir comment faire pour filtrer avec des annotations sur les controlleurs/les méthodes
         Collection<String> urlpatterns = new LinkedList<>();
-//        urlpatterns.add("/badges");
-//        urlpatterns.add("/events");
-//        urlpatterns.add("/leaderbords");
+        urlpatterns.add("/badges");
+        urlpatterns.add("/badges/*");
+        urlpatterns.add("/events");
+        urlpatterns.add("/leaderboards");
+        urlpatterns.add("/levels");
+        urlpatterns.add("/levels/*");
+        urlpatterns.add("/rules");
+        urlpatterns.add("/rules/*");
+        urlpatterns.add("/users");
+        urlpatterns.add("/users/*");
+
         registrationBean.setUrlPatterns(urlpatterns);
         System.out.println("*****************************LIST OF URL PATTERNS FILTERED*****************************");
         for (String s : registrationBean.getUrlPatterns())

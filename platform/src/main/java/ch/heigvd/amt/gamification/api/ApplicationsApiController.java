@@ -1,5 +1,6 @@
 package ch.heigvd.amt.gamification.api;
 
+import ch.heigvd.amt.gamification.annotations.Authenticate;
 import ch.heigvd.amt.gamification.dao.ApplicationDao;
 import ch.heigvd.amt.gamification.model.Token;
 import ch.heigvd.amt.gamification.model.Application;
@@ -25,6 +26,7 @@ public class ApplicationsApiController implements ApplicationsApi {
         return new ResponseEntity<Token>(HttpStatus.OK);
     }
 
+    @Authenticate
     public ResponseEntity<Void> applicationsIdDelete(@ApiParam(value = "ID of the application",required=true ) @PathVariable("id") BigDecimal id,
         @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
         // do some magic!
@@ -50,3 +52,4 @@ public class ApplicationsApiController implements ApplicationsApi {
     }
 
 }
+

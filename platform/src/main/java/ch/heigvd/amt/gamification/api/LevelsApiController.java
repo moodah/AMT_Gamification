@@ -1,5 +1,6 @@
 package ch.heigvd.amt.gamification.api;
 
+import ch.heigvd.amt.gamification.annotations.Authenticate;
 import ch.heigvd.amt.gamification.model.Level;
 import java.math.BigDecimal;
 
@@ -25,6 +26,7 @@ public class LevelsApiController implements LevelsApi {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
+    @Authenticate(auth = false)
     public ResponseEntity<List<Level>> levelsGet(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
         // do some magic!
         return new ResponseEntity<List<Level>>(HttpStatus.OK);
