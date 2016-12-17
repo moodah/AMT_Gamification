@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Badge
@@ -22,10 +23,12 @@ public class Badge {
     private long id;
 
     @JsonProperty("name")
-    private String name = null;
+    @Column(nullable = false, unique = true)
+    private String name;
 
     @JsonProperty("description")
-    private String description = null;
+    @Column(nullable = false)
+    private String description;
 
     public Badge name(String name) {
         this.name = name;
@@ -36,7 +39,9 @@ public class Badge {
         return id;
     }
 
-
+    public void setId(long id) {
+        this.id = id;
+    }
 
     /**
      * Get name

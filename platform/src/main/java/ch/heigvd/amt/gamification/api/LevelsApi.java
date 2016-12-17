@@ -21,7 +21,7 @@ public interface LevelsApi {
     @ApiOperation(value = "Delete all levels", notes = "Delete all levels for this application", response = Void.class, tags={ "Levels", })
     @ApiResponses(value = { 
         @ApiResponse(code = 204, message = "Deleted successfully", response = Void.class),
-        @ApiResponse(code = 200, message = "Error payload", response = Void.class) })
+        @ApiResponse(code = 200, message = "HttpErrorResponse payload", response = Void.class) })
     @RequestMapping(value = "/levels",
         produces = { "application/json" }, 
         consumes = { "application/json" },
@@ -32,7 +32,7 @@ public interface LevelsApi {
     @ApiOperation(value = "Get Gamification levels", notes = "The levels endpoint returns the levels defined by the client", response = Level.class, responseContainer = "List", tags={ "Levels", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "An array of levels", response = Level.class),
-        @ApiResponse(code = 200, message = "Error payload", response = Level.class) })
+        @ApiResponse(code = 200, message = "HttpErrorResponse payload", response = Level.class) })
     @RequestMapping(value = "/levels",
         produces = { "application/json" }, 
         consumes = { "application/json" },
@@ -43,7 +43,7 @@ public interface LevelsApi {
     @ApiOperation(value = "Delete the level with {id}", notes = "Delete the level with {id}", response = Void.class, tags={ "Levels", })
     @ApiResponses(value = { 
         @ApiResponse(code = 204, message = "Deleted successfully", response = Void.class),
-        @ApiResponse(code = 200, message = "Error payload", response = Void.class) })
+        @ApiResponse(code = 200, message = "HttpErrorResponse payload", response = Void.class) })
     @RequestMapping(value = "/levels/{id}",
         produces = { "application/json" }, 
         consumes = { "application/json" },
@@ -55,7 +55,7 @@ public interface LevelsApi {
     @ApiOperation(value = "Get level with this {id}", notes = "Get level with this {id}", response = Level.class, tags={ "Levels", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Requested level", response = Level.class),
-        @ApiResponse(code = 200, message = "Error payload", response = Level.class) })
+        @ApiResponse(code = 200, message = "HttpErrorResponse payload", response = Level.class) })
     @RequestMapping(value = "/levels/{id}",
         produces = { "application/json" }, 
         consumes = { "application/json" },
@@ -67,7 +67,7 @@ public interface LevelsApi {
     @ApiOperation(value = "Update the level with {id}", notes = "Update the level with {id}", response = Level.class, tags={ "Levels", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Updated level", response = Level.class),
-        @ApiResponse(code = 200, message = "Error payload", response = Level.class) })
+        @ApiResponse(code = 200, message = "HttpErrorResponse payload", response = Level.class) })
     @RequestMapping(value = "/levels/{id}",
         produces = { "application/json" }, 
         consumes = { "application/json" },
@@ -79,7 +79,7 @@ public interface LevelsApi {
     @ApiOperation(value = "Create Gamification levels", notes = "The levels endpoint allows the client to submit new levels", response = Level.class, tags={ "Levels", })
     @ApiResponses(value = { 
         @ApiResponse(code = 201, message = "Newly created level", response = Level.class),
-        @ApiResponse(code = 200, message = "Error payload", response = Level.class) })
+        @ApiResponse(code = 200, message = "HttpErrorResponse payload", response = Level.class) })
     @RequestMapping(value = "/levels",
         produces = { "application/json" }, 
         consumes = { "application/json" },

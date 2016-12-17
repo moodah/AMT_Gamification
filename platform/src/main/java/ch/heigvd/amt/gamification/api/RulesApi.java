@@ -21,7 +21,7 @@ public interface RulesApi {
     @ApiOperation(value = "Delete all rules", notes = "Delete all rules for this application", response = Void.class, tags={ "Rules", })
     @ApiResponses(value = { 
         @ApiResponse(code = 204, message = "Deleted successfully", response = Void.class),
-        @ApiResponse(code = 200, message = "Error payload", response = Void.class) })
+        @ApiResponse(code = 200, message = "HttpErrorResponse payload", response = Void.class) })
     @RequestMapping(value = "/rules",
         produces = { "application/json" }, 
         consumes = { "application/json" },
@@ -32,7 +32,7 @@ public interface RulesApi {
     @ApiOperation(value = "Get Gamification rules", notes = "The Rules endpoint returns the rules defined by the client", response = Rule.class, responseContainer = "List", tags={ "Rules", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "An array of rules", response = Rule.class),
-        @ApiResponse(code = 200, message = "Error payload", response = Rule.class) })
+        @ApiResponse(code = 200, message = "HttpErrorResponse payload", response = Rule.class) })
     @RequestMapping(value = "/rules",
         produces = { "application/json" }, 
         consumes = { "application/json" },
@@ -43,7 +43,7 @@ public interface RulesApi {
     @ApiOperation(value = "Delete the rule with {id}", notes = "Delete the rule with {id}", response = Void.class, tags={ "Rules", })
     @ApiResponses(value = { 
         @ApiResponse(code = 204, message = "Deleted successfully", response = Void.class),
-        @ApiResponse(code = 200, message = "Error payload", response = Void.class) })
+        @ApiResponse(code = 200, message = "HttpErrorResponse payload", response = Void.class) })
     @RequestMapping(value = "/rules/{id}",
         produces = { "application/json" }, 
         consumes = { "application/json" },
@@ -55,7 +55,7 @@ public interface RulesApi {
     @ApiOperation(value = "Get a rule specified by {id}", notes = "Get a rule specified by {id}", response = Rule.class, tags={ "Rules", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Requested rule", response = Rule.class),
-        @ApiResponse(code = 200, message = "Error payload", response = Rule.class) })
+        @ApiResponse(code = 200, message = "HttpErrorResponse payload", response = Rule.class) })
     @RequestMapping(value = "/rules/{id}",
         produces = { "application/json" }, 
         consumes = { "application/json" },
@@ -67,7 +67,7 @@ public interface RulesApi {
     @ApiOperation(value = "Update rules with {id}", notes = "Update rules with {id}", response = Rule.class, tags={ "Rules", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Updated rule", response = Rule.class),
-        @ApiResponse(code = 200, message = "Error payload", response = Rule.class) })
+        @ApiResponse(code = 200, message = "HttpErrorResponse payload", response = Rule.class) })
     @RequestMapping(value = "/rules/{id}",
         produces = { "application/json" }, 
         consumes = { "application/json" },
@@ -79,7 +79,7 @@ public interface RulesApi {
     @ApiOperation(value = "Create Gamification rules", notes = "The Rules endpoint allows the client to submit new rules", response = Rule.class, tags={ "Rules", })
     @ApiResponses(value = { 
         @ApiResponse(code = 201, message = "Newly created rule", response = Rule.class),
-        @ApiResponse(code = 200, message = "Error payload", response = Rule.class) })
+        @ApiResponse(code = 200, message = "HttpErrorResponse payload", response = Rule.class) })
     @RequestMapping(value = "/rules",
         produces = { "application/json" }, 
         consumes = { "application/json" },

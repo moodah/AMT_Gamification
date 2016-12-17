@@ -25,7 +25,7 @@ public interface ApplicationsApi {
     @ApiOperation(value = "Get the application token", notes = "The Applications/Auth endpoint returns the application token", response = Token.class, tags={ "Applications", })
     @ApiResponses(value = { 
         @ApiResponse(code = 201, message = "Application token", response = Token.class),
-        @ApiResponse(code = 200, message = "Error payload", response = Token.class) })
+        @ApiResponse(code = 200, message = "HttpErrorResponse payload", response = Token.class) })
     @RequestMapping(value = "/applications/auth",
         produces = { "application/json" }, 
         consumes = { "application/json" },
@@ -36,7 +36,7 @@ public interface ApplicationsApi {
     @ApiOperation(value = "Delete an application", notes = "Delete the application with specified {id}", response = Void.class, tags={ "Applications", })
     @ApiResponses(value = { 
         @ApiResponse(code = 204, message = "Deleted successfully", response = Void.class),
-        @ApiResponse(code = 200, message = "Error payload", response = Void.class) })
+        @ApiResponse(code = 200, message = "HttpErrorResponse payload", response = Void.class) })
     @RequestMapping(value = "/applications/{id}",
         produces = { "application/json" }, 
         consumes = { "application/json" },
@@ -48,7 +48,7 @@ public interface ApplicationsApi {
     @ApiOperation(value = "Register a new application", notes = "The Applications endpoint allows to register a new application on the platform", response = Void.class, tags={ "Applications", })
     @ApiResponses(value = { 
         @ApiResponse(code = 201, message = "Application created", response = Void.class),
-        @ApiResponse(code = 200, message = "Error payload", response = Void.class) })
+        @ApiResponse(code = 200, message = "HttpErrorResponse payload", response = Void.class) })
     @RequestMapping(value = "/applications",
         produces = { "application/json" }, 
         consumes = { "application/json" },

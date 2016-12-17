@@ -21,7 +21,7 @@ public interface LeaderboardsApi {
     @ApiOperation(value = "Get top users", notes = "The Leaderboards endpoint returns a list of the top users.", response = User.class, responseContainer = "List", tags={ "Leaderboards", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "An array of users, ordered by their global reputation", response = User.class),
-        @ApiResponse(code = 200, message = "Error payload", response = User.class) })
+        @ApiResponse(code = 200, message = "HttpErrorResponse payload", response = User.class) })
     @RequestMapping(value = "/leaderboards",
         produces = { "application/json" }, 
         consumes = { "application/json" },
