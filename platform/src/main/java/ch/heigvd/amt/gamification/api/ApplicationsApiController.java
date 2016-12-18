@@ -70,13 +70,19 @@ public class ApplicationsApiController implements ApplicationsApi {
         String appName = application.getName();
         String appPass = application.getPassword();
 
+        if (appName == null)
+            throw new HttpStatusException(HttpStatus.BAD_REQUEST, "The application's name is not specified.");
+
+        if (appPass == null)
+            throw new HttpStatusException(HttpStatus.BAD_REQUEST, "The application's password is not specified.");
+
         if (appName.length() < AppConfig.MIN_APP_NAME_LENGTH || appName == null)
             throw new HttpStatusException(HttpStatus.BAD_REQUEST,
-                    "Application name must be at least " + AppConfig.MIN_APP_NAME_LENGTH + " characters long");
+                    "Application name must be at least " + AppConfig.MIN_APP_NAME_LENGTH + " characters long.");
 
         if (appPass.length() < AppConfig.MIN_APP_PWD_LENGTH)
             throw new HttpStatusException(HttpStatus.BAD_REQUEST,
-                    "Application password must be at least " + AppConfig.MIN_APP_PWD_LENGTH + " characters long");
+                    "Application password must be at least " + AppConfig.MIN_APP_PWD_LENGTH + " characters long.");
     }
 
 }
