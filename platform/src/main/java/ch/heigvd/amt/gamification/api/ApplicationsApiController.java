@@ -15,6 +15,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 @javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-18T13:30:19.867Z")
 
 @RestController
@@ -30,7 +34,12 @@ public class ApplicationsApiController implements ApplicationsApi {
         Application persistentApp = applicationDao.findByName(application.getName());
 
         if (persistentApp != null) {
-            if (!persistentApp.getPassword().equals(application.getPassword())) {
+
+            String pass = get_SHA_512_SecurePassword(application.getPassword(), AppConfig.SALT);
+
+            System.out.println(pass +  " AND " + persistentApp.getPassword());
+
+            if (!persistentApp.getPassword().equals(pass)) {
                 throw new HttpStatusException(HttpStatus.FORBIDDEN,
                         "Wrong password for application '" + application.getName() + "'");
             }
@@ -61,6 +70,8 @@ public class ApplicationsApiController implements ApplicationsApi {
             throw new HttpStatusException(HttpStatus.CONFLICT,
                     "Application '" + application.getName() + "' already exists.");
 
+        // Encrypt password
+        application.setPassword(get_SHA_512_SecurePassword(application.getPassword(), AppConfig.SALT));
         System.out.println("save(app) return: " + applicationDao.save(application));
 
         return new ResponseEntity<Void>(HttpStatus.CREATED);
@@ -83,6 +94,26 @@ public class ApplicationsApiController implements ApplicationsApi {
         if (appPass.length() < AppConfig.MIN_APP_PWD_LENGTH)
             throw new HttpStatusException(HttpStatus.BAD_REQUEST,
                     "Application password must be at least " + AppConfig.MIN_APP_PWD_LENGTH + " characters long.");
+    }
+
+    public String get_SHA_512_SecurePassword(String passwordToHash, String salt){
+        String generatedPassword = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance(AppConfig.ENCRYPTION_ALGORITHM);
+            md.update(salt.getBytes(AppConfig.CHARSET));
+            byte[] bytes = md.digest(passwordToHash.getBytes(AppConfig.CHARSET));
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++){
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            generatedPassword = sb.toString();
+        }
+        catch (NoSuchAlgorithmException e){
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return generatedPassword;
     }
 
 }
