@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import java.util.List;
 
 
-@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-16T15:16:07.537Z")
+@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-18T13:30:19.867Z")
 
 @Controller
 public class RulesApiController implements RulesApi {
@@ -31,25 +31,25 @@ public class RulesApiController implements RulesApi {
     }
 
     public ResponseEntity<Void> rulesIdDelete(@ApiParam(value = "",required=true ) @PathVariable("id") BigDecimal id,
-        @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
+                                              @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
         // do some magic!
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     public ResponseEntity<Rule> rulesIdGet(@ApiParam(value = "",required=true ) @PathVariable("id") BigDecimal id,
-        @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
+                                           @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
         // do some magic!
         return new ResponseEntity<Rule>(HttpStatus.OK);
     }
 
     public ResponseEntity<Rule> rulesIdPatch(@ApiParam(value = "",required=true ) @PathVariable("id") BigDecimal id,
-        @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
+                                             @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
         // do some magic!
         return new ResponseEntity<Rule>(HttpStatus.OK);
     }
 
     public ResponseEntity<Rule> rulesPost(@ApiParam(value = "" ,required=true ) @RequestBody Rule rule,
-        @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
+                                          @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
         // do some magic!
         return new ResponseEntity<Rule>(HttpStatus.OK);
     }

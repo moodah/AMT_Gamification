@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Rule
  */
-@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-16T15:16:07.537Z")
+@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-18T13:30:19.867Z")
 
 public class Rule   {
   @JsonProperty("name")
@@ -30,10 +30,10 @@ public class Rule   {
     return this;
   }
 
-   /**
+  /**
    * Get name
    * @return name
-  **/
+   **/
   @ApiModelProperty(value = "")
   public String getName() {
     return name;
@@ -53,10 +53,10 @@ public class Rule   {
     return this;
   }
 
-   /**
+  /**
    * Get achievements
    * @return achievements
-  **/
+   **/
   @ApiModelProperty(value = "")
   public List<Achievement> getAchievements() {
     return achievements;
@@ -71,10 +71,10 @@ public class Rule   {
     return this;
   }
 
-   /**
+  /**
    * Get badge
    * @return badge
-  **/
+   **/
   @ApiModelProperty(value = "")
   public Badge getBadge() {
     return badge;
@@ -95,8 +95,8 @@ public class Rule   {
     }
     Rule rule = (Rule) o;
     return Objects.equals(this.name, rule.name) &&
-        Objects.equals(this.achievements, rule.achievements) &&
-        Objects.equals(this.badge, rule.badge);
+            Objects.equals(this.achievements, rule.achievements) &&
+            Objects.equals(this.badge, rule.badge);
   }
 
   @Override
@@ -108,7 +108,7 @@ public class Rule   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Rule {\n");
-    
+
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    achievements: ").append(toIndentedString(achievements)).append("\n");
     sb.append("    badge: ").append(toIndentedString(badge)).append("\n");

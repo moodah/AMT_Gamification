@@ -7,7 +7,6 @@ import ch.heigvd.amt.gamification.security.Authentication;
 import ch.heigvd.amt.gamification.model.HttpStatusException;
 import ch.heigvd.amt.gamification.model.Token;
 import ch.heigvd.amt.gamification.model.Application;
-import java.math.BigDecimal;
 
 import io.swagger.annotations.*;
 
@@ -16,7 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-13T18:36:02.067Z")
+@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-18T13:30:19.867Z")
 
 @RestController
 public class ApplicationsApiController implements ApplicationsApi {
@@ -46,7 +45,7 @@ public class ApplicationsApiController implements ApplicationsApi {
     }
 
     @Authenticate
-    public ResponseEntity<Void> applicationsIdDelete(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
+    public ResponseEntity<Void> applicationsDelete(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
         // do some magic!
         long appId = Authentication.getId(authorization);
         applicationDao.delete(appId);
@@ -54,7 +53,7 @@ public class ApplicationsApiController implements ApplicationsApi {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    public ResponseEntity<String> applicationsPost(@ApiParam(value = "The application informations" ,required=true ) @RequestBody Application application) {
+    public ResponseEntity<Void> applicationsPost(@ApiParam(value = "The application informations" ,required=true ) @RequestBody Application application) {
         // register a new application
         dataValidation(application);
 
@@ -64,7 +63,7 @@ public class ApplicationsApiController implements ApplicationsApi {
 
         System.out.println("save(app) return: " + applicationDao.save(application));
 
-        return new ResponseEntity<String>(HttpStatus.CREATED);
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
     private void dataValidation(Application application) {

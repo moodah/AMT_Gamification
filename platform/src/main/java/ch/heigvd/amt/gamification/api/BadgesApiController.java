@@ -1,7 +1,5 @@
 package ch.heigvd.amt.gamification.api;
 
-import ch.heigvd.amt.gamification.annotations.Authenticate;
-import ch.heigvd.amt.gamification.model.Application;
 import ch.heigvd.amt.gamification.dao.BadgeDao;
 import ch.heigvd.amt.gamification.model.Badge;
 
@@ -18,11 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
-@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-16T15:16:07.537Z")
+@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-18T13:30:19.867Z")
 
 @RestController
 public class BadgesApiController implements BadgesApi {
@@ -35,10 +32,8 @@ public class BadgesApiController implements BadgesApi {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    public ResponseEntity<List<Badge>> badgesGet(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization, HttpServletRequest request) {
+    public ResponseEntity<List<Badge>> badgesGet(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
         // do some magic!
-        Application app = (Application) request.getAttribute("app");
-        System.out.println("from badgesGet: " + app.getName() + ", " + app.getPassword());
         return new ResponseEntity<List<Badge>>(HttpStatus.OK);
     }
 
