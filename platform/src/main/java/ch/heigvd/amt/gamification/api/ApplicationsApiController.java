@@ -1,7 +1,10 @@
 package ch.heigvd.amt.gamification.api;
 
 import ch.heigvd.amt.gamification.annotations.Authenticate;
+import ch.heigvd.amt.gamification.configuration.AppConfig;
 import ch.heigvd.amt.gamification.dao.ApplicationDao;
+import ch.heigvd.amt.gamification.security.Authentication;
+import ch.heigvd.amt.gamification.model.HttpStatusException;
 import ch.heigvd.amt.gamification.model.Token;
 import ch.heigvd.amt.gamification.model.Application;
 import java.math.BigDecimal;
@@ -22,33 +25,59 @@ public class ApplicationsApiController implements ApplicationsApi {
     private ApplicationDao applicationDao;
 
     public ResponseEntity<Token> applicationsAuthPost(@ApiParam(value = "The application informations" ,required=true ) @RequestBody Application application) {
-        // do some magic!
-        return new ResponseEntity<Token>(HttpStatus.OK);
+
+        dataValidation(application);
+
+        Application persistentApp = applicationDao.findByName(application.getName());
+
+        if (persistentApp != null) {
+            if (!persistentApp.getPassword().equals(application.getPassword())) {
+                throw new HttpStatusException(HttpStatus.FORBIDDEN,
+                        "Wrong password for application '" + application.getName() + "'");
+            }
+        } else {
+            throw new HttpStatusException(HttpStatus.CONFLICT,
+                    "Application '" + application.getName() + "' does not exist.");
+        }
+
+        Token token = Authentication.generateToken(persistentApp);
+
+        return new ResponseEntity<Token>(token, HttpStatus.CREATED);
     }
 
     @Authenticate
-    public ResponseEntity<Void> applicationsIdDelete(@ApiParam(value = "ID of the application",required=true ) @PathVariable("id") BigDecimal id,
-        @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
+    public ResponseEntity<Void> applicationsIdDelete(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
         // do some magic!
-            applicationDao.delete(id.longValue());
+        long appId = Authentication.getId(authorization);
+        applicationDao.delete(appId);
+
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     public ResponseEntity<String> applicationsPost(@ApiParam(value = "The application informations" ,required=true ) @RequestBody Application application) {
-        // do some magic!
-        try {
-            Application app = new Application(application.getName(), application.getPassword());
-            if (applicationDao.findByName(app.getName()) == null) {
-                applicationDao.save(app);
-                return new ResponseEntity<String>(HttpStatus.CREATED);
-            } else {
-                // Already exists
-                return new ResponseEntity<String>("This application name is already registered", HttpStatus.CONFLICT);
-            }
-        }
-        catch (Exception ex) {
-            return new ResponseEntity<String>(HttpStatus.FORBIDDEN);
-        }
+        // register a new application
+        dataValidation(application);
+
+        if (applicationDao.findByName(application.getName()) != null)
+            throw new HttpStatusException(HttpStatus.CONFLICT,
+                    "Application '" + application.getName() + "' already exists.");
+
+        System.out.println("save(app) return: " + applicationDao.save(application));
+
+        return new ResponseEntity<String>(HttpStatus.CREATED);
+    }
+
+    private void dataValidation(Application application) {
+        String appName = application.getName();
+        String appPass = application.getPassword();
+
+        if (appName.length() < AppConfig.MIN_APP_NAME_LENGTH || appName == null)
+            throw new HttpStatusException(HttpStatus.BAD_REQUEST,
+                    "Application name must be at least " + AppConfig.MIN_APP_NAME_LENGTH + " characters long");
+
+        if (appPass.length() < AppConfig.MIN_APP_PWD_LENGTH)
+            throw new HttpStatusException(HttpStatus.BAD_REQUEST,
+                    "Application password must be at least " + AppConfig.MIN_APP_PWD_LENGTH + " characters long");
     }
 
 }

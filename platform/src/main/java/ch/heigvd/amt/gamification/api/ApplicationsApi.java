@@ -37,12 +37,11 @@ public interface ApplicationsApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 204, message = "Deleted successfully", response = Void.class),
         @ApiResponse(code = 200, message = "HttpErrorResponse payload", response = Void.class) })
-    @RequestMapping(value = "/applications/{id}",
+    @RequestMapping(value = "/applications",
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.DELETE)
-    ResponseEntity<Void> applicationsIdDelete(@ApiParam(value = "ID of the application",required=true ) @PathVariable("id") BigDecimal id,
-        @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization);
+    ResponseEntity<Void> applicationsIdDelete(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization);
 
 
     @ApiOperation(value = "Register a new application", notes = "The Applications endpoint allows to register a new application on the platform", response = Void.class, tags={ "Applications", })

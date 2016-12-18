@@ -1,7 +1,7 @@
-package ch.heigvd.amt.gamification.filters;
+package ch.heigvd.amt.gamification.security;
 
 import ch.heigvd.amt.gamification.annotations.Authenticate;
-import ch.heigvd.amt.gamification.model.Application;
+import ch.heigvd.amt.gamification.configuration.AppConfig;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -21,6 +21,8 @@ import java.io.IOException;
 @Component
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
+    Authentication auth = new Authentication();
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
         HandlerMethod handlerMethod = (HandlerMethod ) handler;
@@ -30,12 +32,8 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
         if (authAnnotation != null) {
             if (authAnnotation.auth()) {
-                jwt = request.getHeader(Authentication.X_GAMIFICATION_TOKEN);
-
-                Application application = Authentication.authenticate(jwt);
-                request.setAttribute("app", application);
-
-                return true; // forward in pipeline
+                jwt = request.getHeader(AppConfig.X_GAMIFICATION_TOKEN);
+                return auth.authenticate(jwt);
             } else {
                 response.sendError(HttpStatus.UNAUTHORIZED.value());
                 return false; // cancel default lifecycle
