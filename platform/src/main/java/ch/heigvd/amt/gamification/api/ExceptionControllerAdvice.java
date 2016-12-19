@@ -1,7 +1,7 @@
 package ch.heigvd.amt.gamification.api;
 
-import ch.heigvd.amt.gamification.model.HttpErrorResponse;
-import ch.heigvd.amt.gamification.model.HttpStatusException;
+import ch.heigvd.amt.gamification.errors.HttpErrorResponse;
+import ch.heigvd.amt.gamification.errors.HttpStatusException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -32,4 +32,6 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
         err.setMessage(ex.getMessage());
         return new ResponseEntity<HttpErrorResponse>(err, ex.getStatus());
     }
+
+
 }

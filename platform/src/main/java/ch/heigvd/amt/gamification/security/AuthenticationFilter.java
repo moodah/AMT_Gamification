@@ -6,7 +6,7 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-import ch.heigvd.amt.gamification.model.HttpStatusException;
+import ch.heigvd.amt.gamification.errors.HttpStatusException;
 import org.springframework.http.HttpStatus;
 
 public class AuthenticationFilter implements Filter {

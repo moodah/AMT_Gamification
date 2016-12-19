@@ -1,4 +1,4 @@
-package ch.heigvd.amt.gamification.model;
+package ch.heigvd.amt.gamification.errors;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;

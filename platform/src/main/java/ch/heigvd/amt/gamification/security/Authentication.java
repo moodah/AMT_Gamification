@@ -1,7 +1,7 @@
 package ch.heigvd.amt.gamification.security;
 
 import ch.heigvd.amt.gamification.model.Application;
-import ch.heigvd.amt.gamification.model.HttpStatusException;
+import ch.heigvd.amt.gamification.errors.HttpStatusException;
 import ch.heigvd.amt.gamification.model.Token;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;

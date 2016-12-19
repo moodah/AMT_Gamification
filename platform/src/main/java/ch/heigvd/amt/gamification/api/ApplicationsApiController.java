@@ -3,8 +3,9 @@ package ch.heigvd.amt.gamification.api;
 import ch.heigvd.amt.gamification.annotations.Authenticate;
 import ch.heigvd.amt.gamification.configuration.AppConfig;
 import ch.heigvd.amt.gamification.dao.ApplicationDao;
+import ch.heigvd.amt.gamification.errors.ErrorMessageGenerator;
 import ch.heigvd.amt.gamification.security.Authentication;
-import ch.heigvd.amt.gamification.model.HttpStatusException;
+import ch.heigvd.amt.gamification.errors.HttpStatusException;
 import ch.heigvd.amt.gamification.model.Token;
 import ch.heigvd.amt.gamification.model.Application;
 
@@ -27,7 +28,7 @@ public class ApplicationsApiController implements ApplicationsApi {
     @Autowired
     private ApplicationDao applicationDao;
 
-    public ResponseEntity<Token> applicationsAuthPost(@ApiParam(value = "The application informations" ,required=true ) @RequestBody Application application) {
+    public ResponseEntity<Token> applicationsAuthPost(@ApiParam(value = "The application informations", required = true) @RequestBody Application application) {
 
         dataValidation(application);
 
@@ -37,7 +38,7 @@ public class ApplicationsApiController implements ApplicationsApi {
 
             String pass = get_SHA_512_SecurePassword(application.getPassword(), AppConfig.SALT);
 
-            System.out.println(pass +  " AND " + persistentApp.getPassword());
+            System.out.println(pass + " AND " + persistentApp.getPassword());
 
             if (!persistentApp.getPassword().equals(pass)) {
                 throw new HttpStatusException(HttpStatus.FORBIDDEN,
@@ -45,7 +46,7 @@ public class ApplicationsApiController implements ApplicationsApi {
             }
         } else {
             throw new HttpStatusException(HttpStatus.CONFLICT,
-                    "Application '" + application.getName() + "' does not exist.");
+                    ErrorMessageGenerator.notFoundByName("Application", application.getName()));
         }
 
         Token token = Authentication.generateToken(persistentApp);
@@ -54,7 +55,7 @@ public class ApplicationsApiController implements ApplicationsApi {
     }
 
     @Authenticate
-    public ResponseEntity<Void> applicationsDelete(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
+    public ResponseEntity<Void> applicationsDelete(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
         // do some magic!
         long appId = Authentication.getId(authorization);
         applicationDao.delete(appId);
@@ -62,13 +63,13 @@ public class ApplicationsApiController implements ApplicationsApi {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    public ResponseEntity<Void> applicationsPost(@ApiParam(value = "The application informations" ,required=true ) @RequestBody Application application) {
+    public ResponseEntity<Void> applicationsPost(@ApiParam(value = "The application informations", required = true) @RequestBody Application application) {
         // register a new application
         dataValidation(application);
 
         if (applicationDao.findByName(application.getName()) != null)
             throw new HttpStatusException(HttpStatus.CONFLICT,
-                    "Application '" + application.getName() + "' already exists.");
+                    ErrorMessageGenerator.nameAlreadyExists("Application", application.getName()));
 
         // Encrypt password
         application.setPassword(get_SHA_512_SecurePassword(application.getPassword(), AppConfig.SALT));
@@ -82,39 +83,39 @@ public class ApplicationsApiController implements ApplicationsApi {
         String appPass = application.getPassword();
 
         if (appName == null)
-            throw new HttpStatusException(HttpStatus.BAD_REQUEST, "The application's name is not specified.");
+            throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.fieldMissing("Application", "name"));
 
         if (appPass == null)
-            throw new HttpStatusException(HttpStatus.BAD_REQUEST, "The application's password is not specified.");
+            throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.fieldMissing("Application", "password"));
 
         if (appName.length() < AppConfig.MIN_APP_NAME_LENGTH || appName == null)
             throw new HttpStatusException(HttpStatus.BAD_REQUEST,
-                    "Application name must be at least " + AppConfig.MIN_APP_NAME_LENGTH + " characters long.");
+                    ErrorMessageGenerator.fieldTooShort("Application", "name", AppConfig.MIN_APP_NAME_LENGTH));
 
         if (appPass.length() < AppConfig.MIN_APP_PWD_LENGTH)
             throw new HttpStatusException(HttpStatus.BAD_REQUEST,
-                    "Application password must be at least " + AppConfig.MIN_APP_PWD_LENGTH + " characters long.");
+                    ErrorMessageGenerator.fieldTooShort("Application", "password", AppConfig.MIN_APP_PWD_LENGTH));
     }
 
     /**
      * Source: http://stackoverflow.com/questions/33085493/hash-a-password-with-sha-512-in-java
+     *
      * @param passwordToHash
      * @param salt
      * @return the hashed password
      */
-    public String get_SHA_512_SecurePassword(String passwordToHash, String salt){
+    public String get_SHA_512_SecurePassword(String passwordToHash, String salt) {
         String generatedPassword = null;
         try {
             MessageDigest md = MessageDigest.getInstance(AppConfig.ENCRYPTION_ALGORITHM);
             md.update(salt.getBytes(AppConfig.CHARSET));
             byte[] bytes = md.digest(passwordToHash.getBytes(AppConfig.CHARSET));
             StringBuilder sb = new StringBuilder();
-            for(int i=0; i< bytes.length ;i++){
+            for (int i = 0; i < bytes.length; i++) {
                 sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
             }
             generatedPassword = sb.toString();
-        }
-        catch (NoSuchAlgorithmException e){
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

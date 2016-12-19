@@ -73,6 +73,7 @@ public interface BadgesApi {
             consumes = { "application/json" },
             method = RequestMethod.PATCH)
     ResponseEntity<Badge> badgesIdPatch(@ApiParam(value = "",required=true ) @PathVariable("id") BigDecimal id,
+                                        @ApiParam(value = "", required=false) @RequestBody Badge badge,
                                         @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization);
 
 

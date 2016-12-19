@@ -40,6 +40,8 @@ dependencies {
 
     compile group: 'com.auth0', name:'java-jwt', version: '3.0.2'
 
+    compile 'com.google.guava:guava:20.0'
+
 
 //    compile group: 'org.springframework.security', name: 'spring-security-web', version: '4.2.0.RELEASE'
 //    compile group: 'org.springframework.security', name: 'spring-security-config', version: '4.2.0.RELEASE'

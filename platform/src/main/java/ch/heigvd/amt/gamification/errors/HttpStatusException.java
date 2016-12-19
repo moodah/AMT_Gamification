@@ -1,4 +1,4 @@
-package ch.heigvd.amt.gamification.model;
+package ch.heigvd.amt.gamification.errors;
 
 import org.springframework.http.HttpStatus;
 
