@@ -56,8 +56,7 @@ public class ApplicationsApiController implements ApplicationsApi {
 
     @Authenticate
     public ResponseEntity<Void> applicationsDelete(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
-        // do some magic!
-        long appId = Authentication.getId(authorization);
+        long appId = Authentication.getApplicationId(authorization);
         applicationDao.delete(appId);
 
         return new ResponseEntity<Void>(HttpStatus.OK);

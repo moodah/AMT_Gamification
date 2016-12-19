@@ -72,7 +72,7 @@ public class Authentication {
         return new Token(token);
     }
 
-    public static long getId(String token) {
+    public static long getApplicationId(String token) {
         JWT jwt;
 
         // Decode token
