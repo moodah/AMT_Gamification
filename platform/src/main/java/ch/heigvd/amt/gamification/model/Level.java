@@ -2,15 +2,13 @@ package ch.heigvd.amt.gamification.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 
 /**
  * Level
  */
-@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-16T15:16:07.537Z")
+@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-18T13:30:19.867Z")
 
 public class Level   {
   @JsonProperty("name")
@@ -24,10 +22,10 @@ public class Level   {
     return this;
   }
 
-   /**
+  /**
    * Get name
    * @return name
-  **/
+   **/
   @ApiModelProperty(value = "")
   public String getName() {
     return name;
@@ -42,10 +40,10 @@ public class Level   {
     return this;
   }
 
-   /**
+  /**
    * Get points
    * @return points
-  **/
+   **/
   @ApiModelProperty(value = "")
   public BigDecimal getPoints() {
     return points;
@@ -66,7 +64,7 @@ public class Level   {
     }
     Level level = (Level) o;
     return Objects.equals(this.name, level.name) &&
-        Objects.equals(this.points, level.points);
+            Objects.equals(this.points, level.points);
   }
 
   @Override
@@ -78,7 +76,7 @@ public class Level   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Level {\n");
-    
+
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    points: ").append(toIndentedString(points)).append("\n");
     sb.append("}");
@@ -96,4 +94,3 @@ public class Level   {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

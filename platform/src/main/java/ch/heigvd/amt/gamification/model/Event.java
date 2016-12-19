@@ -2,17 +2,13 @@ package ch.heigvd.amt.gamification.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import ch.heigvd.amt.gamification.model.Eventtype;
-import ch.heigvd.amt.gamification.model.User;
 import org.joda.time.DateTime;
 
 /**
  * Event
  */
-@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-16T15:16:07.537Z")
+@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-18T13:30:19.867Z")
 
 public class Event   {
   @JsonProperty("timestamp")
@@ -29,10 +25,10 @@ public class Event   {
     return this;
   }
 
-   /**
+  /**
    * Get timestamp
    * @return timestamp
-  **/
+   **/
   @ApiModelProperty(value = "")
   public DateTime getTimestamp() {
     return timestamp;
@@ -47,10 +43,10 @@ public class Event   {
     return this;
   }
 
-   /**
+  /**
    * Get user
    * @return user
-  **/
+   **/
   @ApiModelProperty(value = "")
   public User getUser() {
     return user;
@@ -65,10 +61,10 @@ public class Event   {
     return this;
   }
 
-   /**
+  /**
    * Get eventtype
    * @return eventtype
-  **/
+   **/
   @ApiModelProperty(value = "")
   public Eventtype getEventtype() {
     return eventtype;
@@ -89,8 +85,8 @@ public class Event   {
     }
     Event event = (Event) o;
     return Objects.equals(this.timestamp, event.timestamp) &&
-        Objects.equals(this.user, event.user) &&
-        Objects.equals(this.eventtype, event.eventtype);
+            Objects.equals(this.user, event.user) &&
+            Objects.equals(this.eventtype, event.eventtype);
   }
 
   @Override
@@ -102,7 +98,7 @@ public class Event   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Event {\n");
-    
+
     sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
     sb.append("    user: ").append(toIndentedString(user)).append("\n");
     sb.append("    eventtype: ").append(toIndentedString(eventtype)).append("\n");

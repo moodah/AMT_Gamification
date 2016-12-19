@@ -2,16 +2,13 @@ package ch.heigvd.amt.gamification.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import ch.heigvd.amt.gamification.model.Eventtype;
 import java.math.BigDecimal;
 
 /**
  * Achievement
  */
-@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-16T15:16:07.537Z")
+@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-18T13:30:19.867Z")
 
 public class Achievement   {
   @JsonProperty("count")
@@ -25,10 +22,10 @@ public class Achievement   {
     return this;
   }
 
-   /**
+  /**
    * Get count
    * @return count
-  **/
+   **/
   @ApiModelProperty(value = "")
   public BigDecimal getCount() {
     return count;
@@ -43,10 +40,10 @@ public class Achievement   {
     return this;
   }
 
-   /**
+  /**
    * Get eventType
    * @return eventType
-  **/
+   **/
   @ApiModelProperty(value = "")
   public Eventtype getEventType() {
     return eventType;
@@ -67,7 +64,7 @@ public class Achievement   {
     }
     Achievement achievement = (Achievement) o;
     return Objects.equals(this.count, achievement.count) &&
-        Objects.equals(this.eventType, achievement.eventType);
+            Objects.equals(this.eventType, achievement.eventType);
   }
 
   @Override
@@ -79,7 +76,7 @@ public class Achievement   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Achievement {\n");
-    
+
     sb.append("    count: ").append(toIndentedString(count)).append("\n");
     sb.append("    eventType: ").append(toIndentedString(eventType)).append("\n");
     sb.append("}");
@@ -97,4 +94,3 @@ public class Achievement   {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

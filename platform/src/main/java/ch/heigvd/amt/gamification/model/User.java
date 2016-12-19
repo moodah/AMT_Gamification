@@ -2,11 +2,7 @@ package ch.heigvd.amt.gamification.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import ch.heigvd.amt.gamification.model.Badge;
-import ch.heigvd.amt.gamification.model.Level;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +10,7 @@ import java.util.List;
 /**
  * User
  */
-@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-16T15:16:07.537Z")
+@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-18T13:30:19.867Z")
 
 public class User   {
   @JsonProperty("username")
@@ -34,10 +30,10 @@ public class User   {
     return this;
   }
 
-   /**
+  /**
    * Get username
    * @return username
-  **/
+   **/
   @ApiModelProperty(value = "")
   public String getUsername() {
     return username;
@@ -52,10 +48,10 @@ public class User   {
     return this;
   }
 
-   /**
+  /**
    * Get points
    * @return points
-  **/
+   **/
   @ApiModelProperty(value = "")
   public BigDecimal getPoints() {
     return points;
@@ -70,10 +66,10 @@ public class User   {
     return this;
   }
 
-   /**
+  /**
    * Get level
    * @return level
-  **/
+   **/
   @ApiModelProperty(value = "")
   public Level getLevel() {
     return level;
@@ -93,10 +89,10 @@ public class User   {
     return this;
   }
 
-   /**
+  /**
    * Get badges
    * @return badges
-  **/
+   **/
   @ApiModelProperty(value = "")
   public List<Badge> getBadges() {
     return badges;
@@ -117,9 +113,9 @@ public class User   {
     }
     User user = (User) o;
     return Objects.equals(this.username, user.username) &&
-        Objects.equals(this.points, user.points) &&
-        Objects.equals(this.level, user.level) &&
-        Objects.equals(this.badges, user.badges);
+            Objects.equals(this.points, user.points) &&
+            Objects.equals(this.level, user.level) &&
+            Objects.equals(this.badges, user.badges);
   }
 
   @Override
@@ -131,7 +127,7 @@ public class User   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class User {\n");
-    
+
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("    points: ").append(toIndentedString(points)).append("\n");
     sb.append("    level: ").append(toIndentedString(level)).append("\n");
@@ -151,4 +147,3 @@ public class User   {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

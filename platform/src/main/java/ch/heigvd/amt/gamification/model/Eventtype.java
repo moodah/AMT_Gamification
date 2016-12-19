@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 /**
  * Eventtype
  */
-@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-16T15:16:07.537Z")
+@javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-18T13:30:19.867Z")
 
 public class Eventtype   {
   @JsonProperty("name")
@@ -24,10 +24,10 @@ public class Eventtype   {
     return this;
   }
 
-   /**
+  /**
    * Get name
    * @return name
-  **/
+   **/
   @ApiModelProperty(value = "")
   public String getName() {
     return name;
@@ -42,10 +42,10 @@ public class Eventtype   {
     return this;
   }
 
-   /**
+  /**
    * Get code
    * @return code
-  **/
+   **/
   @ApiModelProperty(value = "")
   public BigDecimal getCode() {
     return code;
@@ -66,7 +66,7 @@ public class Eventtype   {
     }
     Eventtype eventtype = (Eventtype) o;
     return Objects.equals(this.name, eventtype.name) &&
-        Objects.equals(this.code, eventtype.code);
+            Objects.equals(this.code, eventtype.code);
   }
 
   @Override
@@ -78,7 +78,7 @@ public class Eventtype   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Eventtype {\n");
-    
+
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("}");
@@ -96,4 +96,3 @@ public class Eventtype   {
     return o.toString().replace("\n", "\n    ");
   }
 }
-
