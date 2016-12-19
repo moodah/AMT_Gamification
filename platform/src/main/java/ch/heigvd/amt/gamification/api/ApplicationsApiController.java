@@ -96,6 +96,12 @@ public class ApplicationsApiController implements ApplicationsApi {
                     "Application password must be at least " + AppConfig.MIN_APP_PWD_LENGTH + " characters long.");
     }
 
+    /**
+     * Source: http://stackoverflow.com/questions/33085493/hash-a-password-with-sha-512-in-java
+     * @param passwordToHash
+     * @param salt
+     * @return the hashed password
+     */
     public String get_SHA_512_SecurePassword(String passwordToHash, String salt){
         String generatedPassword = null;
         try {
