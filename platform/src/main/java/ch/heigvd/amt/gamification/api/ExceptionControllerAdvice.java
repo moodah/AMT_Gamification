@@ -26,7 +26,7 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = {HttpStatusException.class})
-    protected ResponseEntity handleCustomHttp(HttpStatusException ex) {
+    protected ResponseEntity handleHttpStatus(HttpStatusException ex) {
         HttpErrorResponse err = new HttpErrorResponse();
         err.setCode(ex.getStatus().value());
         err.setMessage(ex.getMessage());
