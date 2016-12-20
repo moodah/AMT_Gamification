@@ -89,9 +89,6 @@ describe('applications/', function () {
                 .delete('application/')
                 .set('content-type', 'application/json')
                 .set('authorization', shared.token)
-                .send({
-                    name: CONFIG.APPNAME
-                })
                 .then(function (res) {
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(204);

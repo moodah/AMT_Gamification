@@ -7,6 +7,7 @@ let chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 let CONFIG = require('./config');
 let shared = require('./shared');
+let Utils = require('./utils');
 
 describe('badges/', function () {
 
@@ -20,8 +21,14 @@ describe('badges/', function () {
             this.skip();
         });
 
-        it('should refuse a malformed payload', function (done) {
-            this.skip();
+        // malformed payloads
+        Utils.generateMalformed({
+            notDefinedAtTheMoment: ''
+        }).forEach(function(malformed) {
+
+            it('should refuse a malformed payload (' + malformed.what + ')', function (done) {
+                this.skip();
+            });
         });
     });
 
@@ -55,8 +62,14 @@ describe('badges/', function () {
                 this.skip();
             });
             
-            it('should refuse a malformed payload', function (done) {
-                this.skip();
+            // malformed payloads
+            Utils.generateMalformed({
+                notDefinedAtTheMoment: ''
+            }).forEach(function(malformed) {
+
+                it('should refuse a malformed payload (' + malformed.what + ')', function (done) {
+                    this.skip();
+                });
             });
         });
     });
