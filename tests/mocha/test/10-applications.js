@@ -7,6 +7,7 @@ let chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 let CONFIG = require('./config');
 let shared = require('./shared');
+let Utils = require('./utils');
 
 describe('applications/', function () {
 
@@ -48,8 +49,15 @@ describe('applications/', function () {
                 });
         });
 
-        it('should refuse a malformed payload', function (done) {
-            this.skip();
+        // malformed payloads
+        Utils.generateMalformed({
+            name: CONFIG.APPNAME,
+            password: CONFIG.APPPWD
+        }).forEach(function(malformed) {
+
+            it('should refuse a malformed payload (' + malformed.what + ')', function (done) {
+                this.skip();
+            });
         });
 
         it('should refuse when application\'s name is empty', function (done) {
@@ -121,8 +129,15 @@ describe('applications/', function () {
                     });
             });
 
-            it('should refuse a malformed payload', function (done) {
-                this.skip();
+            // malformed payloads
+            Utils.generateMalformed({
+                name: CONFIG.APPNAME,
+                password: CONFIG.APPPWD
+            }).forEach(function(malformed) {
+
+                it('should refuse a malformed payload (' + malformed.what + ')', function (done) {
+                    this.skip();
+                });
             });
 
             it('should refuse when application\'s name is empty', function (done) {
