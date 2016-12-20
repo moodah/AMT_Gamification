@@ -59,6 +59,14 @@ describe('applications/', function () {
                 this.skip();
             });
         });
+
+        it('should refuse when application\'s name is empty', function (done) {
+            this.skip();
+        });
+
+        it('should refuse when application\'s password is smaller than 8 chars', function (done) {
+            this.skip();
+        });
     });
 
     describe('applications/auth/', function () {
@@ -130,6 +138,14 @@ describe('applications/', function () {
                 it('should refuse a malformed payload (' + malformed.what + ')', function (done) {
                     this.skip();
                 });
+            });
+
+            it('should refuse when application\'s name is empty', function (done) {
+                this.skip();
+            });
+
+            it('should refuse when application\'s password is smaller than 8 chars', function (done) {
+                this.skip();
             });
         });
     }); 

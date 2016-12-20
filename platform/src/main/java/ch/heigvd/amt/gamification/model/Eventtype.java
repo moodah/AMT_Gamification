@@ -2,22 +2,24 @@ package ch.heigvd.amt.gamification.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 
 /**
- * Level
+ * Eventtype
  */
 @javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-18T13:30:19.867Z")
 
-public class Level   {
+public class Eventtype   {
   @JsonProperty("name")
   private String name = null;
 
-  @JsonProperty("points")
-  private BigDecimal points = null;
+  @JsonProperty("code")
+  private BigDecimal code = null;
 
-  public Level name(String name) {
+  public Eventtype name(String name) {
     this.name = name;
     return this;
   }
@@ -35,22 +37,22 @@ public class Level   {
     this.name = name;
   }
 
-  public Level points(BigDecimal points) {
-    this.points = points;
+  public Eventtype code(BigDecimal code) {
+    this.code = code;
     return this;
   }
 
   /**
-   * Get points
-   * @return points
+   * Get code
+   * @return code
    **/
   @ApiModelProperty(value = "")
-  public BigDecimal getPoints() {
-    return points;
+  public BigDecimal getCode() {
+    return code;
   }
 
-  public void setPoints(BigDecimal points) {
-    this.points = points;
+  public void setCode(BigDecimal code) {
+    this.code = code;
   }
 
 
@@ -62,23 +64,23 @@ public class Level   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Level level = (Level) o;
-    return Objects.equals(this.name, level.name) &&
-            Objects.equals(this.points, level.points);
+    Eventtype eventtype = (Eventtype) o;
+    return Objects.equals(this.name, eventtype.name) &&
+            Objects.equals(this.code, eventtype.code);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, points);
+    return Objects.hash(name, code);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Level {\n");
+    sb.append("class Eventtype {\n");
 
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    points: ").append(toIndentedString(points)).append("\n");
+    sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -6,51 +6,51 @@ import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 
 /**
- * Level
+ * Achievement
  */
 @javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-18T13:30:19.867Z")
 
-public class Level   {
-  @JsonProperty("name")
-  private String name = null;
+public class Achievement   {
+  @JsonProperty("count")
+  private BigDecimal count = null;
 
-  @JsonProperty("points")
-  private BigDecimal points = null;
+  @JsonProperty("eventType")
+  private Eventtype eventType = null;
 
-  public Level name(String name) {
-    this.name = name;
+  public Achievement count(BigDecimal count) {
+    this.count = count;
     return this;
   }
 
   /**
-   * Get name
-   * @return name
+   * Get count
+   * @return count
    **/
   @ApiModelProperty(value = "")
-  public String getName() {
-    return name;
+  public BigDecimal getCount() {
+    return count;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setCount(BigDecimal count) {
+    this.count = count;
   }
 
-  public Level points(BigDecimal points) {
-    this.points = points;
+  public Achievement eventType(Eventtype eventType) {
+    this.eventType = eventType;
     return this;
   }
 
   /**
-   * Get points
-   * @return points
+   * Get eventType
+   * @return eventType
    **/
   @ApiModelProperty(value = "")
-  public BigDecimal getPoints() {
-    return points;
+  public Eventtype getEventType() {
+    return eventType;
   }
 
-  public void setPoints(BigDecimal points) {
-    this.points = points;
+  public void setEventType(Eventtype eventType) {
+    this.eventType = eventType;
   }
 
 
@@ -62,23 +62,23 @@ public class Level   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Level level = (Level) o;
-    return Objects.equals(this.name, level.name) &&
-            Objects.equals(this.points, level.points);
+    Achievement achievement = (Achievement) o;
+    return Objects.equals(this.count, achievement.count) &&
+            Objects.equals(this.eventType, achievement.eventType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, points);
+    return Objects.hash(count, eventType);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Level {\n");
+    sb.append("class Achievement {\n");
 
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    points: ").append(toIndentedString(points)).append("\n");
+    sb.append("    count: ").append(toIndentedString(count)).append("\n");
+    sb.append("    eventType: ").append(toIndentedString(eventType)).append("\n");
     sb.append("}");
     return sb.toString();
   }
