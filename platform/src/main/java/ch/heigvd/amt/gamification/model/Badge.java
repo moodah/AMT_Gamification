@@ -1,13 +1,19 @@
 package ch.heigvd.amt.gamification.model;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -15,7 +21,7 @@ import javax.validation.constraints.NotNull;
  */
 @javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-16T15:16:07.537Z")
 @Entity
-@Table
+@Table(name = "badge")
 public class Badge {
 
     @Id
@@ -23,12 +29,25 @@ public class Badge {
     private long id;
 
     @JsonProperty("name")
-    @Column(nullable = false, unique = true)
+    @Column(length = 255, nullable = false, unique = true)
     private String name;
 
     @JsonProperty("description")
+    @Type(type = "text")
     @Column(nullable = false)
     private String description;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "badge")
+    Set<Rule> rules = new HashSet<>(); // rules are unique for a given badge
+
+    @ManyToMany
+    @Cascade({CascadeType.SAVE_UPDATE})
+    @JoinTable(name="user_badge", joinColumns={@JoinColumn(name="badge_id")}, inverseJoinColumns={@JoinColumn(name="user_id")})
+    Set<User> users = new HashSet<>(); // users are unique for a given badge
+
+    @ManyToOne
+    @JoinColumn(name = "application_id", nullable = false)
+    private Application application;
 
     public Badge name(String name) {
         this.name = name;
@@ -87,7 +106,7 @@ public class Badge {
         }
         Badge badge = (Badge) o;
         return Objects.equals(this.name, badge.name) &&
-                Objects.equals(this.description, badge.description);
+                Objects.equals(this.application, badge.application);
     }
 
     @Override
