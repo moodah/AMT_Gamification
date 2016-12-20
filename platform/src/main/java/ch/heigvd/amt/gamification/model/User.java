@@ -22,7 +22,6 @@ import java.math.BigDecimal;
 @Table(name = "user")
 public class User   {
 
-    @JsonProperty("id")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -140,9 +139,7 @@ public class User   {
         }
         User user = (User) o;
         return Objects.equals(this.username, user.username) &&
-                Objects.equals(this.points, user.points) &&
-                Objects.equals(this.level, user.level) &&
-                Objects.equals(this.badges, user.badges);
+                Objects.equals(this.application, user.application);
     }
 
     @Override

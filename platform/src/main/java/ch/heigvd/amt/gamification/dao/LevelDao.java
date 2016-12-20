@@ -3,6 +3,8 @@ package ch.heigvd.amt.gamification.dao;
 import ch.heigvd.amt.gamification.model.Level;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 /**
  * @author Sébastien Richoz
  * @version 1.0
@@ -10,5 +12,16 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface LevelDao extends CrudRepository<Level, Long> {
 
-    Level findByName(long applicationId, String levelName);
+    Level findByApplicationIdAndId(long applicationId, long id);
+
+    Level findByApplicationIdAndName(long applicationId, String name);
+
+    Level findByName(String name);
+
+    Long deleteByApplicationId(long applicationId);
+
+    List<Level> findAllByApplicationIdOrderByPointsAsc(long applicationId);
+
+    Long deleteAllByApplicationId(long applicationId);
+
 }

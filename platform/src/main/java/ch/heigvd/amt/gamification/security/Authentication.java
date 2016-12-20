@@ -22,7 +22,7 @@ public class Authentication {
 
     private static final String claimApp = "app";
 
-    private static final String secret = String.valueOf(new Random(System.currentTimeMillis()).nextLong());
+    private static final String secret = "toto"; // TODO : with env variable for prod (or String.valueOf(new Random(System.currentTimeMillis()).nextLong()) ?);
 
     boolean authenticate(String token) {
 

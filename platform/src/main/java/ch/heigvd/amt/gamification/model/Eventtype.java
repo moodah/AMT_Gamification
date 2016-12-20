@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "eventtype")
 public class Eventtype   {
-    @JsonProperty("id")
+
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -86,7 +86,8 @@ public class Eventtype   {
         }
         Eventtype eventtype = (Eventtype) o;
         return Objects.equals(this.name, eventtype.name) &&
-                Objects.equals(this.code, eventtype.code);
+                Objects.equals(this.code, eventtype.code) &&
+                Objects.equals(this.application, eventtype.application);
     }
 
     @Override

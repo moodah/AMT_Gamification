@@ -73,6 +73,7 @@ public interface LevelsApi {
             consumes = { "application/json" },
             method = RequestMethod.PATCH)
     ResponseEntity<Level> levelsIdPatch(@ApiParam(value = "",required=true ) @PathVariable("id") BigDecimal id,
+                                        @ApiParam(value = "", required=false) @RequestBody Level level,
                                         @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization);
 
 
@@ -84,7 +85,7 @@ public interface LevelsApi {
             produces = { "application/json" },
             consumes = { "application/json" },
             method = RequestMethod.POST)
-    ResponseEntity<Level> levelsPost(@ApiParam(value = "" ,required=true ) @RequestBody Level level,
+    ResponseEntity<List<String>> levelsPost(@ApiParam(value = "" ,required=true ) @RequestBody List<Level> levels,
                                      @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization);
 
 }

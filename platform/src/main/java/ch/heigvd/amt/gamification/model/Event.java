@@ -1,5 +1,6 @@
 package ch.heigvd.amt.gamification.model;
 
+import java.util.Date;
 import java.util.Objects;
 
 import ch.heigvd.amt.gamification.configuration.AppConfig;
@@ -17,14 +18,15 @@ import javax.persistence.*;
 @Entity
 @Table(name = "event")
 public class Event   {
-    @JsonProperty("id")
+
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @JsonProperty("timestamp")
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(length = AppConfig.MAX_APP_NAME_LENGTH, nullable = false)
-    private DateTime timestamp;
+    private Date timestamp;
 
     @JsonProperty("user")
     @ManyToOne
@@ -40,7 +42,7 @@ public class Event   {
     @JoinColumn(name = "application_id", nullable = false)
     private Application application;
 
-    public Event timestamp(DateTime timestamp) {
+    public Event timestamp(Date timestamp) {
         this.timestamp = timestamp;
         return this;
     }
@@ -50,11 +52,11 @@ public class Event   {
      * @return timestamp
      **/
     @ApiModelProperty(value = "")
-    public DateTime getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(DateTime timestamp) {
+    public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -106,7 +108,8 @@ public class Event   {
         Event event = (Event) o;
         return Objects.equals(this.timestamp, event.timestamp) &&
                 Objects.equals(this.user, event.user) &&
-                Objects.equals(this.eventtype, event.eventtype);
+                Objects.equals(this.eventtype, event.eventtype) &&
+                Objects.equals(this.application, event.application);
     }
 
     @Override

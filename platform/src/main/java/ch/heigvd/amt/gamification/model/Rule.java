@@ -22,7 +22,6 @@ import java.util.List;
 @Table(name = "rule")
 public class Rule   {
 
-    @JsonProperty("id")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;

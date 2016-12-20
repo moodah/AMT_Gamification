@@ -23,7 +23,6 @@ import java.util.Set;
 @Table(name = "level")
 public class Level   {
 
-    @JsonProperty("id")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -49,6 +48,18 @@ public class Level   {
     public Level name(String name) {
         this.name = name;
         return this;
+    }
+
+    public void setApplication(Application application) {
+        this.application = application;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    private void setId(long id) {
+        this.id = id;
     }
 
     /**
@@ -92,7 +103,8 @@ public class Level   {
             return false;
         }
         Level level = (Level) o;
-        return Objects.equals(this.name, level.name);
+        return Objects.equals(this.name, level.name) &&
+               Objects.equals(this.application, level.application);
     }
 
     @Override

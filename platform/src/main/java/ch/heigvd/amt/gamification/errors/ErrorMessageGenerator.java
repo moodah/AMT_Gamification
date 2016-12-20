@@ -34,6 +34,10 @@ public class ErrorMessageGenerator {
         return model + " " + field + " must be at least " + length + " characters long.";
     }
 
+    public static String valueTooSmall(String model, String field, int value) {
+        return model + " " + field + " must be equal or greater than " + value + ".";
+    }
+
     public static String cannotEditField(String model, String field){
         return model + " " + field + " can not be edited.";
     }

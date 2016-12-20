@@ -20,6 +20,7 @@ import javax.validation.constraints.NotNull;
  * Badge
  */
 @javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-16T15:16:07.537Z")
+
 @Entity
 @Table(name = "badge")
 public class Badge {

@@ -59,7 +59,7 @@ public class ApplicationsApiController implements ApplicationsApi {
         long appId = Authentication.getApplicationId(authorization);
         applicationDao.delete(appId);
 
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
     public ResponseEntity<Void> applicationsPost(@ApiParam(value = "The application informations", required = true) @RequestBody Application application) {
