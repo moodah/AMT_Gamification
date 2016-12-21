@@ -130,7 +130,7 @@ describe('applications/', function () {
                     })
                     .end(function (err, res) {
                         chai.expect(err).to.not.be.undefined;
-                        chai.expect(err).to.have.status(409);
+                        chai.expect(err).to.have.status(404);
                         done();
                     });
             });
@@ -145,7 +145,7 @@ describe('applications/', function () {
                     })
                     .end(function (err, res) {
                         chai.expect(err).to.not.be.undefined;
-                        chai.expect(err).to.have.status(403);
+                        chai.expect(err).to.have.status(404);
                         done();
                     });
             });

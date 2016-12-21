@@ -41,11 +41,11 @@ public class ApplicationsApiController implements ApplicationsApi {
             System.out.println(pass + " AND " + persistentApp.getPassword());
 
             if (!persistentApp.getPassword().equals(pass)) {
-                throw new HttpStatusException(HttpStatus.FORBIDDEN,
-                        "Wrong password for application '" + application.getName() + "'");
+                throw new HttpStatusException(HttpStatus.NOT_FOUND,
+                        ErrorMessageGenerator.notFoundByField("application named " + application.getName(), "password", application.getPassword()));
             }
         } else {
-            throw new HttpStatusException(HttpStatus.CONFLICT,
+            throw new HttpStatusException(HttpStatus.NOT_FOUND,
                     ErrorMessageGenerator.notFoundByName("Application", application.getName()));
         }
 
