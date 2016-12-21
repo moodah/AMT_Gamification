@@ -86,7 +86,7 @@ describe('applications/', function () {
             
         it('should allow to delete an application', function (done) {
             chai.request(CONFIG.API)
-                .delete('application/')
+                .delete('applications/')
                 .set('content-type', 'application/json')
                 .set('authorization', shared.token)
                 .then(function (res) {
