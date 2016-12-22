@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Objects;
 
 import ch.heigvd.amt.gamification.configuration.AppConfig;
+import ch.heigvd.amt.gamification.dto.EventCreationDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -41,9 +42,7 @@ public class Event   {
     @JoinColumn(name = "application_id", nullable = false)
     private Application application;
 
-    public Event timestamp(Date timestamp) {
-        this.timestamp = timestamp;
-        return this;
+    public Event() {
     }
 
     /**

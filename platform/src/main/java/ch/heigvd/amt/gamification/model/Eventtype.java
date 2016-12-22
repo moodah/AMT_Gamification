@@ -3,6 +3,8 @@ package ch.heigvd.amt.gamification.model;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+
+import ch.heigvd.amt.gamification.dto.EventCreationDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -22,13 +24,14 @@ public class Eventtype   {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @JsonProperty("name")
     @Column(nullable = false)
     private String name;
 
-    @JsonProperty("code")
     @Column(nullable = false)
     private BigDecimal code;
+
+    @Column(nullable = false)
+    private BigDecimal points;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "eventtype")
     private List<Event> events = new LinkedList<>();
@@ -37,9 +40,21 @@ public class Eventtype   {
     @JoinColumn(name = "application_id", nullable = false)
     private Application application;
 
-    public Eventtype name(String name) {
-        this.name = name;
-        return this;
+    public Eventtype() {
+    }
+
+    public Eventtype(EventCreationDTO event) {
+        this.name = event.getName();
+        this.code = event.getCode();
+        this.points = event.getPoints();
+    }
+
+    public void setApplication(Application application) {
+        this.application = application;
+    }
+
+    public long getId() {
+        return id;
     }
 
     /**
