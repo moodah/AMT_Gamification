@@ -3,6 +3,8 @@ package ch.heigvd.amt.gamification.api;
 import ch.heigvd.amt.gamification.configuration.AppConfig;
 import ch.heigvd.amt.gamification.dao.ApplicationDao;
 import ch.heigvd.amt.gamification.dao.LevelDao;
+import ch.heigvd.amt.gamification.dto.LevelCreationDTO;
+import ch.heigvd.amt.gamification.dto.LevelPresentationDTO;
 import ch.heigvd.amt.gamification.errors.ErrorMessageGenerator;
 import ch.heigvd.amt.gamification.errors.HttpStatusException;
 import ch.heigvd.amt.gamification.model.Application;
@@ -20,7 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 @javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-18T13:30:19.867Z")
@@ -41,10 +43,14 @@ public class LevelsApiController implements LevelsApi {
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
-    public ResponseEntity<List<Level>> levelsGet(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
+    public ResponseEntity<ArrayList<LevelPresentationDTO>> levelsGet(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
         long appId = Authentication.getApplicationId(authorization);
 
-        return new ResponseEntity<List<Level>>(levelDao.findAllByApplicationIdOrderByPointsAsc(appId), HttpStatus.OK);
+        ArrayList<LevelPresentationDTO> levels = new ArrayList<>();
+        levelDao.findAllByApplicationIdOrderByPointsAsc(appId)
+                .forEach(level -> levels.add(toPresentationDTO(level)));
+
+        return new ResponseEntity<ArrayList<LevelPresentationDTO>>(levels, HttpStatus.OK);
     }
 
     public ResponseEntity<Void> levelsIdDelete(@ApiParam(value = "",required=true ) @PathVariable("id") BigDecimal id,
@@ -60,8 +66,8 @@ public class LevelsApiController implements LevelsApi {
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
-    public ResponseEntity<Level> levelsIdGet(@ApiParam(value = "",required=true ) @PathVariable("id") BigDecimal id,
-                                             @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
+    public ResponseEntity<LevelPresentationDTO> levelsIdGet(@ApiParam(value = "",required=true ) @PathVariable("id") BigDecimal id,
+                                                @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
         long appId = Authentication.getApplicationId(authorization);
 
         Level persistentLevel = levelDao.findByApplicationIdAndId(appId, id.longValue());
@@ -69,33 +75,55 @@ public class LevelsApiController implements LevelsApi {
             throw new HttpStatusException(HttpStatus.NOT_FOUND,
                     ErrorMessageGenerator.notFoundById("Level", id.toString()));
 
-        return new ResponseEntity<Level>(persistentLevel, HttpStatus.OK);
+        return new ResponseEntity<LevelPresentationDTO>(toPresentationDTO(persistentLevel), HttpStatus.OK);
     }
 
-    public ResponseEntity<Level> levelsIdPatch(@ApiParam(value = "",required=true ) @PathVariable("id") BigDecimal id,
-                                               @ApiParam(value = "", required=false) @RequestBody Level newLevel,
-                                               @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
+    public ResponseEntity<LevelPresentationDTO> levelsIdPatch(@ApiParam(value = "",required=true ) @PathVariable("id") BigDecimal id,
+                                                          @ApiParam(value = "", required=false) @RequestBody LevelCreationDTO newLevel,
+                                                          @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
         long appId = Authentication.getApplicationId(authorization);
         Level oldLevel = levelDao.findByApplicationIdAndId(appId, id.longValue());
 
         if(oldLevel == null)
             throw new HttpStatusException(HttpStatus.NOT_FOUND, ErrorMessageGenerator.notFoundById("Level", id.toString()));
 
-        if(newLevel.getId() != 0)
-            throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.cannotEditField("Level", "id"));
+        List<Level> levels = levelDao.findAllByApplicationId(appId);
 
-        if(newLevel.getName() != null)
+        // Check if name already exists
+        if(newLevel.getName() != null) {
+
+            levels.forEach(level -> {
+                if (level.getId() != id.longValue()) {
+                    if (level.getName().equals(newLevel.getName()))
+                        throw new HttpStatusException(HttpStatus.CONFLICT, ErrorMessageGenerator.nameAlreadyExists("Level", newLevel.getName()));
+                }
+            });
+
             oldLevel.setName(newLevel.getName());
+        }
 
-        if(newLevel.getPoints() != null)
+        // check if points already exist
+        if(newLevel.getPoints() != null) {
+
+            levels.forEach(level -> {
+                if (level.getId() != id.longValue()) {
+                    System.out.println("level points = " + level.getPoints() + ", newlevel pints = " + newLevel.getPoints());
+                    if (level.getPoints().doubleValue() == newLevel.getPoints().doubleValue())
+                        throw new HttpStatusException(HttpStatus.CONFLICT,
+                                ErrorMessageGenerator.valueAlreadyExists("Level", "points", newLevel.getPoints().longValue()));
+                }
+            });
+
             oldLevel.setPoints(newLevel.getPoints());
+        }
+
 
         levelDao.save(oldLevel);
 
-        return new ResponseEntity<Level>(oldLevel, HttpStatus.OK);
+        return new ResponseEntity<LevelPresentationDTO>(toPresentationDTO(oldLevel), HttpStatus.OK);
     }
 
-    public ResponseEntity<List<String>> levelsPost(@ApiParam(value = "" ,required=true ) @RequestBody List<Level> levels,
+    public ResponseEntity<ArrayList<String>> levelsPost(@ApiParam(value = "" ,required=true ) @RequestBody List<LevelCreationDTO> levels,
                                             @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
         // levels payload verification
         levels.forEach(level -> {
@@ -121,15 +149,17 @@ public class LevelsApiController implements LevelsApi {
         long appId = Authentication.getApplicationId(authorization);
         Application app = applicationDao.findOne(appId);
 
-        // levels insertion (only if not existing yet
-        List<String> urls = new LinkedList<>();
+        // levels insertion (only if not existing yet)
+        ArrayList<String> urls = new ArrayList<>();
         levels.forEach(level -> {
             long levelId = 0;
             Level oldLevel = levelDao.findByApplicationIdAndName(appId, level.getName());
 
             if (oldLevel == null) {
-                level.setApplication(app);
-                levelId = levelDao.save(level).getId();
+                // create the new level
+                Level newLevel = new Level(level);
+                newLevel.setApplication(app);
+                levelId = levelDao.save(newLevel).getId();
             } else {
                 levelId = oldLevel.getId();
             }
@@ -137,8 +167,11 @@ public class LevelsApiController implements LevelsApi {
             urls.add("/levels/" + levelId);
         });
 
-        return new ResponseEntity<List<String>>(urls, HttpStatus.CREATED);
+        return new ResponseEntity<ArrayList<String>>(urls, HttpStatus.CREATED);
     }
 
+    private LevelPresentationDTO toPresentationDTO(Level level) {
+        return new LevelPresentationDTO(level);
+    }
 }
 

@@ -14,6 +14,10 @@ public class ErrorMessageGenerator {
         return model + " '" + name + "' already exists.";
     }
 
+    public static String valueAlreadyExists(String model, String valueName, long value) {
+        return model + " with " + value + " '" + valueName + "' already exists.";
+    }
+
     public static String notFoundById(String model, String id) {
         return notFoundByField(model, "id", id);
     }

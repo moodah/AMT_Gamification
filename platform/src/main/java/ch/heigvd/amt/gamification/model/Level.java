@@ -2,6 +2,8 @@ package ch.heigvd.amt.gamification.model;
 
 import java.util.HashSet;
 import java.util.Objects;
+
+import ch.heigvd.amt.gamification.dto.LevelCreationDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.*;
@@ -45,9 +47,17 @@ public class Level   {
     @JoinColumn(name = "application_id", nullable = false)
     private Application application;
 
+    public Level() {
+    }
+
     public Level name(String name) {
         this.name = name;
         return this;
+    }
+
+    public Level (LevelCreationDTO level) {
+        this.name = level.getName();
+        this.points = level.getPoints();
     }
 
     public void setApplication(Application application) {

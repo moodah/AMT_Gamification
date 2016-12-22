@@ -11,7 +11,6 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import org.springframework.http.HttpStatus;
 import java.io.UnsupportedEncodingException;
-import java.util.Random;
 
 /**
  * @author Sébastien Richoz

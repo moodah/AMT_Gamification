@@ -58,6 +58,14 @@ describe('levels/', function () {
                 this.skip();
             });
 
+            it('should not allow to modify a specific level in order to have levels with same names (level names are unique for a given application)', function (done) {
+                this.skip();
+            });
+
+            it('should not allow to modify a specific level in order to have levels with same points (level points are unique for a given application)', function (done) {
+                this.skip();
+            });
+
             it('should not allow an undefined ID', function (done) {
                 this.skip();
             });

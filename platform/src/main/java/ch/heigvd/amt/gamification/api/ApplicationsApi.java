@@ -1,7 +1,7 @@
 package ch.heigvd.amt.gamification.api;
 
 import ch.heigvd.amt.gamification.model.Token;
-import ch.heigvd.amt.gamification.model.Application;
+import ch.heigvd.amt.gamification.dto.ApplicationDTO;
 
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ public interface ApplicationsApi {
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)
-    ResponseEntity<Token> applicationsAuthPost(@ApiParam(value = "The application informations" ,required=true ) @RequestBody Application application);
+    ResponseEntity<Token> applicationsAuthPost(@ApiParam(value = "The application informations" ,required=true ) @RequestBody ApplicationDTO application);
 
 
     @ApiOperation(value = "Delete an application", notes = "Delete the application based on the id of the token passed as parameter", response = Void.class, tags={ "Applications", })
@@ -45,6 +45,6 @@ public interface ApplicationsApi {
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)
-    ResponseEntity<Void> applicationsPost(@ApiParam(value = "The application informations" ,required=true ) @RequestBody Application application);
+    ResponseEntity<Void> applicationsPost(@ApiParam(value = "The application informations" ,required=true ) @RequestBody ApplicationDTO application);
 
 }

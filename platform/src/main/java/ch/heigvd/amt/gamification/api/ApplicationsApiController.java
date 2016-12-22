@@ -4,10 +4,11 @@ import ch.heigvd.amt.gamification.annotations.Authenticate;
 import ch.heigvd.amt.gamification.configuration.AppConfig;
 import ch.heigvd.amt.gamification.dao.ApplicationDao;
 import ch.heigvd.amt.gamification.errors.ErrorMessageGenerator;
+import ch.heigvd.amt.gamification.model.Application;
 import ch.heigvd.amt.gamification.security.Authentication;
 import ch.heigvd.amt.gamification.errors.HttpStatusException;
 import ch.heigvd.amt.gamification.model.Token;
-import ch.heigvd.amt.gamification.model.Application;
+import ch.heigvd.amt.gamification.dto.ApplicationDTO;
 
 import io.swagger.annotations.*;
 
@@ -28,7 +29,7 @@ public class ApplicationsApiController implements ApplicationsApi {
     @Autowired
     private ApplicationDao applicationDao;
 
-    public ResponseEntity<Token> applicationsAuthPost(@ApiParam(value = "The application informations", required = true) @RequestBody Application application) {
+    public ResponseEntity<Token> applicationsAuthPost(@ApiParam(value = "The application informations", required = true) @RequestBody ApplicationDTO application) {
 
         dataValidation(application);
 
@@ -62,7 +63,7 @@ public class ApplicationsApiController implements ApplicationsApi {
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
-    public ResponseEntity<Void> applicationsPost(@ApiParam(value = "The application informations", required = true) @RequestBody Application application) {
+    public ResponseEntity<Void> applicationsPost(@ApiParam(value = "The application informations", required = true) @RequestBody ApplicationDTO application) {
         // register a new application
         dataValidation(application);
 
@@ -71,13 +72,15 @@ public class ApplicationsApiController implements ApplicationsApi {
                     ErrorMessageGenerator.nameAlreadyExists("Application", application.getName()));
 
         // Encrypt password
-        application.setPassword(get_SHA_512_SecurePassword(application.getPassword(), AppConfig.SALT));
-        System.out.println("save(app) return: " + applicationDao.save(application));
+        Application persistentApp = new Application(application.getName());
+        persistentApp.setPassword(get_SHA_512_SecurePassword(application.getPassword(), AppConfig.SALT));
+
+        System.out.println("save(app) return: " + applicationDao.save(persistentApp));
 
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
-    private void dataValidation(Application application) {
+    private void dataValidation(ApplicationDTO application) {
         String appName = application.getName();
         String appPass = application.getPassword();
 
@@ -121,6 +124,5 @@ public class ApplicationsApiController implements ApplicationsApi {
         }
         return generatedPassword;
     }
-
 }
 
