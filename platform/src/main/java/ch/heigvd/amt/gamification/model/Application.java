@@ -9,7 +9,6 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 /**
  * Application
@@ -58,6 +57,10 @@ public class Application   {
     Set<Eventtype> eventtypes = new HashSet<>();
 
     public Application() {
+    }
+
+    public Application(String name) {
+        this.name = name;
     }
 
     public Application(String name, String password) {

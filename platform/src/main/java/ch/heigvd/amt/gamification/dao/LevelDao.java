@@ -20,6 +20,8 @@ public interface LevelDao extends CrudRepository<Level, Long> {
 
     Long deleteByApplicationId(long applicationId);
 
+    List<Level> findAllByApplicationId(long applicationId);
+
     List<Level> findAllByApplicationIdOrderByPointsAsc(long applicationId);
 
     Long deleteAllByApplicationId(long applicationId);

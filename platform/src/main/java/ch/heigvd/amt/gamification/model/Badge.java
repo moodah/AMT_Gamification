@@ -5,8 +5,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.CascadeType;
@@ -14,7 +12,6 @@ import org.hibernate.annotations.CascadeType;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 /**
  * Badge

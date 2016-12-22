@@ -6,7 +6,6 @@ import java.util.Objects;
 import ch.heigvd.amt.gamification.configuration.AppConfig;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
-import org.joda.time.DateTime;
 
 import javax.persistence.*;
 

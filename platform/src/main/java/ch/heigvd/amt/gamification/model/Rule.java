@@ -2,16 +2,10 @@ package ch.heigvd.amt.gamification.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import ch.heigvd.amt.gamification.model.Achievement;
-import ch.heigvd.amt.gamification.model.Badge;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Rule
