@@ -48,13 +48,25 @@ public class User   {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
-    private Set<Event> events = new HashSet<>();
+    private List<Event> events = new LinkedList<>();
 
-    public User username(String username) {
-        this.username = username;
-        return this;
+    public User() {
     }
 
+    public User(String username, Application application, Level level) {
+        this.username = username;
+        this.application = application;
+        this.level = level;
+        this.points = new BigDecimal(0);
+    }
+
+    public void addEvent(Event event) {
+        this.events.add(event);
+    }
+
+    public void addPoints(BigDecimal points) {
+        this.points = this.points.add(points);
+    }
     /**
      * Get username
      * @return username
