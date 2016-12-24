@@ -3,6 +3,8 @@ package ch.heigvd.amt.gamification.dao;
 import ch.heigvd.amt.gamification.model.User;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 /**
  * @author Sébastien Richoz
  * @version 1.0
@@ -10,4 +12,8 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface UserDao extends CrudRepository<User, Long> {
     User findByUsername(String username);
+
+    List<User> findAllByApplicationId(long applicationId);
+
+    User findByApplicationIdAndId(long applicationId, long id);
 }
