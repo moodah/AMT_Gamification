@@ -45,6 +45,13 @@ public class Event   {
     public Event() {
     }
 
+    public Event(Date timestamp, User user, Eventtype eventtype, Application application) {
+        this.timestamp = timestamp;
+        this.user = user;
+        this.eventtype = eventtype;
+        this.application = application;
+    }
+
     /**
      * Get timestamp
      * @return timestamp

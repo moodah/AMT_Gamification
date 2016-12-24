@@ -4,8 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-import ch.heigvd.amt.gamification.dto.EventCreationDTO;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import ch.heigvd.amt.gamification.dto.EventtypeCreationDTO;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
@@ -43,7 +42,7 @@ public class Eventtype   {
     public Eventtype() {
     }
 
-    public Eventtype(EventCreationDTO event) {
+    public Eventtype(EventtypeCreationDTO event) {
         this.name = event.getName();
         this.code = event.getCode();
         this.points = event.getPoints();
@@ -55,6 +54,10 @@ public class Eventtype   {
 
     public long getId() {
         return id;
+    }
+
+    public BigDecimal getPoints() {
+        return points;
     }
 
     /**

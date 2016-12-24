@@ -4,6 +4,7 @@ import ch.heigvd.amt.gamification.model.Eventtype;
 import org.springframework.data.repository.CrudRepository;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author Sébastien Richoz
@@ -13,4 +14,8 @@ import java.math.BigDecimal;
 public interface EventtypeDao extends CrudRepository<Eventtype, Long> {
 
     Eventtype findByApplicationIdAndCode(long applicationId, BigDecimal code);
+
+    List<Eventtype> findAllByApplicationId(long applicationId);
+
+    Eventtype findByApplicationIdAndCode(long applicationId, long code);
 }
