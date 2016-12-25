@@ -16,6 +16,7 @@ import ch.heigvd.amt.gamification.security.Authentication;
 import io.swagger.annotations.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -42,7 +43,8 @@ public class UsersApiController implements UsersApi {
         long appId = Authentication.getApplicationId(authorization);
 
         ArrayList<UserPresentationDTO> users = new ArrayList<>();
-        userDao.findAllByApplicationId(appId).forEach(user -> {
+
+        userDao.findLimitedByApplicationId(appId, new PageRequest(page.intValue() - 1, perPage.intValue())).forEach(user -> {
             users.add(toPresentationDTO(user));
         });
 
@@ -57,7 +59,7 @@ public class UsersApiController implements UsersApi {
         User persistentUser = userDao.findByApplicationIdAndId(appId, id.longValue());
         if (persistentUser == null)
             throw new HttpStatusException(HttpStatus.NOT_FOUND,
-                    ErrorMessageGenerator.notFoundById("Level", id.toString()));
+                    ErrorMessageGenerator.notFoundById("User", id.toString()));
 
         return new ResponseEntity<UserPresentationDTO>(toPresentationDTO(persistentUser), HttpStatus.OK);
     }
