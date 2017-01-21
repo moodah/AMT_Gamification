@@ -20,7 +20,7 @@ import javax.persistence.*;
 public class Event   {
 
     @javax.persistence.Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @JsonProperty("timestamp")

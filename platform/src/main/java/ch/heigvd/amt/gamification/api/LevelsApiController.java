@@ -117,7 +117,6 @@ public class LevelsApiController implements LevelsApi {
             oldLevel.setPoints(newLevel.getPoints());
         }
 
-
         levelDao.save(oldLevel);
 
         return new ResponseEntity<LevelPresentationDTO>(toPresentationDTO(oldLevel), HttpStatus.OK);

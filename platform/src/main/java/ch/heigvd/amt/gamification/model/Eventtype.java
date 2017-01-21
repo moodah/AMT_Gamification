@@ -6,8 +6,12 @@ import java.util.Objects;
 
 import ch.heigvd.amt.gamification.dto.EventtypeCreationDTO;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 
 /**
@@ -20,7 +24,7 @@ import java.math.BigDecimal;
 public class Eventtype   {
 
     @javax.persistence.Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(nullable = false)
@@ -38,6 +42,10 @@ public class Eventtype   {
     @ManyToOne
     @JoinColumn(name = "application_id", nullable = false)
     private Application application;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "eventtype")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
+    private List<Achievement> achievements = new LinkedList<>();
 
     public Eventtype() {
     }

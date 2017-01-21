@@ -1,8 +1,8 @@
 package ch.heigvd.amt.gamification.api;
 
-import ch.heigvd.amt.gamification.model.Rule;
 import java.math.BigDecimal;
 
+import ch.heigvd.amt.gamification.model.Badge;
 import io.swagger.annotations.*;
 
 import org.springframework.http.HttpStatus;
@@ -25,9 +25,9 @@ public class RulesApiController implements RulesApi {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    public ResponseEntity<List<Rule>> rulesGet(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
+    public ResponseEntity<List<Badge>> rulesGet(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
         // do some magic!
-        return new ResponseEntity<List<Rule>>(HttpStatus.OK);
+        return new ResponseEntity<List<Badge>>(HttpStatus.OK);
     }
 
     public ResponseEntity<Void> rulesIdDelete(@ApiParam(value = "",required=true ) @PathVariable("id") BigDecimal id,
@@ -36,22 +36,22 @@ public class RulesApiController implements RulesApi {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    public ResponseEntity<Rule> rulesIdGet(@ApiParam(value = "",required=true ) @PathVariable("id") BigDecimal id,
+    public ResponseEntity<Badge> rulesIdGet(@ApiParam(value = "",required=true ) @PathVariable("id") BigDecimal id,
                                            @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
         // do some magic!
-        return new ResponseEntity<Rule>(HttpStatus.OK);
+        return new ResponseEntity<Badge>(HttpStatus.OK);
     }
 
-    public ResponseEntity<Rule> rulesIdPatch(@ApiParam(value = "",required=true ) @PathVariable("id") BigDecimal id,
+    public ResponseEntity<Badge> rulesIdPatch(@ApiParam(value = "",required=true ) @PathVariable("id") BigDecimal id,
                                              @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
         // do some magic!
-        return new ResponseEntity<Rule>(HttpStatus.OK);
+        return new ResponseEntity<Badge>(HttpStatus.OK);
     }
 
-    public ResponseEntity<Rule> rulesPost(@ApiParam(value = "" ,required=true ) @RequestBody Rule rule,
+    public ResponseEntity<Badge> rulesPost(@ApiParam(value = "" ,required=true ) @RequestBody Badge rule,
                                           @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
         // do some magic!
-        return new ResponseEntity<Rule>(HttpStatus.OK);
+        return new ResponseEntity<Badge>(HttpStatus.OK);
     }
 
 }
