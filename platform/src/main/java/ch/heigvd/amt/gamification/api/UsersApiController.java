@@ -65,25 +65,6 @@ public class UsersApiController implements UsersApi {
         return new ResponseEntity<UserPresentationDTO>(toPresentationDTO(persistentUser), HttpStatus.OK);
     }
 
-    public ResponseEntity<User> usersIdPatch(@ApiParam(value = "The user's ID", required = true) @PathVariable("id") BigDecimal id,
-                                             @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
-                                             @ApiParam(value = "Updated user", required = true) @RequestBody User user) {
-        // do some magic!
-        return new ResponseEntity<User>(HttpStatus.OK);
-    }
-
-    public ResponseEntity<User> usersPost(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
-                                          @ApiParam(value = "New user", required = true) @RequestBody User user) {
-        // do some magic!
-        return new ResponseEntity<User>(HttpStatus.OK);
-    }
-
-    public ResponseEntity<Void> usersIdDelete(@ApiParam(value = "The user's id", required = true) @PathVariable("id") BigDecimal id,
-                                              @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
-        // do some magic!
-        return new ResponseEntity<Void>(HttpStatus.OK);
-    }
-
     private UserPresentationDTO toPresentationDTO(User user) {
         List<BadgePresentationDTO> badges = new ArrayList<>();
         user.getBadges().forEach(badge -> {
