@@ -2,6 +2,7 @@ package ch.heigvd.amt.gamification.api;
 
 import java.math.BigDecimal;
 
+import ch.heigvd.amt.gamification.dto.EventtypeCreationDTO;
 import ch.heigvd.amt.gamification.model.Eventtype;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -62,7 +63,7 @@ public interface EventtypesApi {
             method = RequestMethod.PATCH)
     ResponseEntity<Eventtype> eventtypesIdPatch(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                                 @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
-                                                @ApiParam(value = "Updated eventtype", required = true) @RequestBody Eventtype eventtype);
+                                                @ApiParam(value = "Updated eventtype", required = true) @RequestBody EventtypeCreationDTO eventtype);
 
 
     @ApiOperation(value = "Create a new eventtype", notes = "", response = Eventtype.class, tags = {"Eventtypes",})
@@ -73,6 +74,6 @@ public interface EventtypesApi {
             consumes = {"application/json"},
             method = RequestMethod.POST)
     ResponseEntity<Eventtype> eventtypesPost(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
-                                             @ApiParam(value = "New eventtype", required = true) @RequestBody Eventtype eventtype);
+                                             @ApiParam(value = "New eventtype", required = true) @RequestBody EventtypeCreationDTO eventtype);
 
 }

@@ -1,14 +1,12 @@
 package ch.heigvd.amt.gamification.api;
 
+import ch.heigvd.amt.gamification.dto.ApplicationCreationDTO;
 import ch.heigvd.amt.gamification.model.Application;
 import ch.heigvd.amt.gamification.model.Token;
-import ch.heigvd.amt.gamification.dto.ApplicationDTO;
 
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.math.BigDecimal;
 
 @javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-18T13:30:19.867Z")
 
@@ -22,7 +20,7 @@ public interface ApplicationsApi {
             produces = {"application/json"},
             consumes = {"application/json"},
             method = RequestMethod.POST)
-    ResponseEntity<Token> applicationsAuthPost(@ApiParam(value = "Requested application", required = true) @RequestBody ApplicationDTO application);
+    ResponseEntity<Token> applicationsAuthPost(@ApiParam(value = "Requested application", required = true) @RequestBody ApplicationCreationDTO application);
 
 
     @ApiOperation(value = "Delete application with specified id", notes = "", response = Void.class, tags = {"Applications",})
@@ -42,6 +40,6 @@ public interface ApplicationsApi {
             produces = {"application/json"},
             consumes = {"application/json"},
             method = RequestMethod.POST)
-    ResponseEntity<Application> applicationsPost(@ApiParam(value = "New application", required = true) @RequestBody ApplicationDTO application);
+    ResponseEntity<Application> applicationsPost(@ApiParam(value = "New application", required = true) @RequestBody ApplicationCreationDTO application);
 
 }

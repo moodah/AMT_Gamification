@@ -3,12 +3,12 @@ package ch.heigvd.amt.gamification.api;
 import ch.heigvd.amt.gamification.annotations.Authenticate;
 import ch.heigvd.amt.gamification.configuration.AppConfig;
 import ch.heigvd.amt.gamification.dao.ApplicationDao;
+import ch.heigvd.amt.gamification.dto.ApplicationCreationDTO;
 import ch.heigvd.amt.gamification.errors.ErrorMessageGenerator;
 import ch.heigvd.amt.gamification.model.Application;
 import ch.heigvd.amt.gamification.security.Authentication;
 import ch.heigvd.amt.gamification.errors.HttpStatusException;
 import ch.heigvd.amt.gamification.model.Token;
-import ch.heigvd.amt.gamification.dto.ApplicationDTO;
 
 import io.swagger.annotations.*;
 
@@ -18,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -30,7 +29,7 @@ public class ApplicationsApiController implements ApplicationsApi {
     @Autowired
     private ApplicationDao applicationDao;
 
-    public ResponseEntity<Token> applicationsAuthPost(@ApiParam(value = "The application informations", required = true) @RequestBody ApplicationDTO application) {
+    public ResponseEntity<Token> applicationsAuthPost(@ApiParam(value = "The application informations", required = true) @RequestBody ApplicationCreationDTO application) {
 
         dataValidation(application);
 
@@ -64,7 +63,7 @@ public class ApplicationsApiController implements ApplicationsApi {
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
-    public ResponseEntity<Application> applicationsPost(@ApiParam(value = "The application informations", required = true) @RequestBody ApplicationDTO application) {
+    public ResponseEntity<Application> applicationsPost(@ApiParam(value = "The application informations", required = true) @RequestBody ApplicationCreationDTO application) {
         // register a new application
         dataValidation(application);
 
@@ -81,7 +80,7 @@ public class ApplicationsApiController implements ApplicationsApi {
         return new ResponseEntity<Application>(persistentApp, HttpStatus.CREATED);
     }
 
-    private void dataValidation(ApplicationDTO application) {
+    private void dataValidation(ApplicationCreationDTO application) {
         String appName = application.getName();
         String appPass = application.getPassword();
 
