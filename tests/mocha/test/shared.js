@@ -7,9 +7,9 @@ module.exports = {
     token: null,
 
     // objects created
-    level: null,
-    badge: null,
-    eventtype: null,
-    achievement: null,
-    badgeachievement: null
+    level: [],
+    badge: [],
+    eventtype: [],
+    achievement: [],
+    badgeachievement: []
 };

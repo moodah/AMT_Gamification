@@ -27,7 +27,7 @@ describe('badges/', function () {
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(201);
                     chai.expect(res).to.have.property('body');
-                    shared.badge = res.body;
+                    shared.badge.push(res.body);
                     done();
                 })
                 .catch(function(err) {
@@ -49,7 +49,8 @@ describe('badges/', function () {
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(201);
                     chai.expect(res).to.have.property('body');
-                    chai.expect(res.body).to.be.not.equal.to(shared.badge);
+                    chai.expect(res.body).to.be.not.equal.to(shared.badge[0]);
+                    shared.badge.push(res.body);
                     done();
                 })
                 .catch(function(err) {
@@ -107,7 +108,7 @@ describe('badges/', function () {
             
             it('should return a specifiy badge', function (done) {
                 chai.request(CONFIG.API)
-                    .get('badges/' + shared.badge.id + '/')
+                    .get('badges/' + shared.badge[0].id + '/')
                     .set('autorization', shared.token)
                     .then(function(res) {
                         chai.expect(res).to.not.be.undefined;
@@ -138,7 +139,7 @@ describe('badges/', function () {
 
             it('should allow to modify a specific badge', function (done) {
                 chai.request(CONFIG.API)
-                    .patch('badges/' + shared.badge.id + '/')
+                    .patch('badges/' + shared.badge[0].id + '/')
                     .set('content-type', 'application/json')
                     .set('autorization', shared.token)
                     .send({
@@ -151,6 +152,7 @@ describe('badges/', function () {
                         chai.expect(res).to.have.property('body');
                         chai.expect(res.body.name).to.be.equal.to('super-writer');
                         chai.expect(res.body.description).to.be.equal.to('post 10000 comments');
+                        shared.badge[0] = res.body;
                         done();
                     })
                     .catch(function(err) {
@@ -160,7 +162,7 @@ describe('badges/', function () {
 
             it('should not allow to modify a specific badge in order to have badges with same names (badge names are unique for a given application)', function (done) {
                 chai.request(CONFIG.API)
-                    .patch(shared.badge)
+                    .patch('badges/' + shared.badge[0].id + '/')
                     .set('content-type', 'application/json')
                     .set('autorization', shared.token)
                     .send({

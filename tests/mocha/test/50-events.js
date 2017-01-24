@@ -20,7 +20,7 @@ describe('events/', function () {
                 .set('autorization', shared.token)
                 .send({
                     user_id: 0,
-                    eventtype_id: shared.eventtype.id
+                    eventtype_id: shared.eventtype[0].id
                 })
                 .then(function(res) {
                     chai.expect(res).to.not.be.undefined;
@@ -39,7 +39,7 @@ describe('events/', function () {
                 .set('autorization', shared.token)
                 .send({
                     user_id: 1,
-                    eventtype_id: shared.eventtype.id
+                    eventtype_id: shared.eventtype[1].id
                 })
                 .then(function(res) {
                     chai.expect(res).to.not.be.undefined;

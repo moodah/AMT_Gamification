@@ -27,7 +27,7 @@ describe('eventtypes/', function () {
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(201);
                     chai.expect(res).to.have.property('body');
-                    shared.eventtype = res.body;
+                    shared.eventtype.push(res.body);
                     done();
                 })
                 .catch(function(err) {
@@ -49,7 +49,8 @@ describe('eventtypes/', function () {
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(201);
                     chai.expect(res).to.have.property('body');
-                    chai.expect(res.body).to.be.not.equal.to(shared.eventtype);
+                    chai.expect(res.body).to.be.not.equal.to(shared.eventtype[0]);
+                    shared.eventtype.push(res.body);
                     done();
                 })
                 .catch(function(err) {
@@ -107,7 +108,7 @@ describe('eventtypes/', function () {
             
             it('should return a specifiy eventtype', function (done) {
                 chai.request(CONFIG.API)
-                    .get('eventtypes/' + shared.eventtype.id + '/')
+                    .get('eventtypes/' + shared.eventtype[0].id + '/')
                     .set('autorization', shared.token)
                     .then(function(res) {
                         chai.expect(res).to.not.be.undefined;
@@ -138,7 +139,7 @@ describe('eventtypes/', function () {
 
             it('should allow to modify a specific eventtype', function (done) {
                 chai.request(CONFIG.API)
-                    .patch('eventtypes/' + shared.eventtype.id + '/')
+                    .patch('eventtypes/' + shared.eventtype[0].id + '/')
                     .set('content-type', 'application/json')
                     .set('autorization', shared.token)
                     .send({
@@ -151,6 +152,7 @@ describe('eventtypes/', function () {
                         chai.expect(res).to.have.property('body');
                         chai.expect(res.body.name).to.be.equal.to('comment');
                         chai.expect(res.body.points).to.be.equal.to(5);
+                        shared.eventtype[0] = res.body;
                         done();
                     })
                     .catch(function(err) {

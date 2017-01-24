@@ -20,7 +20,7 @@ describe('achievements/', function () {
                 .set('autorization', shared.token)
                 .send({
                     count: 10,
-                    eventtype_id: shared.eventtype.id,
+                    eventtype_id: shared.eventtype[0].id,
                     name: 'wow'
                 })
                 .then(function(res) {
@@ -28,7 +28,7 @@ describe('achievements/', function () {
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(201);
                     chai.expect(res).to.have.property('body');
-                    shared.achievement = res.body;
+                    shared.achievement.push(res.body);
                     done();
                 })
                 .catch(function(err) {
@@ -43,7 +43,7 @@ describe('achievements/', function () {
                 .set('autorization', shared.token)
                 .send({
                     count: 20,
-                    eventtype_id: shared.eventtype.id,
+                    eventtype_id: shared.eventtype[1].id,
                     name: 'omg'
                 })
                 .then(function(res) {
@@ -51,7 +51,8 @@ describe('achievements/', function () {
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(201);
                     chai.expect(res).to.have.property('body');
-                    chai.expect(res.body).to.be.not.equal.to(shared.achievement);
+                    chai.expect(res.body).to.be.not.equal.to(shared.achievement[0]);
+                    shared.achievement.push(res.body);
                     done();
                 })
                 .catch(function(err) {
@@ -110,10 +111,10 @@ describe('achievements/', function () {
                     chai.expect(res).to.have.property('body');
                     chai.expect(res.body).to.have.lenght(2);
                     chai.expect(res.body[0].count).to.be.equal.to(10);
-                    chai.expect(res.body[0].eventtype_id).to.be.equal.to(shared.eventtype.id);
+                    chai.expect(res.body[0].eventtype_id).to.be.equal.to(shared.eventtype[0].id);
                     chai.expect(res.body[0].name).to.be.equal.to('wow');
                     chai.expect(res.body[1].count).to.be.equal.to(20);
-                    chai.expect(res.body[1].eventtype_id).to.be.equal.to(shared.eventtype.id);
+                    chai.expect(res.body[1].eventtype_id).to.be.equal.to(shared.eventtype[1].id);
                     chai.expect(res.body[1].name).to.be.equal.to('omg');
                     done();
                 })
@@ -129,14 +130,14 @@ describe('achievements/', function () {
             
             it('should return a specifiy achievement', function (done) {
                 chai.request(CONFIG.API)
-                    .get('achievements/' + shared.achievement.id + '/')
+                    .get('achievements/' + shared.achievement[0].id + '/')
                     .set('autorization', shared.token)
                     .then(function(res) {
                         chai.expect(res).to.not.be.undefined;
                         chai.expect(res).to.have.status(200);
                         chai.expect(res).to.have.property('body');
                         chai.expect(res.body.count).to.be.equal.to(10);
-                        chai.expect(res.body.eventtype_id).to.be.equal.to(shared.eventtype.id);
+                        chai.expect(res.body.eventtype_id).to.be.equal.to(shared.eventtype[0].id);
                         chai.expect(res.body.name).to.be.equal.to('wow');
                         done();
                     })
@@ -161,12 +162,12 @@ describe('achievements/', function () {
 
             it('should allow to modify a specific achievement', function (done) {
                 chai.request(CONFIG.API)
-                    .patch('achievements/' + shared.achievement.id + '/')
+                    .patch('achievements/' + shared.achievement[0].id + '/')
                     .set('content-type', 'application/json')
                     .set('autorization', shared.token)
                     .send({
                         count: 50,
-                        eventtype_id: shared.eventtype.id,
+                        eventtype_id: shared.eventtype[0].id,
                         name: 'amazing'
                     })
                     .then(function(res) {
@@ -174,8 +175,9 @@ describe('achievements/', function () {
                         chai.expect(res).to.have.status(200);
                         chai.expect(res).to.have.property('body');
                         chai.expect(res.body.count).to.be.equal.to(50);
-                        chai.expect(res.body.eventtype_id).to.be.equal.to(shared.eventtype.id);
+                        chai.expect(res.body.eventtype_id).to.be.equal.to(shared.eventtype[0].id);
                         chai.expect(res.body.name).to.be.equal.to('amazing');
+                        shared.achievement[0] = res.body;
                         done();
                     })
                     .catch(function(err) {
