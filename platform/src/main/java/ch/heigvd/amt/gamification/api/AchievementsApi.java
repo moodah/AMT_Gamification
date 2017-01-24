@@ -2,6 +2,7 @@ package ch.heigvd.amt.gamification.api;
 
 import java.math.BigDecimal;
 
+import ch.heigvd.amt.gamification.dto.AchievementCreationDTO;
 import ch.heigvd.amt.gamification.model.Achievement;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -73,6 +74,6 @@ public interface AchievementsApi {
             consumes = {"application/json"},
             method = RequestMethod.POST)
     ResponseEntity<Achievement> achievementsPost(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
-                                                 @ApiParam(value = "New achievement", required = true) @RequestBody Achievement achievement);
+                                                 @ApiParam(value = "New achievement", required = true) @RequestBody AchievementCreationDTO achievement);
 
 }

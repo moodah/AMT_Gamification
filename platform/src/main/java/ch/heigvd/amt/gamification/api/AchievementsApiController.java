@@ -3,9 +3,18 @@ package ch.heigvd.amt.gamification.api;
 
 import java.math.BigDecimal;
 
+import ch.heigvd.amt.gamification.dao.AchievementDao;
+import ch.heigvd.amt.gamification.dao.ApplicationDao;
+import ch.heigvd.amt.gamification.dao.EventtypeDao;
+import ch.heigvd.amt.gamification.dto.AchievementCreationDTO;
+import ch.heigvd.amt.gamification.errors.ErrorMessageGenerator;
+import ch.heigvd.amt.gamification.errors.HttpStatusException;
 import ch.heigvd.amt.gamification.model.Achievement;
+import ch.heigvd.amt.gamification.model.Application;
+import ch.heigvd.amt.gamification.model.Eventtype;
 import io.swagger.annotations.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,6 +32,15 @@ import java.util.List;
 
 @Controller
 public class AchievementsApiController implements AchievementsApi {
+
+    @Autowired
+    private AchievementDao achievementDao;
+
+    @Autowired
+    private ApplicationDao applicationDao;
+
+    @Autowired
+    private EventtypeDao eventtypeDao;
 
     public ResponseEntity<List<Achievement>> achievementsGet(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
         // do some magic!
@@ -49,9 +67,30 @@ public class AchievementsApiController implements AchievementsApi {
     }
 
     public ResponseEntity<Achievement> achievementsPost(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
-                                                        @ApiParam(value = "New achievement", required = true) @RequestBody Achievement achievement) {
-        // do some magic!
-        return new ResponseEntity<Achievement>(HttpStatus.OK);
+                                                        @ApiParam(value = "New achievement", required = true) @RequestBody AchievementCreationDTO achievementDTO) {
+        dataValidation(achievementDTO);
+
+        Achievement achievement = new Achievement(achievementDTO.getCount().intValue(),
+                applicationDao.findById(achievementDTO.getApplication_id().longValue()),
+                eventtypeDao.findById(achievementDTO.getEventtype_id().longValue()),
+                achievementDTO.getName());
+
+        achievementDao.save(achievement);
+
+        return new ResponseEntity<Achievement>(achievement, HttpStatus.OK);
     }
 
+    private void dataValidation(AchievementCreationDTO achievement) {
+        if (achievement.getCount() == null) {
+            throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.fieldMissing("Achievement", "count"));
+        }
+
+        if (achievement.getEventtype_id() == null) {
+            throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.fieldMissing("Achievement", "eventtype_id"));
+        }
+
+        if (achievement.getApplication_id() == null) {
+            throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.fieldMissing("Achievement", "application_id"));
+        }
+    }
 }
