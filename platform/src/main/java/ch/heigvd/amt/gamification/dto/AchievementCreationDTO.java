@@ -15,9 +15,6 @@ public class AchievementCreationDTO {
     @JsonProperty("eventtype_id")
     private BigDecimal eventtype_id;
 
-    @JsonProperty("application_id")
-    private BigDecimal application_id;
-
     @JsonProperty("name")
     private String name;
 
@@ -27,10 +24,6 @@ public class AchievementCreationDTO {
 
     public BigDecimal getEventtype_id() {
         return eventtype_id;
-    }
-
-    public BigDecimal getApplication_id() {
-        return application_id;
     }
 
     public String getName() {
@@ -43,10 +36,6 @@ public class AchievementCreationDTO {
 
     public void setEventtype_id(BigDecimal eventtype_id) {
         this.eventtype_id = eventtype_id;
-    }
-
-    public void setApplication_id(BigDecimal application_id) {
-        this.application_id = application_id;
     }
 
     public void setName(String name) {
