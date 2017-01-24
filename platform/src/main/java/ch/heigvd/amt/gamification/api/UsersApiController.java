@@ -21,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -36,9 +37,9 @@ public class UsersApiController implements UsersApi {
     @Autowired
     UserDao userDao;
 
-    public ResponseEntity<ArrayList<UserPresentationDTO>> usersGet(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization,
-                                                              @ApiParam(value = "The page number", defaultValue = "1") @RequestParam(value = "page", required = false, defaultValue="1") BigDecimal page,
-                                                              @ApiParam(value = "Number of result per page", defaultValue = "10") @RequestParam(value = "perPage", required = false, defaultValue="10") BigDecimal perPage) {
+    public ResponseEntity<ArrayList<UserPresentationDTO>> usersGet(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
+                                                                   @ApiParam(value = "The page number", defaultValue = "1") @RequestParam(value = "page", required = false, defaultValue = "1") BigDecimal page,
+                                                                   @ApiParam(value = "Number of result per page", defaultValue = "10") @RequestParam(value = "perPage", required = false, defaultValue = "10") BigDecimal perPage) {
 
         long appId = Authentication.getApplicationId(authorization);
 
@@ -51,8 +52,8 @@ public class UsersApiController implements UsersApi {
         return new ResponseEntity<ArrayList<UserPresentationDTO>>(users, HttpStatus.OK);
     }
 
-    public ResponseEntity<UserPresentationDTO> usersIdGet(@ApiParam(value = "The user's ID",required=true ) @PathVariable("id") BigDecimal id,
-                                           @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
+    public ResponseEntity<UserPresentationDTO> usersIdGet(@ApiParam(value = "The user's ID", required = true) @PathVariable("id") BigDecimal id,
+                                                          @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
 
         long appId = Authentication.getApplicationId(authorization);
 
@@ -62,6 +63,25 @@ public class UsersApiController implements UsersApi {
                     ErrorMessageGenerator.notFoundById("User", id.toString()));
 
         return new ResponseEntity<UserPresentationDTO>(toPresentationDTO(persistentUser), HttpStatus.OK);
+    }
+
+    public ResponseEntity<User> usersIdPatch(@ApiParam(value = "The user's ID", required = true) @PathVariable("id") BigDecimal id,
+                                             @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
+                                             @ApiParam(value = "Updated user", required = true) @RequestBody User user) {
+        // do some magic!
+        return new ResponseEntity<User>(HttpStatus.OK);
+    }
+
+    public ResponseEntity<User> usersPost(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
+                                          @ApiParam(value = "New user", required = true) @RequestBody User user) {
+        // do some magic!
+        return new ResponseEntity<User>(HttpStatus.OK);
+    }
+
+    public ResponseEntity<Void> usersIdDelete(@ApiParam(value = "The user's id", required = true) @PathVariable("id") BigDecimal id,
+                                              @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
+        // do some magic!
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     private UserPresentationDTO toPresentationDTO(User user) {

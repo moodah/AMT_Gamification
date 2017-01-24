@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -63,7 +64,7 @@ public class ApplicationsApiController implements ApplicationsApi {
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
-    public ResponseEntity<Void> applicationsPost(@ApiParam(value = "The application informations", required = true) @RequestBody ApplicationDTO application) {
+    public ResponseEntity<Application> applicationsPost(@ApiParam(value = "The application informations", required = true) @RequestBody ApplicationDTO application) {
         // register a new application
         dataValidation(application);
 
@@ -77,7 +78,26 @@ public class ApplicationsApiController implements ApplicationsApi {
 
         System.out.println("save(app) return: " + applicationDao.save(persistentApp));
 
-        return new ResponseEntity<Void>(HttpStatus.CREATED);
+        return new ResponseEntity<Application>(persistentApp, HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<Void> applicationsIdDelete(@ApiParam(value = "The applications's ID", required = true) @PathVariable("id") BigDecimal id,
+                                                     @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
+        // do some magic!
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+    public ResponseEntity<Application> applicationsIdGet(@ApiParam(value = "The applications's id", required = true) @PathVariable("id") BigDecimal id,
+                                                         @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
+        // do some magic!
+        return new ResponseEntity<Application>(HttpStatus.OK);
+    }
+
+    public ResponseEntity<Application> applicationsIdPatch(@ApiParam(value = "The applications's ID", required = true) @PathVariable("id") BigDecimal id,
+                                                           @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
+                                                           @ApiParam(value = "Updated application", required = true) @RequestBody ApplicationDTO application) {
+        // do some magic!
+        return new ResponseEntity<Application>(HttpStatus.OK);
     }
 
     private void dataValidation(ApplicationDTO application) {
