@@ -39,10 +39,6 @@ public class Level   {
     @Column(nullable = false)
     private BigDecimal points;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "level")
-    @Cascade({CascadeType.SAVE_UPDATE})
-    Set<User> users = new HashSet<>(); // users are unique for a given level
-
     @ManyToOne
     @JoinColumn(name = "application_id", nullable = false)
     private Application application;

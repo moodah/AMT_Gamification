@@ -23,6 +23,9 @@ public class Achievement   {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(nullable = false)
     private int count;
 
     @ManyToOne
@@ -32,14 +35,33 @@ public class Achievement   {
     @ManyToOne
     private Eventtype eventtype;
 
+    @Column
+    private String name;
+
     @ManyToMany
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     @JoinTable(name="badge_achievement", joinColumns={@JoinColumn(name="achievement_id")}, inverseJoinColumns={@JoinColumn(name="badge_id")})
     private List<Badge> badges = new ArrayList<Badge>();
 
+    public Achievement(int count, Application application, Eventtype eventtype, String name) {
+        this.count = count;
+        this.application = application;
+        this.eventtype = eventtype;
+        this.name = name;
+    }
+
     public Achievement count(int count) {
         this.count = count;
         return this;
+    }
+
+    @ApiModelProperty(value = "")
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     /**
@@ -73,6 +95,14 @@ public class Achievement   {
         this.eventtype = eventtype;
     }
 
+    @ApiModelProperty(value = "")
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Override
     public boolean equals(java.lang.Object o) {

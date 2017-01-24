@@ -8,24 +8,80 @@ chai.use(chaiHttp);
 let CONFIG = require('./config');
 let shared = require('./shared');
 
-// Here comes the request that need a valid token
-let TESTS = [
-    { endpoint: 'applications/', verbs: ['DELETE'] },
-    { endpoint: 'levels/', verbs: ['GET', 'POST', 'DELETE'] },
-    { endpoint: 'levels/{id}', verbs: ['GET', 'PATCH', 'DELETE'] },
-    { endpoint: 'badges/', verbs: ['GET', 'POST', 'DELETE'] },
-    { endpoint: 'badges/{id}', verbs: ['GET', 'PATCH', 'DELETE'] },
-    { endpoint: 'rules/', verbs: ['GET', 'POST', 'DELETE'] },
-    { endpoint: 'rules/{id}', verbs: ['GET', 'PATCH', 'DELETE'] },
-    { endpoint: 'events/', verbs: ['POST'] },
-    { endpoint: 'users/', verbs: ['GET'] },
-    { endpoint: 'users/{id}', verbs: ['GET'] },
-    { endpoint: 'leaderboards/', verbs: ['GET'] }
-];
-
-// dynamically generated tests
+// Dynamically generated tests
 describe('SECURITY', function () {
+
+    // Here comes the request that need a valid token
+    let TESTS = [
+        { endpoint: 'applications/', verbs: ['DELETE'] },
+        { endpoint: 'levels/', verbs: ['GET', 'POST', 'DELETE'] },
+        { endpoint: 'levels/0/', verbs: ['GET', 'PATCH', 'DELETE'] },
+        { endpoint: 'badges/', verbs: ['GET', 'POST', 'DELETE'] },
+        { endpoint: 'badges/0/', verbs: ['GET', 'PATCH', 'DELETE'] },
+        { endpoint: 'eventtypes/', verbs: ['GET', 'POST', 'DELETE'] },
+        { endpoint: 'eventtypes/0/', verbs: ['GET', 'PATCH', 'DELETE'] },
+        { endpoint: 'achievements/', verbs: ['GET', 'POST', 'DELETE'] },
+        { endpoint: 'achievements/0/', verbs: ['GET', 'PATCH', 'DELETE'] },
+        { endpoint: 'badgeachievements/', verbs: ['GET', 'POST', 'DELETE'] },
+        { endpoint: 'badgeachievements/0/', verbs: ['GET', 'DELETE'] },
+        { endpoint: 'events/', verbs: ['POST'] },
+        { endpoint: 'users/', verbs: ['GET'] },
+        { endpoint: 'users/0/', verbs: ['GET'] },
+        { endpoint: 'leaderboards/', verbs: ['GET'] }
+    ];
+
+    // All requests are the same
+    let REQUESTS = {
+        'GET': function(endpoint, token, done) {
+            let r = chai.request(CONFIG.API)
+                .get(endpoint);
+            if(token != null)
+                r.set('autorization', token);
+            r.end(function(err, res) {
+                chai.expect(err).to.not.be.undefined;
+                chai.expect(err).to.have.status(403);
+                done();
+            });
+        },
+        'POST': function(endpoint, token, done) {        
+            let r = chai.request(CONFIG.API)
+                .post(endpoint)
+                .set('content-type', 'application/json');
+            if(token != null)
+                r.set('autorization', token);
+            r.end(function(err, res) {
+                chai.expect(err).to.not.be.undefined;
+                chai.expect(err).to.have.status(403);
+                done();
+            });
+        },
+        'PATCH': function(endpoint, token, done) {
+            let r = chai.request(CONFIG.API)
+                .patch(endpoint)
+                .set('content-type', 'application/json');
+            if(token != null)
+                r.set('autorization', token);
+            r.end(function(err, res) {
+                chai.expect(err).to.not.be.undefined;
+                chai.expect(err).to.have.status(403);
+                done();
+            });
+        },
+        'DELETE': function(endpoint, token, done) {        
+            let r = chai.request(CONFIG.API)
+                .delete(endpoint)
+                .set('content-type', 'application/json');
+            if(token != null)
+                r.set('autorization', token);
+            r.end(function(err, res) {
+                chai.expect(err).to.not.be.undefined;
+                chai.expect(err).to.have.status(403);
+                done();
+            });
+        }
+    };
     
+    // loop
     TESTS.forEach(function (TEST) {
 
         describe(TEST.endpoint, function () {
@@ -35,11 +91,12 @@ describe('SECURITY', function () {
                 describe(verb, function () {
                     
                     it('should be forbidden with no token', function (done) {
-                        this.skip();
+                        REQUESTS[verb](TEST.endpoint, null, done);
                     });
 
                     it('should be forbidden with bad token', function (done) {
-                        this.skip();
+                        let badToken = shared.token + '123';
+                        REQUESTS[verb](TEST.endpoint, badToken, done);
                     });
                 });
             });

@@ -11,17 +11,25 @@ import java.math.BigDecimal;
  */
 public class EventCreationDTO {
 
-    @JsonProperty("username")
-    private String username;
+    @JsonProperty("user_id")
+    private int user_id;
 
-    @JsonProperty("code_event")
-    private BigDecimal codeEvent;
+    @JsonProperty("eventtype_id")
+    private long eventtype_id;
 
-    public String getUsername() {
-        return username;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public BigDecimal getCodeEvent() {
-        return codeEvent;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public long getEventtype_id() {
+        return eventtype_id;
+    }
+
+    public void setEventtype_id(long eventtype_id) {
+        this.eventtype_id = eventtype_id;
     }
 }

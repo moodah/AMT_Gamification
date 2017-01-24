@@ -11,18 +11,22 @@ public class EventtypeCreationDTO {
     @JsonProperty("name")
     private String name;
 
-    @JsonProperty("code")
-    private BigDecimal code;
-
     @JsonProperty("points")
     private BigDecimal points;
 
-    public String getName() {
-        return name;
+    @JsonProperty("application_id")
+    private BigDecimal applicationId;
+
+    public BigDecimal getApplicationId() {
+        return applicationId;
     }
 
-    public BigDecimal getCode() {
-        return code;
+    public void setApplicationId(BigDecimal applicationId) {
+        this.applicationId = applicationId;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public BigDecimal getPoints() {
@@ -31,10 +35,6 @@ public class EventtypeCreationDTO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setCode(BigDecimal code) {
-        this.code = code;
     }
 
     public void setPoints(BigDecimal points) {
