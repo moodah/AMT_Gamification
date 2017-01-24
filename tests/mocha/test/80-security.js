@@ -7,6 +7,7 @@ let chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 let CONFIG = require('./config');
 let shared = require('./shared');
+let Utils = require('./utils');
 
 // Dynamically generated tests
 describe('SECURITY', function () {
@@ -37,8 +38,9 @@ describe('SECURITY', function () {
                 .get(endpoint)
                 .set('content-type', 'application/json');
             if(token != null)
-                r.set('autorization', token);
-            r.end(function(err, res) {
+                r.set('authorization', token);
+            r.end(function(err, res) { 
+                Utils.debug(err);
                 chai.expect(err).to.not.be.undefined;
                 chai.expect(err).to.have.status(403);
                 done();
@@ -49,8 +51,9 @@ describe('SECURITY', function () {
                 .post(endpoint)
                 .set('content-type', 'application/json');
             if(token != null)
-                r.set('autorization', token);
-            r.end(function(err, res) {
+                r.set('authorization', token);
+            r.end(function(err, res) { 
+                Utils.debug(err);
                 chai.expect(err).to.not.be.undefined;
                 chai.expect(err).to.have.status(403);
                 done();
@@ -61,8 +64,9 @@ describe('SECURITY', function () {
                 .patch(endpoint)
                 .set('content-type', 'application/json');
             if(token != null)
-                r.set('autorization', token);
-            r.end(function(err, res) {
+                r.set('authorization', token);
+            r.end(function(err, res) { 
+                Utils.debug(err);
                 chai.expect(err).to.not.be.undefined;
                 chai.expect(err).to.have.status(403);
                 done();
@@ -73,8 +77,9 @@ describe('SECURITY', function () {
                 .delete(endpoint)
                 .set('content-type', 'application/json');
             if(token != null)
-                r.set('autorization', token);
-            r.end(function(err, res) {
+                r.set('authorization', token);
+            r.end(function(err, res) { 
+                Utils.debug(err);
                 chai.expect(err).to.not.be.undefined;
                 chai.expect(err).to.have.status(403);
                 done();

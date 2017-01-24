@@ -23,20 +23,21 @@ describe('badgeachievements/', function () {
             chai.request(CONFIG.API)
                 .post('badgeachievements/')
                 .set('content-type', 'application/json')
-                .set('autorization', shared.token)
+                .set('authorization', shared.token)
                 .send({
                     achievement_id: shared.achievement[0].id,
                     badge_id: shared.badge[0].id
                 })
-                .then(function(res) {
-                    console.log('res: ' + JSON.stringify(res));
+                .then(function (res) {
+                    Utils.debug(res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(201);
-                    chai.expect(res).to.have.property('body');
-                    shared.badgeachievement.push(res.body);
+                    chai.expect(res).to.have.property('text');
+                    shared.badgeachievement.push(JSON.parse(res.text));
                     done();
                 })
                 .catch(function(err) {
+                    Utils.debug(err);
                     done(err);
                 });
         });
@@ -45,21 +46,22 @@ describe('badgeachievements/', function () {
             chai.request(CONFIG.API)
                 .post('badgeachievements/')
                 .set('content-type', 'application/json')
-                .set('autorization', shared.token)
+                .set('authorization', shared.token)
                 .send({
                     achievement_id: shared.achievement[1].id,
                     badge_id: shared.badge[1].id
                 })
-                .then(function(res) {
-                    console.log('res: ' + JSON.stringify(res));
+                .then(function (res) {
+                    Utils.debug(res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(201);
-                    chai.expect(res).to.have.property('body');
-                    chai.expect(res.body).to.be.not.equal.to(shared.badgeachievement[0]);
-                    shared.badgeachievement.push(res.body);
+                    chai.expect(res).to.have.property('text');
+                    chai.expect(JSON.parse(res.text)).to.be.not.equal.to(shared.badgeachievement[0]);
+                    shared.badgeachievement.push(JSON.parse(res.text));
                     done();
                 })
                 .catch(function(err) {
+                    Utils.debug(err);
                     done(err);
                 });
         });
@@ -68,12 +70,13 @@ describe('badgeachievements/', function () {
             chai.request(CONFIG.API)
                 .post('badgeachievements/')
                 .set('content-type', 'application/json')
-                .set('autorization', shared.token)
+                .set('authorization', shared.token)
                 .send({
                     achievement_id: shared.achievement[0].id,
                     badge_id: shared.badge[0].id
                 })
-                .end(function(err, res) {
+                .end(function(err, res) { 
+                    Utils.debug(err);
                     chai.expect(err).to.not.be.undefined;
                     chai.expect(err).to.have.status(409);
                     done();
@@ -84,12 +87,13 @@ describe('badgeachievements/', function () {
             chai.request(CONFIG.API)
                 .post('badgeachievements/')
                 .set('content-type', 'application/json')
-                .set('autorization', shared.token)
+                .set('authorization', shared.token)
                 .send({
                     achievement_id: 98283,
                     badge_id: shared.badge[0].id
                 })
-                .end(function(err, res) {
+                .end(function(err, res) { 
+                    Utils.debug(err);
                     chai.expect(err).to.not.be.undefined;
                     chai.expect(err).to.have.status(400);
                     done();
@@ -100,12 +104,13 @@ describe('badgeachievements/', function () {
             chai.request(CONFIG.API)
                 .post('badgeachievements/')
                 .set('content-type', 'application/json')
-                .set('autorization', shared.token)
+                .set('authorization', shared.token)
                 .send({
                     achievement_id: shared.achievement[0].id,
                     badge_id: 3209
                 })
-                .end(function(err, res) {
+                .end(function(err, res) { 
+                    Utils.debug(err);
                     chai.expect(err).to.not.be.undefined;
                     chai.expect(err).to.have.status(400);
                     done();
@@ -122,9 +127,10 @@ describe('badgeachievements/', function () {
                 chai.request(CONFIG.API)
                     .post('badgeachievements/')
                     .set('content-type', 'application/json')
-                    .set('autorization', shared.token)
+                    .set('authorization', shared.token)
                     .send(malformed)
-                    .end(function(err, res) {
+                    .end(function(err, res) { 
+                        Utils.debug(err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(400);
                         done();
@@ -144,19 +150,21 @@ describe('badgeachievements/', function () {
             chai.request(CONFIG.API)
                 .get('badgeachievements/')
                 .set('content-type', 'application/json')
-                .set('autorization', shared.token)
-                .then(function(res) {
+                .set('authorization', shared.token)
+                .then(function (res) {
+                    Utils.debug(res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(200);
-                    chai.expect(res).to.have.property('body');
-                    chai.expect(res.body).to.have.lenght(2);
-                    chai.expect(res.body[0].achievement_id).to.be.equal.to(shared.achievement[0].id);
-                    chai.expect(res.body[0].badge_id).to.be.equal.to(shared.badge[0].id);
-                    chai.expect(res.body[1].achievement_id).to.be.equal.to(shared.achievement[1].id);
-                    chai.expect(res.body[1].badge_id).to.be.equal.to(shared.badge[1].id);
+                    chai.expect(res).to.have.property('text');
+                    chai.expect(JSON.parse(res.text)).to.have.lenght(2);
+                    chai.expect(JSON.parse(res.text)[0].achievement_id).to.be.equal.to(shared.achievement[0].id);
+                    chai.expect(JSON.parse(res.text)[0].badge_id).to.be.equal.to(shared.badge[0].id);
+                    chai.expect(JSON.parse(res.text)[1].achievement_id).to.be.equal.to(shared.achievement[1].id);
+                    chai.expect(JSON.parse(res.text)[1].badge_id).to.be.equal.to(shared.badge[1].id);
                     done();
                 })
                 .catch(function(err) {
+                    Utils.debug(err);
                     done(err);
                 });
         });
@@ -175,16 +183,18 @@ describe('badgeachievements/', function () {
                 chai.request(CONFIG.API)
                     .get('badgeachievements/' + shared.badgeachievement[0].id + '/')
                     .set('content-type', 'application/json')
-                    .set('autorization', shared.token)
-                    .then(function(res) {
+                    .set('authorization', shared.token)
+                    .then(function (res) {
+                        Utils.debug(res);
                         chai.expect(res).to.not.be.undefined;
                         chai.expect(res).to.have.status(200);
-                        chai.expect(res).to.have.property('body');
-                        chai.expect(res.body.achievement_id).to.be.equal.to(shared.achievement[0].id);
-                        chai.expect(res.body.badge_id).to.be.equal.to(shared.badge[0].id);
+                        chai.expect(res).to.have.property('text');
+                        chai.expect(JSON.parse(res.text).achievement_id).to.be.equal.to(shared.achievement[0].id);
+                        chai.expect(JSON.parse(res.text).badge_id).to.be.equal.to(shared.badge[0].id);
                         done();
                     })
                     .catch(function(err) {
+                        Utils.debug(err);
                         done(err);
                     });
             });
@@ -193,8 +203,9 @@ describe('badgeachievements/', function () {
                 chai.request(CONFIG.API)
                     .get('badgeachievements/7834/')
                     .set('content-type', 'application/json')
-                    .set('autorization', shared.token)
-                    .end(function(err, res) {
+                    .set('authorization', shared.token)
+                    .end(function(err, res) { 
+                        Utils.debug(err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(404);
                         done();

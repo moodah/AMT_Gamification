@@ -7,6 +7,7 @@ let chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 let CONFIG = require('./config');
 let shared = require('./shared');
+let Utils = require('./utils');
 
 describe('badgeachievements/', function () {
 
@@ -25,11 +26,13 @@ describe('badgeachievements/', function () {
                     .set('content-type', 'application/json')
                     .set('authorization', shared.token)
                     .then(function (res) {
+                        Utils.debug(res);
                         chai.expect(res).to.not.be.undefined;
                         chai.expect(res).to.have.status(204);
                         done();
                     })
-                    .catch(function (err) {
+                    .catch(function(err) { 
+                        Utils.debug(err);
                         done(err);
                     });
             });
@@ -39,7 +42,8 @@ describe('badgeachievements/', function () {
                     .delete('badgeachievements/404/')
                     .set('content-type', 'application/json')
                     .set('authorization', shared.token)
-                    .end(function (err, res) {
+                    .end(function(err, res) { 
+                        Utils.debug(err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(404);
                         done();
@@ -56,11 +60,13 @@ describe('badgeachievements/', function () {
                 .set('content-type', 'application/json')
                 .set('authorization', shared.token)
                 .then(function (res) {
+                    Utils.debug(res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(204);
                     done();
                 })
-                .catch(function (err) {
+                .catch(function(err) { 
+                    Utils.debug(err);
                     done(err);
                 });
         });
@@ -84,11 +90,13 @@ describe('achievements/', function () {
                     .set('content-type', 'application/json')
                     .set('authorization', shared.token)
                     .then(function (res) {
+                        Utils.debug(res);
                         chai.expect(res).to.not.be.undefined;
                         chai.expect(res).to.have.status(204);
                         done();
                     })
-                    .catch(function (err) {
+                    .catch(function(err) { 
+                        Utils.debug(err);
                         done(err);
                     });
             });
@@ -98,7 +106,8 @@ describe('achievements/', function () {
                     .delete('achievements/404/')
                     .set('content-type', 'application/json')
                     .set('authorization', shared.token)
-                    .end(function (err, res) {
+                    .end(function(err, res) { 
+                        Utils.debug(err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(404);
                         done();
@@ -115,11 +124,13 @@ describe('achievements/', function () {
                 .set('content-type', 'application/json')
                 .set('authorization', shared.token)
                 .then(function (res) {
+                    Utils.debug(res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(204);
                     done();
                 })
-                .catch(function (err) {
+                .catch(function(err) { 
+                    Utils.debug(err);
                     done(err);
                 });
         });
@@ -143,11 +154,13 @@ describe('eventtypes/', function () {
                     .set('content-type', 'application/json')
                     .set('authorization', shared.token)
                     .then(function (res) {
+                        Utils.debug(res);
                         chai.expect(res).to.not.be.undefined;
                         chai.expect(res).to.have.status(204);
                         done();
                     })
-                    .catch(function (err) {
+                    .catch(function(err) { 
+                        Utils.debug(err);
                         done(err);
                     });
             });
@@ -157,7 +170,8 @@ describe('eventtypes/', function () {
                     .delete('eventtypes/404/')
                     .set('content-type', 'application/json')
                     .set('authorization', shared.token)
-                    .end(function (err, res) {
+                    .end(function(err, res) { 
+                        Utils.debug(err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(404);
                         done();
@@ -174,11 +188,13 @@ describe('eventtypes/', function () {
                 .set('content-type', 'application/json')
                 .set('authorization', shared.token)
                 .then(function (res) {
+                    Utils.debug(res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(204);
                     done();
                 })
-                .catch(function (err) {
+                .catch(function(err) { 
+                    Utils.debug(err);
                     done(err);
                 });
         });
@@ -202,11 +218,13 @@ describe('badges/', function () {
                     .set('content-type', 'application/json')
                     .set('authorization', shared.token)
                     .then(function (res) {
+                        Utils.debug(res);
                         chai.expect(res).to.not.be.undefined;
                         chai.expect(res).to.have.status(204);
                         done();
                     })
-                    .catch(function (err) {
+                    .catch(function(err) { 
+                        Utils.debug(err);
                         done(err);
                     });
             });
@@ -216,7 +234,8 @@ describe('badges/', function () {
                     .delete('badges/404/')
                     .set('content-type', 'application/json')
                     .set('authorization', shared.token)
-                    .end(function (err, res) {
+                    .end(function(err, res) { 
+                        Utils.debug(err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(404);
                         done();
@@ -233,11 +252,13 @@ describe('badges/', function () {
                 .set('content-type', 'application/json')
                 .set('authorization', shared.token)
                 .then(function (res) {
+                    Utils.debug(res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(204);
                     done();
                 })
-                .catch(function (err) {
+                .catch(function(err) { 
+                    Utils.debug(err);
                     done(err);
                 });
         });
@@ -261,11 +282,13 @@ describe('levels/', function () {
                     .set('content-type', 'application/json')
                     .set('authorization', shared.token)
                     .then(function (res) {
+                        Utils.debug(res);
                         chai.expect(res).to.not.be.undefined;
                         chai.expect(res).to.have.status(204);
                         done();
                     })
-                    .catch(function (err) {
+                    .catch(function(err) { 
+                        Utils.debug(err);
                         done(err);
                     });
             });
@@ -275,7 +298,8 @@ describe('levels/', function () {
                     .delete('levels/404/')
                     .set('content-type', 'application/json')
                     .set('authorization', shared.token)
-                    .end(function (err, res) {
+                    .end(function(err, res) { 
+                        Utils.debug(err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(404);
                         done();
@@ -292,11 +316,13 @@ describe('levels/', function () {
                 .set('content-type', 'application/json')
                 .set('authorization', shared.token)
                 .then(function (res) {
+                    Utils.debug(res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(204);
                     done();
                 })
-                .catch(function (err) {
+                .catch(function(err) { 
+                    Utils.debug(err);
                     done(err);
                 });
         });
@@ -313,11 +339,13 @@ describe('applications/', function () {
                 .set('content-type', 'application/json')
                 .set('authorization', shared.token)
                 .then(function (res) {
+                    Utils.debug(res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(204);
                     done();
                 })
-                .catch(function (err) {
+                .catch(function(err) { 
+                    Utils.debug(err);
                     done(err);
                 });
         });

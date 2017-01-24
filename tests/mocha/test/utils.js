@@ -27,5 +27,19 @@ module.exports = {
 
         // Return the generated array
         return payloads;
+    },
+
+    /**
+     * Debug
+     */
+    debug: function(v) {
+        var enable = true;
+        if(enable) {
+            try {
+                console.log(JSON.stringify(v));
+            } catch(e) {
+                console.log(v);
+            }
+        }
     }
 };

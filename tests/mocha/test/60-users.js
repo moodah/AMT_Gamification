@@ -7,6 +7,7 @@ let chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 let CONFIG = require('./config');
 let shared = require('./shared');
+let Utils = require('./utils');
 
 describe('users/', function () {
 
@@ -16,16 +17,18 @@ describe('users/', function () {
             chai.request(CONFIG.API)
                 .get('users/')
                 .set('content-type', 'application/json')
-                .set('autorization', shared.token)
-                .then(function(res) {
+                .set('authorization', shared.token)
+                .then(function (res) {
+                    Utils.debug(res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(200);
-                    chai.expect(res).to.have.property('body');
-                    chai.expect(res.body).to.have.lenght(2);
+                    chai.expect(res).to.have.property('text');
+                    chai.expect(JSON.parse(res.text)).to.have.lenght(2);
                     // TODO
                     done();
                 })
                 .catch(function(err) {
+                    Utils.debug(err);
                     done(err);
                 });
         });
@@ -71,15 +74,17 @@ describe('users/', function () {
                 chai.request(CONFIG.API)
                     .get('users/0/')
                     .set('content-type', 'application/json')
-                    .set('autorization', shared.token)
-                    .then(function(res) {
+                    .set('authorization', shared.token)
+                    .then(function (res) {
+                        Utils.debug(res);
                         chai.expect(res).to.not.be.undefined;
                         chai.expect(res).to.have.status(200);
-                        chai.expect(res).to.have.property('body');
+                        chai.expect(res).to.have.property('text');
                         // TODO
                         done();
                     })
                     .catch(function(err) {
+                        Utils.debug(err);
                         done(err);
                     });
             });
@@ -88,8 +93,9 @@ describe('users/', function () {
                 chai.request(CONFIG.API)
                     .get('users/8239/')
                     .set('content-type', 'application/json')
-                    .set('autorization', shared.token)
-                    .end(function(err, res) {
+                    .set('authorization', shared.token)
+                    .end(function(err, res) { 
+                        Utils.debug(err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(400);
                         done();

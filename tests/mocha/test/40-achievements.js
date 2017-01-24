@@ -22,21 +22,22 @@ describe('achievements/', function () {
             chai.request(CONFIG.API)
                 .post('achievements/')
                 .set('content-type', 'application/json')
-                .set('autorization', shared.token)
+                .set('authorization', shared.token)
                 .send({
                     count: 10,
                     eventtype_id: shared.eventtype[0].id,
                     name: 'wow'
                 })
-                .then(function(res) {
-                    console.log('res: ' + JSON.stringify(res));
+                .then(function (res) {
+                    Utils.debug(res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(201);
-                    chai.expect(res).to.have.property('body');
-                    shared.achievement.push(res.body);
+                    chai.expect(res).to.have.property('text');
+                    shared.achievement.push(JSON.parse(res.text));
                     done();
                 })
                 .catch(function(err) {
+                    Utils.debug(err);
                     done(err);
                 });
         });
@@ -45,22 +46,23 @@ describe('achievements/', function () {
             chai.request(CONFIG.API)
                 .post('achievements/')
                 .set('content-type', 'application/json')
-                .set('autorization', shared.token)
+                .set('authorization', shared.token)
                 .send({
                     count: 20,
                     eventtype_id: shared.eventtype[1].id,
                     name: 'omg'
                 })
-                .then(function(res) {
-                    console.log('res: ' + JSON.stringify(res));
+                .then(function (res) {
+                    Utils.debug(res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(201);
-                    chai.expect(res).to.have.property('body');
-                    chai.expect(res.body).to.be.not.equal.to(shared.achievement[0]);
-                    shared.achievement.push(res.body);
+                    chai.expect(res).to.have.property('text');
+                    chai.expect(JSON.parse(res.text)).to.be.not.equal.to(shared.achievement[0]);
+                    shared.achievement.push(JSON.parse(res.text));
                     done();
                 })
                 .catch(function(err) {
+                    Utils.debug(err);
                     done(err);
                 });
         });
@@ -69,13 +71,14 @@ describe('achievements/', function () {
             chai.request(CONFIG.API)
                 .post('achievements/')
                 .set('content-type', 'application/json')
-                .set('autorization', shared.token)
+                .set('authorization', shared.token)
                 .send({
                     count: 30,
                     eventtype_id: 2983,
                     name: 'invalid'
                 })
-                .end(function(err, res) {
+                .end(function(err, res) { 
+                    Utils.debug(err);
                     chai.expect(err).to.not.be.undefined;
                     chai.expect(err).to.have.status(400);
                     done();
@@ -93,9 +96,10 @@ describe('achievements/', function () {
                 chai.request(CONFIG.API)
                     .post('achievements/')
                     .set('content-type', 'application/json')
-                    .set('autorization', shared.token)
+                    .set('authorization', shared.token)
                     .send(malformed)
-                    .end(function(err, res) {
+                    .end(function(err, res) { 
+                        Utils.debug(err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(400);
                         done();
@@ -115,21 +119,23 @@ describe('achievements/', function () {
             chai.request(CONFIG.API)
                 .get('achievements/')
                 .set('content-type', 'application/json')
-                .set('autorization', shared.token)
-                .then(function(res) {
+                .set('authorization', shared.token)
+                .then(function (res) {
+                    Utils.debug(res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(200);
-                    chai.expect(res).to.have.property('body');
-                    chai.expect(res.body).to.have.lenght(2);
-                    chai.expect(res.body[0].count).to.be.equal.to(10);
-                    chai.expect(res.body[0].eventtype_id).to.be.equal.to(shared.eventtype[0].id);
-                    chai.expect(res.body[0].name).to.be.equal.to('wow');
-                    chai.expect(res.body[1].count).to.be.equal.to(20);
-                    chai.expect(res.body[1].eventtype_id).to.be.equal.to(shared.eventtype[1].id);
-                    chai.expect(res.body[1].name).to.be.equal.to('omg');
+                    chai.expect(res).to.have.property('text');
+                    chai.expect(JSON.parse(res.text)).to.have.lenght(2);
+                    chai.expect(JSON.parse(res.text)[0].count).to.be.equal.to(10);
+                    chai.expect(JSON.parse(res.text)[0].eventtype_id).to.be.equal.to(shared.eventtype[0].id);
+                    chai.expect(JSON.parse(res.text)[0].name).to.be.equal.to('wow');
+                    chai.expect(JSON.parse(res.text)[1].count).to.be.equal.to(20);
+                    chai.expect(JSON.parse(res.text)[1].eventtype_id).to.be.equal.to(shared.eventtype[1].id);
+                    chai.expect(JSON.parse(res.text)[1].name).to.be.equal.to('omg');
                     done();
                 })
                 .catch(function(err) {
+                    Utils.debug(err);
                     done(err);
                 });
         });
@@ -148,17 +154,19 @@ describe('achievements/', function () {
                 chai.request(CONFIG.API)
                     .get('achievements/' + shared.achievement[0].id + '/')
                     .set('content-type', 'application/json')
-                    .set('autorization', shared.token)
-                    .then(function(res) {
+                    .set('authorization', shared.token)
+                    .then(function (res) {
+                        Utils.debug(res);
                         chai.expect(res).to.not.be.undefined;
                         chai.expect(res).to.have.status(200);
-                        chai.expect(res).to.have.property('body');
-                        chai.expect(res.body.count).to.be.equal.to(10);
-                        chai.expect(res.body.eventtype_id).to.be.equal.to(shared.eventtype[0].id);
-                        chai.expect(res.body.name).to.be.equal.to('wow');
+                        chai.expect(res).to.have.property('text');
+                        chai.expect(JSON.parse(res.text).count).to.be.equal.to(10);
+                        chai.expect(JSON.parse(res.text).eventtype_id).to.be.equal.to(shared.eventtype[0].id);
+                        chai.expect(JSON.parse(res.text).name).to.be.equal.to('wow');
                         done();
                     })
                     .catch(function(err) {
+                        Utils.debug(err);
                         done(err);
                     });
             });
@@ -167,8 +175,9 @@ describe('achievements/', function () {
                 chai.request(CONFIG.API)
                     .get('achievements/7834/')
                     .set('content-type', 'application/json')
-                    .set('autorization', shared.token)
-                    .end(function(err, res) {
+                    .set('authorization', shared.token)
+                    .end(function(err, res) { 
+                        Utils.debug(err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(404);
                         done();
@@ -182,23 +191,25 @@ describe('achievements/', function () {
                 chai.request(CONFIG.API)
                     .patch('achievements/' + shared.achievement[0].id + '/')
                     .set('content-type', 'application/json')
-                    .set('autorization', shared.token)
+                    .set('authorization', shared.token)
                     .send({
                         count: 50,
                         eventtype_id: shared.eventtype[0].id,
                         name: 'amazing'
                     })
-                    .then(function(res) {
+                    .then(function (res) {
+                        Utils.debug(res);
                         chai.expect(res).to.not.be.undefined;
                         chai.expect(res).to.have.status(200);
-                        chai.expect(res).to.have.property('body');
-                        chai.expect(res.body.count).to.be.equal.to(50);
-                        chai.expect(res.body.eventtype_id).to.be.equal.to(shared.eventtype[0].id);
-                        chai.expect(res.body.name).to.be.equal.to('amazing');
-                        shared.achievement[0] = res.body;
+                        chai.expect(res).to.have.property('text');
+                        chai.expect(JSON.parse(res.text).count).to.be.equal.to(50);
+                        chai.expect(JSON.parse(res.text).eventtype_id).to.be.equal.to(shared.eventtype[0].id);
+                        chai.expect(JSON.parse(res.text).name).to.be.equal.to('amazing');
+                        shared.achievement[0] = JSON.parse(res.text);
                         done();
                     })
                     .catch(function(err) {
+                        Utils.debug(err);
                         done(err);
                     });
             });
@@ -207,12 +218,13 @@ describe('achievements/', function () {
                 chai.request(CONFIG.API)
                     .patch('achievements/404/')
                     .set('content-type', 'application/json')
-                    .set('autorization', shared.token)
+                    .set('authorization', shared.token)
                     .send({
                         name: 'should not work',
                         points: 9823
                     })
-                    .end(function(err, res) {
+                    .end(function(err, res) { 
+                        Utils.debug(err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(404);
                         done();

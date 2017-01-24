@@ -17,20 +17,21 @@ describe('eventtypes/', function () {
             chai.request(CONFIG.API)
                 .post('eventtypes/')
                 .set('content-type', 'application/json')
-                .set('autorization', shared.token)
+                .set('authorization', shared.token)
                 .send({
                     name: 'write_comment',
                     points: 10
                 })
-                .then(function(res) {
-                    console.log('res: ' + JSON.stringify(res));
+                .then(function (res) {
+                    Utils.debug(res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(201);
-                    chai.expect(res).to.have.property('body');
-                    shared.eventtype.push(res.body);
+                    chai.expect(res).to.have.property('text');
+                    shared.eventtype.push(JSON.parse(res.text));
                     done();
                 })
                 .catch(function(err) {
+                    Utils.debug(err);
                     done(err);
                 });
         });
@@ -39,21 +40,22 @@ describe('eventtypes/', function () {
             chai.request(CONFIG.API)
                 .post('eventtypes/')
                 .set('content-type', 'application/json')
-                .set('autorization', shared.token)
+                .set('authorization', shared.token)
                 .send({
                     name: 'open_topic',
                     points: 20
                 })
-                .then(function(res) {
-                    console.log('res: ' + JSON.stringify(res));
+                .then(function (res) {
+                    Utils.debug(res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(201);
-                    chai.expect(res).to.have.property('body');
-                    chai.expect(res.body).to.be.not.equal.to(shared.eventtype[0]);
-                    shared.eventtype.push(res.body);
+                    chai.expect(res).to.have.property('text');
+                    chai.expect(JSON.parse(res.text)).to.be.not.equal.to(shared.eventtype[0]);
+                    shared.eventtype.push(JSON.parse(res.text));
                     done();
                 })
                 .catch(function(err) {
+                    Utils.debug(err);
                     done(err);
                 });
         });
@@ -68,9 +70,10 @@ describe('eventtypes/', function () {
                 chai.request(CONFIG.API)
                     .post('eventtypes/')
                     .set('content-type', 'application/json')
-                    .set('autorization', shared.token)
+                    .set('authorization', shared.token)
                     .send(malformed)
-                    .end(function(err, res) {
+                    .end(function(err, res) { 
+                        Utils.debug(err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(400);
                         done();
@@ -90,19 +93,21 @@ describe('eventtypes/', function () {
             chai.request(CONFIG.API)
                 .get('eventtypes/')
                 .set('content-type', 'application/json')
-                .set('autorization', shared.token)
-                .then(function(res) {
+                .set('authorization', shared.token)
+                .then(function (res) {
+                    Utils.debug(res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(200);
-                    chai.expect(res).to.have.property('body');
-                    chai.expect(res.body).to.have.lenght(2);
-                    chai.expect(res.body[0].name).to.be.equal.to('write_comment');
-                    chai.expect(res.body[0].points).to.be.equal.to(10);
-                    chai.expect(res.body[1].name).to.be.equal.to('open_topic');
-                    chai.expect(res.body[1].points).to.be.equal.to(20);
+                    chai.expect(res).to.have.property('text');
+                    chai.expect(JSON.parse(res.text)).to.have.lenght(2);
+                    chai.expect(JSON.parse(res.text)[0].name).to.be.equal.to('write_comment');
+                    chai.expect(JSON.parse(res.text)[0].points).to.be.equal.to(10);
+                    chai.expect(JSON.parse(res.text)[1].name).to.be.equal.to('open_topic');
+                    chai.expect(JSON.parse(res.text)[1].points).to.be.equal.to(20);
                     done();
                 })
                 .catch(function(err) {
+                    Utils.debug(err);
                     done(err);
                 });
         });
@@ -121,16 +126,18 @@ describe('eventtypes/', function () {
                 chai.request(CONFIG.API)
                     .get('eventtypes/' + shared.eventtype[0].id + '/')
                     .set('content-type', 'application/json')
-                    .set('autorization', shared.token)
-                    .then(function(res) {
+                    .set('authorization', shared.token)
+                    .then(function (res) {
+                        Utils.debug(res);
                         chai.expect(res).to.not.be.undefined;
                         chai.expect(res).to.have.status(200);
-                        chai.expect(res).to.have.property('body');
-                        chai.expect(res.body.name).to.be.equal.to('write_comment');
-                        chai.expect(res.body.points).to.be.equal.to(10);
+                        chai.expect(res).to.have.property('text');
+                        chai.expect(JSON.parse(res.text).name).to.be.equal.to('write_comment');
+                        chai.expect(JSON.parse(res.text).points).to.be.equal.to(10);
                         done();
                     })
                     .catch(function(err) {
+                        Utils.debug(err);
                         done(err);
                     });
             });
@@ -139,8 +146,9 @@ describe('eventtypes/', function () {
                 chai.request(CONFIG.API)
                     .get('eventtypes/7834/')
                     .set('content-type', 'application/json')
-                    .set('autorization', shared.token)
-                    .end(function(err, res) {
+                    .set('authorization', shared.token)
+                    .end(function(err, res) { 
+                        Utils.debug(err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(404);
                         done();
@@ -154,21 +162,23 @@ describe('eventtypes/', function () {
                 chai.request(CONFIG.API)
                     .patch('eventtypes/' + shared.eventtype[0].id + '/')
                     .set('content-type', 'application/json')
-                    .set('autorization', shared.token)
+                    .set('authorization', shared.token)
                     .send({
                         name: 'comment',
                         points: 5
                     })
-                    .then(function(res) {
+                    .then(function (res) {
+                        Utils.debug(res);
                         chai.expect(res).to.not.be.undefined;
                         chai.expect(res).to.have.status(200);
-                        chai.expect(res).to.have.property('body');
-                        chai.expect(res.body.name).to.be.equal.to('comment');
-                        chai.expect(res.body.points).to.be.equal.to(5);
-                        shared.eventtype[0] = res.body;
+                        chai.expect(res).to.have.property('text');
+                        chai.expect(JSON.parse(res.text).name).to.be.equal.to('comment');
+                        chai.expect(JSON.parse(res.text).points).to.be.equal.to(5);
+                        shared.eventtype[0] = JSON.parse(res.text);
                         done();
                     })
                     .catch(function(err) {
+                        Utils.debug(err);
                         done(err);
                     });
             });
@@ -177,12 +187,13 @@ describe('eventtypes/', function () {
                 chai.request(CONFIG.API)
                     .patch('eventtypes/404/')
                     .set('content-type', 'application/json')
-                    .set('autorization', shared.token)
+                    .set('authorization', shared.token)
                     .send({
                         name: 'should not work',
                         points: 9823
                     })
-                    .end(function(err, res) {
+                    .end(function(err, res) { 
+                        Utils.debug(err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(404);
                         done();

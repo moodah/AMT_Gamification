@@ -22,17 +22,19 @@ describe('events/', function () {
             chai.request(CONFIG.API)
                 .post('events/')
                 .set('content-type', 'application/json')
-                .set('autorization', shared.token)
+                .set('authorization', shared.token)
                 .send({
                     user_id: 0,
                     eventtype_id: shared.eventtype[0].id
                 })
-                .then(function(res) {
+                .then(function (res) {
+                    Utils.debug(res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(201);
                     done();
                 })
                 .catch(function(err) {
+                    Utils.debug(err);
                     done(err);
                 });
         });
@@ -41,17 +43,19 @@ describe('events/', function () {
             chai.request(CONFIG.API)
                 .post('events/')
                 .set('content-type', 'application/json')
-                .set('autorization', shared.token)
+                .set('authorization', shared.token)
                 .send({
                     user_id: 1,
                     eventtype_id: shared.eventtype[1].id
                 })
-                .then(function(res) {
+                .then(function (res) {
+                    Utils.debug(res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(201);
                     done();
                 })
                 .catch(function(err) {
+                    Utils.debug(err);
                     done(err);
                 });
         });
@@ -60,12 +64,13 @@ describe('events/', function () {
             chai.request(CONFIG.API)
                 .post('events/')
                 .set('content-type', 'application/json')
-                .set('autorization', shared.token)
+                .set('authorization', shared.token)
                 .send({
                     user_id: 0,
                     eventtype_id: 8293
                 })
-                .end(function(err, res) {
+                .end(function(err, res) { 
+                    Utils.debug(err);
                     chai.expect(err).to.not.be.undefined;
                     chai.expect(err).to.have.status(400);
                     done();
@@ -82,9 +87,10 @@ describe('events/', function () {
                 chai.request(CONFIG.API)
                     .post('events/')
                     .set('content-type', 'application/json')
-                    .set('autorization', shared.token)
+                    .set('authorization', shared.token)
                     .send(malformed)
-                    .end(function(err, res) {
+                    .end(function(err, res) { 
+                        Utils.debug(err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(400);
                         done();

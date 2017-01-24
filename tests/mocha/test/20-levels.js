@@ -17,20 +17,21 @@ describe('levels/', function () {
             chai.request(CONFIG.API)
                 .post('levels/')
                 .set('content-type', 'application/json')
-                .set('autorization', shared.token)
+                .set('authorization', shared.token)
                 .send({
                     name: 'rookie',
                     points: 10
                 })
-                .then(function(res) {
-                    console.log('res: ' + JSON.stringify(res));
+                .then(function (res) {
+                    Utils.debug(res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(201);
-                    chai.expect(res).to.have.property('body');
-                    shared.level.push(res.body);
+                    chai.expect(res).to.have.property('text');
+                    shared.level.push(JSON.parse(res.text));
                     done();
                 })
                 .catch(function(err) {
+                    Utils.debug(err);
                     done(err);
                 });
         });
@@ -39,21 +40,22 @@ describe('levels/', function () {
             chai.request(CONFIG.API)
                 .post('levels/')
                 .set('content-type', 'application/json')
-                .set('autorization', shared.token)
+                .set('authorization', shared.token)
                 .send({
                     name: 'pro',
                     points: 100
                 })
-                .then(function(res) {
-                    console.log('res: ' + JSON.stringify(res));
+                .then(function (res) {
+                    Utils.debug(res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(201);
-                    chai.expect(res).to.have.property('body');
-                    chai.expect(res.body).to.be.not.equal.to(shared.level[0]);
-                    shared.level.push(res.body);
+                    chai.expect(res).to.have.property('text');
+                    chai.expect(JSON.parse(res.text)).to.be.not.equal.to(shared.level[0]);
+                    shared.level.push(JSON.parse(res.text));
                     done();
                 })
                 .catch(function(err) {
+                    Utils.debug(err);
                     done(err);
                 });
         });
@@ -68,9 +70,10 @@ describe('levels/', function () {
                 chai.request(CONFIG.API)
                     .post('levels/')
                     .set('content-type', 'application/json')
-                    .set('autorization', shared.token)
+                    .set('authorization', shared.token)
                     .send(malformed)
-                    .end(function(err, res) {
+                    .end(function(err, res) { 
+                        Utils.debug(err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(400);
                         done();
@@ -90,19 +93,21 @@ describe('levels/', function () {
             chai.request(CONFIG.API)
                 .get('levels/')
                 .set('content-type', 'application/json')
-                .set('autorization', shared.token)
-                .then(function(res) {
+                .set('authorization', shared.token)
+                .then(function (res) {
+                    Utils.debug(res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(200);
-                    chai.expect(res).to.have.property('body');
-                    chai.expect(res.body).to.have.lenght(2);
-                    chai.expect(res.body[0].name).to.be.equal.to('rookie');
-                    chai.expect(res.body[0].points).to.be.equal.to(10);
-                    chai.expect(res.body[1].name).to.be.equal.to('pro');
-                    chai.expect(res.body[1].points).to.be.equal.to(100);
+                    chai.expect(res).to.have.property('text');
+                    chai.expect(JSON.parse(res.text)).to.have.lenght(2);
+                    chai.expect(JSON.parse(res.text)[0].name).to.be.equal.to('rookie');
+                    chai.expect(JSON.parse(res.text)[0].points).to.be.equal.to(10);
+                    chai.expect(JSON.parse(res.text)[1].name).to.be.equal.to('pro');
+                    chai.expect(JSON.parse(res.text)[1].points).to.be.equal.to(100);
                     done();
                 })
                 .catch(function(err) {
+                    Utils.debug(err);
                     done(err);
                 });
         });
@@ -121,16 +126,18 @@ describe('levels/', function () {
                 chai.request(CONFIG.API)
                     .get('levels/' + shared.level[0].id + '/')
                     .set('content-type', 'application/json')
-                    .set('autorization', shared.token)
-                    .then(function(res) {
+                    .set('authorization', shared.token)
+                    .then(function (res) {
+                        Utils.debug(res);
                         chai.expect(res).to.not.be.undefined;
                         chai.expect(res).to.have.status(200);
-                        chai.expect(res).to.have.property('body');
-                        chai.expect(res.body.name).to.be.equal.to('rookie');
-                        chai.expect(res.body.points).to.be.equal.to(10);
+                        chai.expect(res).to.have.property('text');
+                        chai.expect(JSON.parse(res.text).name).to.be.equal.to('rookie');
+                        chai.expect(JSON.parse(res.text).points).to.be.equal.to(10);
                         done();
                     })
                     .catch(function(err) {
+                        Utils.debug(err);
                         done(err);
                     });
             });
@@ -139,8 +146,9 @@ describe('levels/', function () {
                 chai.request(CONFIG.API)
                     .get('levels/7834/')
                     .set('content-type', 'application/json')
-                    .set('autorization', shared.token)
-                    .end(function(err, res) {
+                    .set('authorization', shared.token)
+                    .end(function(err, res) { 
+                        Utils.debug(err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(404);
                         done();
@@ -154,21 +162,23 @@ describe('levels/', function () {
                 chai.request(CONFIG.API)
                     .patch('levels/' + shared.level[0].id + '/')
                     .set('content-type', 'application/json')
-                    .set('autorization', shared.token)
+                    .set('authorization', shared.token)
                     .send({
                         name: 'semi-pro',
                         points: 50
                     })
-                    .then(function(res) {
+                    .then(function (res) {
+                        Utils.debug(res);
                         chai.expect(res).to.not.be.undefined;
                         chai.expect(res).to.have.status(200);
-                        chai.expect(res).to.have.property('body');
-                        chai.expect(res.body.name).to.be.equal.to('semi-pro');
-                        chai.expect(res.body.points).to.be.equal.to(50);
-                        shared.level[0] = res.body;
+                        chai.expect(res).to.have.property('text');
+                        chai.expect(JSON.parse(res.text).name).to.be.equal.to('semi-pro');
+                        chai.expect(JSON.parse(res.text).points).to.be.equal.to(50);
+                        shared.level[0] = JSON.parse(res.text);
                         done();
                     })
                     .catch(function(err) {
+                        Utils.debug(err);
                         done(err);
                     });
             });
@@ -177,11 +187,12 @@ describe('levels/', function () {
                 chai.request(CONFIG.API)
                     .patch('levels/' + shared.level[0].id + '/')
                     .set('content-type', 'application/json')
-                    .set('autorization', shared.token)
+                    .set('authorization', shared.token)
                     .send({
                         name: 'pro'
                     })
-                    .end(function(err, res) {
+                    .end(function(err, res) { 
+                        Utils.debug(err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(400);
                         done();
@@ -192,11 +203,12 @@ describe('levels/', function () {
                 chai.request(CONFIG.API)
                     .patch('levels/' + shared.level[0].id + '/')
                     .set('content-type', 'application/json')
-                    .set('autorization', shared.token)
+                    .set('authorization', shared.token)
                     .send({
                         points: 100
                     })
-                    .end(function(err, res) {
+                    .end(function(err, res) { 
+                        Utils.debug(err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(400);
                         done();
@@ -207,12 +219,13 @@ describe('levels/', function () {
                 chai.request(CONFIG.API)
                     .patch('levels/404/')
                     .set('content-type', 'application/json')
-                    .set('autorization', shared.token)
+                    .set('authorization', shared.token)
                     .send({
                         name: 'should not work',
                         points: 404
                     })
-                    .end(function(err, res) {
+                    .end(function(err, res) { 
+                        Utils.debug(err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(404);
                         done();
