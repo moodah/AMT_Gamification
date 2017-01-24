@@ -211,19 +211,6 @@ describe('levels/', function () {
                         done();
                     });
             });
-            
-            it('should refuse an empty payload', function (done) {
-                chai.request(CONFIG.API)
-                    .patch(shared.level)
-                    .set('content-type', 'application/json')
-                    .set('autorization', shared.token)
-                    .send({})
-                    .end(function(err, res) {
-                        chai.expect(err).to.not.be.undefined;
-                        chai.expect(err).to.have.status(400);
-                        done();
-                    });
-            });
         });
     });
 });

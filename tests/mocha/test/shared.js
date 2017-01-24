@@ -7,5 +7,8 @@ module.exports = {
     token: null,
 
     // level url
-    level: null
+    level: null,
+
+    // badge url
+    badge: null
 };
