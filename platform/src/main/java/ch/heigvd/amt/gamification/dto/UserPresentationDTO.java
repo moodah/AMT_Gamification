@@ -16,17 +16,17 @@ public class UserPresentationDTO {
     @JsonProperty("points")
     private long points;
 
-    /*@JsonProperty("level")
+    @JsonProperty("level")
     private LevelPresentationDTO level;
 
     @JsonProperty("badges")
-    private List<BadgePresentationDTO> badges = new ArrayList<BadgePresentationDTO>();*/
+    private List<BadgePresentationDTO> badges = new ArrayList<BadgePresentationDTO>();
 
-    public UserPresentationDTO(long userId, long points/*, LevelPresentationDTO level, List<BadgePresentationDTO> badges*/) {
+    public UserPresentationDTO(long userId, long points, LevelPresentationDTO level, List<BadgePresentationDTO> badges) {
         this.userId = userId;
         this.points = points;
-        /*this.level = level;
-        this.badges = badges;*/
+        this.level = level;
+        this.badges = badges;
     }
 
     public long getUserId() {
