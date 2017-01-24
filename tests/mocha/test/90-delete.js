@@ -8,20 +8,44 @@ chai.use(chaiHttp);
 let CONFIG = require('./config');
 let shared = require('./shared');
 
-describe('rules/', function () {
+describe('achievements/', function () {
 
     describe('DELETE', function () {
-        
-        it('should allow to delete all rules', function (done) {
+                
+        it('should allow to delete all achievements', function (done) {
             this.skip();
         });
     });
 
-    describe('rules/{id}', function () {
+    describe('achievements/{id}', function () {
 
         describe('DELETE', function () {
-            
-            it('should allow to delete a specific rule', function (done) {
+                        
+            it('should allow to delete a specific achievement', function (done) {
+                this.skip();
+            });
+
+            it('should not allow an undefined ID', function (done) {
+                this.skip();
+            });
+        });
+    });
+});
+
+describe('eventtypes/', function () {
+
+    describe('DELETE', function () {
+                
+        it('should allow to delete all eventtypes', function (done) {
+            this.skip();
+        });
+    });
+
+    describe('eventtypes/{id}', function () {
+
+        describe('DELETE', function () {
+                        
+            it('should allow to delete a specific eventtype', function (done) {
                 this.skip();
             });
 

@@ -6,9 +6,9 @@ module.exports = {
     // application token
     token: null,
 
-    // level url
+    // objects created
     level: null,
-
-    // badge url
-    badge: null
+    badge: null,
+    eventtype: null,
+    achievement: null
 };

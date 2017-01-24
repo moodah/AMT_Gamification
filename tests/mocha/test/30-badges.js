@@ -26,8 +26,8 @@ describe('badges/', function () {
                     console.log('res: ' + JSON.stringify(res));
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(201);
-                    chai.expect(res.body).to.have.property('url');
-                    shared.badge = res.body.url;
+                    chai.expect(res).to.have.property('body');
+                    shared.badge = res.body;
                     done();
                 })
                 .catch(function(err) {
@@ -48,8 +48,8 @@ describe('badges/', function () {
                     console.log('res: ' + JSON.stringify(res));
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(201);
-                    chai.expect(res.body).to.have.property('url');
-                    chai.expect(res.body.url).to.be.not.equal.to(shared.badge);
+                    chai.expect(res).to.have.property('body');
+                    chai.expect(res.body).to.be.not.equal.to(shared.badge);
                     done();
                 })
                 .catch(function(err) {
@@ -87,16 +87,12 @@ describe('badges/', function () {
                 .then(function(res) {
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(200);
-                    chai.expect(res.body).to.have.property('badges');
-                    chai.expect(res.body.badges).to.have.lenght(2);
-                    chai.expect(res.body.badges[0]).to.be.equal.to({
-                        name: 'writer',
-                        description: 'post 1000 comments'
-                    });
-                    chai.expect(res.body.badges[1]).to.be.equal.to({
-                        name: 'noob',
-                        description: 'open 100 topics'
-                    });
+                    chai.expect(res).to.have.property('body');
+                    chai.expect(res.body).to.have.lenght(2);
+                    chai.expect(res.body[0].name).to.be.equal.to('writer');
+                    chai.expect(res.body[0].description).to.be.equal.to('post 1000 comments');
+                    chai.expect(res.body[1].name).to.be.equal.to('noob');
+                    chai.expect(res.body[1].description).to.be.equal.to('open 100 topics');
                     done();
                 })
                 .catch(function(err) {
@@ -109,18 +105,16 @@ describe('badges/', function () {
         
         describe('GET', function () {
             
-            it('should return a specifiy badge (' + shared.badge + ')', function (done) {
+            it('should return a specifiy badge', function (done) {
                 chai.request(CONFIG.API)
-                    .get(shared.badge)
+                    .get('badges/' + shared.badge.id + '/')
                     .set('autorization', shared.token)
                     .then(function(res) {
                         chai.expect(res).to.not.be.undefined;
                         chai.expect(res).to.have.status(200);
-                        chai.expect(res.body).to.have.property('badge');
-                        chai.expect(res.body.badge).to.be.equal.to({
-                            name: 'writer',
-                            description: 'post 1000 comments'
-                        });
+                        chai.expect(res).to.have.property('body');
+                        chai.expect(res.body.name).to.be.equal.to('writer');
+                        chai.expect(res.body.description).to.be.equal.to('post 1000 comments');
                         done();
                     })
                     .catch(function(err) {
@@ -144,7 +138,7 @@ describe('badges/', function () {
 
             it('should allow to modify a specific badge', function (done) {
                 chai.request(CONFIG.API)
-                    .patch(shared.badge)
+                    .patch('badges/' + shared.badge.id + '/')
                     .set('content-type', 'application/json')
                     .set('autorization', shared.token)
                     .send({
@@ -154,11 +148,9 @@ describe('badges/', function () {
                     .then(function(res) {
                         chai.expect(res).to.not.be.undefined;
                         chai.expect(res).to.have.status(200);
-                        chai.expect(res.body).to.have.property('badge');
-                        chai.expect(res.body.badge).to.be.equal.to({
-                            name: 'super-writer',
-                            description: 'post 10000 comments'
-                        });
+                        chai.expect(res).to.have.property('body');
+                        chai.expect(res.body.name).to.be.equal.to('super-writer');
+                        chai.expect(res.body.description).to.be.equal.to('post 10000 comments');
                         done();
                     })
                     .catch(function(err) {
