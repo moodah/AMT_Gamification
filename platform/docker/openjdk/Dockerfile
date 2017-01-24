@@ -5,6 +5,7 @@ WORKDIR /platform
 ADD ./build.gradle ./gradlew ./
 ADD ./gradle ./gradle
 ADD ./src ./src
+COPY ./docker/openjdk/application.properties ./src/main/resources/application.properties
 
 RUN chmod +x gradlew
 RUN ./gradlew build

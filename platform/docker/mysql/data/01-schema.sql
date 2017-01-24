@@ -1,3 +1,2 @@
 DROP DATABASE IF EXISTS gamification;
 CREATE DATABASE gamification DEFAULT CHARACTER SET utf8;
-USE gamification;
