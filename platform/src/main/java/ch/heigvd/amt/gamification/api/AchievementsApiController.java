@@ -71,9 +71,8 @@ public class AchievementsApiController implements AchievementsApi {
     public ResponseEntity<Achievement> achievementsIdPatch(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                                            @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
                                                            @ApiParam(value = "Updated achievement", required = true) @RequestBody AchievementCreationDTO newAchievement) {
-        dataValidation(newAchievement);
-
         long appId = Authentication.getApplicationId(authorization);
+
         Achievement achievement = achievementDao.findByApplicationIdAndId(appId, id.longValue());
 
         if (achievement == null)
@@ -82,7 +81,7 @@ public class AchievementsApiController implements AchievementsApi {
         if (newAchievement.getCount() != null) {
             achievement.setCount(newAchievement.getCount().intValue());
         }
-        if (newAchievement.getEventtype_id() != null) {
+        if (newAchievement.getEventtype_id() != null && eventtypeDao.findByApplicationIdAndId(appId, newAchievement.getEventtype_id().longValue()) == null) {
             achievement.setEventtype(eventtypeDao.findByApplicationIdAndId(appId, newAchievement.getEventtype_id().longValue()));
         }
 
@@ -92,9 +91,8 @@ public class AchievementsApiController implements AchievementsApi {
 
     public ResponseEntity<Achievement> achievementsPost(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
                                                         @ApiParam(value = "New achievement", required = true) @RequestBody AchievementCreationDTO achievementDTO) {
-        dataValidation(achievementDTO);
-
         long appId = Authentication.getApplicationId(authorization);
+        dataValidation(achievementDTO, appId);
 
         Achievement achievement = new Achievement(achievementDTO.getCount().intValue(),
                 applicationDao.findById(appId),
@@ -106,12 +104,15 @@ public class AchievementsApiController implements AchievementsApi {
         return new ResponseEntity<Achievement>(achievement, HttpStatus.CREATED);
     }
 
-    private void dataValidation(AchievementCreationDTO achievement) {
+    private void dataValidation(AchievementCreationDTO achievement, long appId) {
         if (achievement.getCount() == null) {
             throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.fieldMissing("Achievement", "count"));
         }
         if (achievement.getEventtype_id() == null) {
             throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.fieldMissing("Achievement", "eventtype_id"));
+        }
+        if (eventtypeDao.findByApplicationIdAndId(appId, achievement.getEventtype_id()) == null) {
+            throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.notFoundById("eventtype", String.valueOf(achievement.getEventtype_id())));
         }
     }
 }
