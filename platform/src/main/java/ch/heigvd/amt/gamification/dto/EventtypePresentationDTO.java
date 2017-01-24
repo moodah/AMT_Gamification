@@ -21,10 +21,14 @@ public class EventtypePresentationDTO {
     @JsonProperty("points")
     private BigDecimal points;
 
+    @JsonProperty("application_id")
+    private long application_id;
+
     public EventtypePresentationDTO(Eventtype eventtype) {
         this.id = eventtype.getId();
         this.name = eventtype.getName();
         this.points = eventtype.getPoints();
+        this.application_id = eventtype.getApplication().getId();
     }
 
     public long getId() {
@@ -49,5 +53,13 @@ public class EventtypePresentationDTO {
 
     public void setPoints(BigDecimal points) {
         this.points = points;
+    }
+
+    public long getApplication_id() {
+        return application_id;
+    }
+
+    public void setApplication_id(long application_id) {
+        this.application_id = application_id;
     }
 }

@@ -1,6 +1,7 @@
 package ch.heigvd.amt.gamification.api;
 
 import ch.heigvd.amt.gamification.dto.ApplicationCreationDTO;
+import ch.heigvd.amt.gamification.dto.ApplicationPresentationDTO;
 import ch.heigvd.amt.gamification.model.Application;
 import ch.heigvd.amt.gamification.model.Token;
 
@@ -40,6 +41,6 @@ public interface ApplicationsApi {
             produces = {"application/json"},
             consumes = {"application/json"},
             method = RequestMethod.POST)
-    ResponseEntity<Application> applicationsPost(@ApiParam(value = "New application", required = true) @RequestBody ApplicationCreationDTO application);
+    ResponseEntity<ApplicationPresentationDTO> applicationsPost(@ApiParam(value = "New application", required = true) @RequestBody ApplicationCreationDTO application);
 
 }

@@ -4,6 +4,7 @@ import ch.heigvd.amt.gamification.annotations.Authenticate;
 import ch.heigvd.amt.gamification.configuration.AppConfig;
 import ch.heigvd.amt.gamification.dao.ApplicationDao;
 import ch.heigvd.amt.gamification.dto.ApplicationCreationDTO;
+import ch.heigvd.amt.gamification.dto.ApplicationPresentationDTO;
 import ch.heigvd.amt.gamification.errors.ErrorMessageGenerator;
 import ch.heigvd.amt.gamification.model.Application;
 import ch.heigvd.amt.gamification.security.Authentication;
@@ -63,7 +64,7 @@ public class ApplicationsApiController implements ApplicationsApi {
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
-    public ResponseEntity<Application> applicationsPost(@ApiParam(value = "The application informations", required = true) @RequestBody ApplicationCreationDTO application) {
+    public ResponseEntity<ApplicationPresentationDTO> applicationsPost(@ApiParam(value = "The application informations", required = true) @RequestBody ApplicationCreationDTO application) {
         // register a new application
         dataValidation(application);
 
@@ -77,7 +78,7 @@ public class ApplicationsApiController implements ApplicationsApi {
 
         System.out.println("save(app) return: " + applicationDao.save(persistentApp));
 
-        return new ResponseEntity<Application>(persistentApp, HttpStatus.CREATED);
+        return new ResponseEntity<ApplicationPresentationDTO>(new ApplicationPresentationDTO(persistentApp), HttpStatus.CREATED);
     }
 
     private void dataValidation(ApplicationCreationDTO application) {
