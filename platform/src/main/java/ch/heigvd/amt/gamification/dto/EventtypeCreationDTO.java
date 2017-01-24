@@ -14,6 +14,7 @@ public class EventtypeCreationDTO {
     @JsonProperty("points")
     private BigDecimal points;
 
+    @JsonProperty("application_id")
     private BigDecimal applicationId;
 
     public BigDecimal getApplicationId() {

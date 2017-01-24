@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import ch.heigvd.amt.gamification.dao.ApplicationDao;
 import ch.heigvd.amt.gamification.dao.EventtypeDao;
 import ch.heigvd.amt.gamification.dto.EventtypeCreationDTO;
+import ch.heigvd.amt.gamification.dto.EventtypePresentationDTO;
 import ch.heigvd.amt.gamification.errors.ErrorMessageGenerator;
 import ch.heigvd.amt.gamification.errors.HttpStatusException;
 import ch.heigvd.amt.gamification.model.Error;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,24 +39,33 @@ public class EventtypesApiController implements EventtypesApi {
     @Autowired
     private ApplicationDao applicationDao;
 
-    public ResponseEntity<List<Eventtype>> eventtypesGet(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
-        // do some magic!
-        return new ResponseEntity<List<Eventtype>>(HttpStatus.OK);
+    public ResponseEntity<List<EventtypePresentationDTO>> eventtypesGet(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
+
+        List<Eventtype> eventtypeList = eventtypeDao.findAllByApplicationId(Authentication.getApplicationId(authorization));
+
+        List<EventtypePresentationDTO> eventtypePresentationDTOList = new ArrayList<>();
+
+        eventtypeList.forEach(eventtype -> {
+            eventtypePresentationDTOList.add(new EventtypePresentationDTO(eventtype));
+        });
+
+        return new ResponseEntity<List<EventtypePresentationDTO>>(eventtypePresentationDTOList, HttpStatus.OK);
     }
 
     public ResponseEntity<Void> eventtypesIdDelete(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                                    @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
-        // do some magic!
+        eventtypeDao.delete(id.longValue());
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    public ResponseEntity<Eventtype> eventtypesIdGet(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
+    public ResponseEntity<EventtypePresentationDTO> eventtypesIdGet(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                                      @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
-        // do some magic!
-        return new ResponseEntity<Eventtype>(HttpStatus.OK);
+        Eventtype eventtype = eventtypeDao.findById(id.longValue());
+
+        return new ResponseEntity<EventtypePresentationDTO>(new EventtypePresentationDTO(eventtype), HttpStatus.OK);
     }
 
-    public ResponseEntity<Eventtype> eventtypesIdPatch(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
+    public ResponseEntity<EventtypePresentationDTO> eventtypesIdPatch(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                                        @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
                                                        @ApiParam(value = "Updated eventtype", required = true) @RequestBody EventtypeCreationDTO eventtypeDTO) {
         Eventtype eventtype = eventtypeDao.findById(id.intValue());
@@ -69,10 +80,10 @@ public class EventtypesApiController implements EventtypesApi {
 
         eventtypeDao.save(eventtype);
 
-        return new ResponseEntity<Eventtype>(eventtype, HttpStatus.OK);
+        return new ResponseEntity<EventtypePresentationDTO>(new EventtypePresentationDTO(eventtype), HttpStatus.OK);
     }
 
-    public ResponseEntity<Eventtype> eventtypesPost(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
+    public ResponseEntity<EventtypePresentationDTO> eventtypesPost(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
                                                     @ApiParam(value = "New eventtype", required = true) @RequestBody EventtypeCreationDTO eventtypeDTO) {
         dataValidation(eventtypeDTO);
 
@@ -84,7 +95,7 @@ public class EventtypesApiController implements EventtypesApi {
 
         eventtypeDao.save(eventtype);
 
-        return new ResponseEntity<Eventtype>(eventtype, HttpStatus.OK);
+        return new ResponseEntity<EventtypePresentationDTO>(new EventtypePresentationDTO(eventtype), HttpStatus.OK);
     }
 
     private void dataValidation(EventtypeCreationDTO eventtypeDTO){
