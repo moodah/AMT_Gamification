@@ -28,7 +28,7 @@ public interface ApplicationsApi {
     @ApiOperation(value = "Delete application with specified id", notes = "", response = Void.class, tags = {"Applications",})
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "Deleted successfully", response = Void.class)})
-    @RequestMapping(value = "/applications/{id}",
+    @RequestMapping(value = "/applications",
             produces = {"application/json"},
             consumes = {"application/json"},
             method = RequestMethod.DELETE)
