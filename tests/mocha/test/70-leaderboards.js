@@ -13,7 +13,20 @@ describe('leaderboards/', function () {
     describe('GET', function () {
         
         it('should return an array of top users', function (done) {
-            this.skip();
+            chai.request(CONFIG.API)
+                .get('leaderboards/')
+                .set('autorization', shared.token)
+                .then(function(res) {
+                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.have.status(200);
+                    chai.expect(res).to.have.property('body');
+                    chai.expect(res.body).to.have.lenght(2);
+                    this.skip(); // TODO
+                    done();
+                })
+                .catch(function(err) {
+                    done(err);
+                });
         });
 
         it('should work with the pagination (per_page)', function (done) {

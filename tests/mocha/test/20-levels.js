@@ -27,7 +27,7 @@ describe('levels/', function () {
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(201);
                     chai.expect(res).to.have.property('body');
-                    shared.level = res.body;
+                    shared.level.push(res.body);
                     done();
                 })
                 .catch(function(err) {
@@ -49,7 +49,8 @@ describe('levels/', function () {
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(201);
                     chai.expect(res).to.have.property('body');
-                    chai.expect(res.body).to.be.not.equal.to(shared.level);
+                    chai.expect(res.body).to.be.not.equal.to(shared.level[0]);
+                    shared.level.push(res.body);
                     done();
                 })
                 .catch(function(err) {
@@ -107,7 +108,7 @@ describe('levels/', function () {
             
             it('should return a specifiy level', function (done) {
                 chai.request(CONFIG.API)
-                    .get('levels/' + shared.level.id + '/')
+                    .get('levels/' + shared.level[0].id + '/')
                     .set('autorization', shared.token)
                     .then(function(res) {
                         chai.expect(res).to.not.be.undefined;
@@ -138,7 +139,7 @@ describe('levels/', function () {
 
             it('should allow to modify a specific level', function (done) {
                 chai.request(CONFIG.API)
-                    .patch('levels/' + shared.level.id + '/')
+                    .patch('levels/' + shared.level[0].id + '/')
                     .set('content-type', 'application/json')
                     .set('autorization', shared.token)
                     .send({
@@ -151,6 +152,7 @@ describe('levels/', function () {
                         chai.expect(res).to.have.property('body');
                         chai.expect(res.body.name).to.be.equal.to('semi-pro');
                         chai.expect(res.body.points).to.be.equal.to(50);
+                        shared.level[0] = res.body;
                         done();
                     })
                     .catch(function(err) {
@@ -160,7 +162,7 @@ describe('levels/', function () {
 
             it('should not allow to modify a specific level in order to have levels with same names (level names are unique for a given application)', function (done) {
                 chai.request(CONFIG.API)
-                    .patch(shared.level)
+                    .patch('levels/' + shared.level[0].id + '/')
                     .set('content-type', 'application/json')
                     .set('autorization', shared.token)
                     .send({
@@ -175,7 +177,7 @@ describe('levels/', function () {
 
             it('should not allow to modify a specific level in order to have levels with same points (level points are unique for a given application)', function (done) {
                 chai.request(CONFIG.API)
-                    .patch(shared.level)
+                    .patch('levels/' + shared.level[0].id + '/')
                     .set('content-type', 'application/json')
                     .set('autorization', shared.token)
                     .send({
