@@ -12,16 +12,17 @@ describe('users/', function () {
 
     describe('GET', function () {
         
-        it('should return an array of users', function (done) {
+        it.skip('should return an array of users', function (done) {
             chai.request(CONFIG.API)
                 .get('users/')
+                .set('content-type', 'application/json')
                 .set('autorization', shared.token)
                 .then(function(res) {
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(200);
                     chai.expect(res).to.have.property('body');
                     chai.expect(res.body).to.have.lenght(2);
-                    this.skip(); // TODO
+                    // TODO
                     done();
                 })
                 .catch(function(err) {
@@ -66,15 +67,16 @@ describe('users/', function () {
         
         describe('GET', function () {
             
-            it('should return a specific user', function (done) {
+            it.skip('should return a specific user', function (done) {
                 chai.request(CONFIG.API)
                     .get('users/0/')
+                    .set('content-type', 'application/json')
                     .set('autorization', shared.token)
                     .then(function(res) {
                         chai.expect(res).to.not.be.undefined;
                         chai.expect(res).to.have.status(200);
                         chai.expect(res).to.have.property('body');
-                        this.skip(); // TODO
+                        // TODO
                         done();
                     })
                     .catch(function(err) {
@@ -85,6 +87,7 @@ describe('users/', function () {
             it('should not allow an undefined ID', function (done) {
                 chai.request(CONFIG.API)
                     .get('users/8239/')
+                    .set('content-type', 'application/json')
                     .set('autorization', shared.token)
                     .end(function(err, res) {
                         chai.expect(err).to.not.be.undefined;

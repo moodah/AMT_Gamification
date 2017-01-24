@@ -11,6 +11,11 @@ let Utils = require('./utils');
 
 describe('events/', function () {
 
+    beforeEach(function() {
+        if(shared.eventtype.length < 2) 
+            this.skip();
+    });
+
     describe('POST', function () {
     
         it('should allow to submit a new event', function (done) {

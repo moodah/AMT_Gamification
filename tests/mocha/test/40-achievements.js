@@ -11,6 +11,11 @@ let Utils = require('./utils');
 
 describe('achievements/', function () {
 
+    beforeEach(function() {
+        if(shared.eventtype.length < 2) 
+            this.skip();
+    });
+
     describe('POST', function () {
         
         it('should allow to create a new achievement', function (done) {
@@ -100,10 +105,16 @@ describe('achievements/', function () {
     });
 
     describe('GET', function () {
+
+        beforeEach(function() {
+            if(shared.achievement.length < 2) 
+                this.skip();
+        });
         
         it('should return an array of created achievements', function (done) {
             chai.request(CONFIG.API)
                 .get('achievements/')
+                .set('content-type', 'application/json')
                 .set('autorization', shared.token)
                 .then(function(res) {
                     chai.expect(res).to.not.be.undefined;
@@ -125,12 +136,18 @@ describe('achievements/', function () {
     });
 
     describe('achievements/{id}/', function () {
+
+        beforeEach(function() {
+            if(shared.achievement.length < 2) 
+                this.skip();
+        });
         
         describe('GET', function () {
             
             it('should return a specifiy achievement', function (done) {
                 chai.request(CONFIG.API)
                     .get('achievements/' + shared.achievement[0].id + '/')
+                    .set('content-type', 'application/json')
                     .set('autorization', shared.token)
                     .then(function(res) {
                         chai.expect(res).to.not.be.undefined;
@@ -149,6 +166,7 @@ describe('achievements/', function () {
             it('should not allow an undefined ID', function (done) {
                 chai.request(CONFIG.API)
                     .get('achievements/7834/')
+                    .set('content-type', 'application/json')
                     .set('autorization', shared.token)
                     .end(function(err, res) {
                         chai.expect(err).to.not.be.undefined;

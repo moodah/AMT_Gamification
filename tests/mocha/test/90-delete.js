@@ -12,11 +12,17 @@ describe('badgeachievements/', function () {
 
     describe('badgeachievements/{id}', function () {
 
+        beforeEach(function() {
+            if(shared.badgeachievement.length < 2) 
+                this.skip();
+        });
+
         describe('DELETE', function () {
                         
             it('should allow to delete a specific badgeachievement', function (done) {
                 chai.request(CONFIG.API)
                     .delete('badgeachievements/' + shared.badgeachievement[0].id + '/')
+                    .set('content-type', 'application/json')
                     .set('authorization', shared.token)
                     .then(function (res) {
                         chai.expect(res).to.not.be.undefined;
@@ -31,6 +37,7 @@ describe('badgeachievements/', function () {
             it('should not allow an undefined ID', function (done) {
                 chai.request(CONFIG.API)
                     .delete('badgeachievements/404/')
+                    .set('content-type', 'application/json')
                     .set('authorization', shared.token)
                     .end(function (err, res) {
                         chai.expect(err).to.not.be.undefined;
@@ -46,6 +53,7 @@ describe('badgeachievements/', function () {
         it('should allow to delete all badgeachievements', function (done) {
             chai.request(CONFIG.API)
                 .delete('badgeachievements/')
+                .set('content-type', 'application/json')
                 .set('authorization', shared.token)
                 .then(function (res) {
                     chai.expect(res).to.not.be.undefined;
@@ -63,11 +71,17 @@ describe('achievements/', function () {
 
     describe('achievements/{id}', function () {
 
+        beforeEach(function() {
+            if(shared.achievement.length < 2) 
+                this.skip();
+        });
+
         describe('DELETE', function () {
                         
             it('should allow to delete a specific achievement', function (done) {
                 chai.request(CONFIG.API)
                     .delete('achievements/' + shared.achievement[0].id + '/')
+                    .set('content-type', 'application/json')
                     .set('authorization', shared.token)
                     .then(function (res) {
                         chai.expect(res).to.not.be.undefined;
@@ -82,6 +96,7 @@ describe('achievements/', function () {
             it('should not allow an undefined ID', function (done) {
                 chai.request(CONFIG.API)
                     .delete('achievements/404/')
+                    .set('content-type', 'application/json')
                     .set('authorization', shared.token)
                     .end(function (err, res) {
                         chai.expect(err).to.not.be.undefined;
@@ -97,6 +112,7 @@ describe('achievements/', function () {
         it('should allow to delete all achievements', function (done) {
             chai.request(CONFIG.API)
                 .delete('achievements/')
+                .set('content-type', 'application/json')
                 .set('authorization', shared.token)
                 .then(function (res) {
                     chai.expect(res).to.not.be.undefined;
@@ -114,11 +130,17 @@ describe('eventtypes/', function () {
 
     describe('eventtypes/{id}', function () {
 
+        beforeEach(function() {
+            if(shared.eventtype.length < 2) 
+                this.skip();
+        });
+
         describe('DELETE', function () {
                         
             it('should allow to delete a specific eventtype', function (done) {
                 chai.request(CONFIG.API)
                     .delete('eventtypes/' + shared.eventtype[0].id + '/')
+                    .set('content-type', 'application/json')
                     .set('authorization', shared.token)
                     .then(function (res) {
                         chai.expect(res).to.not.be.undefined;
@@ -133,6 +155,7 @@ describe('eventtypes/', function () {
             it('should not allow an undefined ID', function (done) {
                 chai.request(CONFIG.API)
                     .delete('eventtypes/404/')
+                    .set('content-type', 'application/json')
                     .set('authorization', shared.token)
                     .end(function (err, res) {
                         chai.expect(err).to.not.be.undefined;
@@ -148,6 +171,7 @@ describe('eventtypes/', function () {
         it('should allow to delete all eventtypes', function (done) {
             chai.request(CONFIG.API)
                 .delete('eventtypes/')
+                .set('content-type', 'application/json')
                 .set('authorization', shared.token)
                 .then(function (res) {
                     chai.expect(res).to.not.be.undefined;
@@ -165,11 +189,17 @@ describe('badges/', function () {
 
     describe('badges/{id}', function () {
 
+        beforeEach(function() {
+            if(shared.badge.length < 2) 
+                this.skip();
+        });
+
         describe('DELETE', function () {
                         
             it('should allow to delete a specific badge', function (done) {
                 chai.request(CONFIG.API)
                     .delete('badges/' + shared.badge[0].id + '/')
+                    .set('content-type', 'application/json')
                     .set('authorization', shared.token)
                     .then(function (res) {
                         chai.expect(res).to.not.be.undefined;
@@ -184,6 +214,7 @@ describe('badges/', function () {
             it('should not allow an undefined ID', function (done) {
                 chai.request(CONFIG.API)
                     .delete('badges/404/')
+                    .set('content-type', 'application/json')
                     .set('authorization', shared.token)
                     .end(function (err, res) {
                         chai.expect(err).to.not.be.undefined;
@@ -199,6 +230,7 @@ describe('badges/', function () {
         it('should allow to delete all badges', function (done) {
             chai.request(CONFIG.API)
                 .delete('badges/')
+                .set('content-type', 'application/json')
                 .set('authorization', shared.token)
                 .then(function (res) {
                     chai.expect(res).to.not.be.undefined;
@@ -216,11 +248,17 @@ describe('levels/', function () {
 
     describe('levels/{id}', function () {
 
+        beforeEach(function() {
+            if(shared.level.length < 2) 
+                this.skip();
+        });
+
         describe('DELETE', function () {
                         
             it('should allow to delete a specific level', function (done) {
                 chai.request(CONFIG.API)
                     .delete('levels/' + shared.level[0].id + '/')
+                    .set('content-type', 'application/json')
                     .set('authorization', shared.token)
                     .then(function (res) {
                         chai.expect(res).to.not.be.undefined;
@@ -235,6 +273,7 @@ describe('levels/', function () {
             it('should not allow an undefined ID', function (done) {
                 chai.request(CONFIG.API)
                     .delete('levels/404/')
+                    .set('content-type', 'application/json')
                     .set('authorization', shared.token)
                     .end(function (err, res) {
                         chai.expect(err).to.not.be.undefined;
@@ -250,6 +289,7 @@ describe('levels/', function () {
         it('should allow to delete all levels', function (done) {
             chai.request(CONFIG.API)
                 .delete('levels/')
+                .set('content-type', 'application/json')
                 .set('authorization', shared.token)
                 .then(function (res) {
                     chai.expect(res).to.not.be.undefined;

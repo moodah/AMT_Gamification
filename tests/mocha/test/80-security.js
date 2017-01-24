@@ -34,7 +34,8 @@ describe('SECURITY', function () {
     let REQUESTS = {
         'GET': function(endpoint, token, done) {
             let r = chai.request(CONFIG.API)
-                .get(endpoint);
+                .get(endpoint)
+                .set('content-type', 'application/json');
             if(token != null)
                 r.set('autorization', token);
             r.end(function(err, res) {

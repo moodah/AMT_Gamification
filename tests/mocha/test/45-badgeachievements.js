@@ -11,6 +11,12 @@ let Utils = require('./utils');
 
 describe('badgeachievements/', function () {
 
+    beforeEach(function() {
+        if(shared.achievement.length < 2
+            || shared.badge.length < 2) 
+            this.skip();
+    });
+
     describe('POST', function () {
         
         it('should allow to create a new badgeachievement', function (done) {
@@ -128,10 +134,16 @@ describe('badgeachievements/', function () {
     });
 
     describe('GET', function () {
+
+        beforeEach(function() {
+            if(shared.badgeachievement.length < 2) 
+                this.skip();
+        });
         
         it('should return an array of created badgeachievements', function (done) {
             chai.request(CONFIG.API)
                 .get('badgeachievements/')
+                .set('content-type', 'application/json')
                 .set('autorization', shared.token)
                 .then(function(res) {
                     chai.expect(res).to.not.be.undefined;
@@ -151,12 +163,18 @@ describe('badgeachievements/', function () {
     });
 
     describe('badgeachievements/{id}/', function () {
+
+        beforeEach(function() {
+            if(shared.badgeachievement.length < 2) 
+                this.skip();
+        });
         
         describe('GET', function () {
             
             it('should return a specifiy badgeachievement', function (done) {
                 chai.request(CONFIG.API)
                     .get('badgeachievements/' + shared.badgeachievement[0].id + '/')
+                    .set('content-type', 'application/json')
                     .set('autorization', shared.token)
                     .then(function(res) {
                         chai.expect(res).to.not.be.undefined;
@@ -174,6 +192,7 @@ describe('badgeachievements/', function () {
             it('should not allow an undefined ID', function (done) {
                 chai.request(CONFIG.API)
                     .get('badgeachievements/7834/')
+                    .set('content-type', 'application/json')
                     .set('autorization', shared.token)
                     .end(function(err, res) {
                         chai.expect(err).to.not.be.undefined;

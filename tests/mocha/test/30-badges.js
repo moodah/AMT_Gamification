@@ -80,10 +80,16 @@ describe('badges/', function () {
     });
 
     describe('GET', function () {
+
+        beforeEach(function() {
+            if(shared.badge.length < 2) 
+                this.skip();
+        });
         
         it('should return an array of created badges', function (done) {
             chai.request(CONFIG.API)
                 .get('badges/')
+                .set('content-type', 'application/json')
                 .set('autorization', shared.token)
                 .then(function(res) {
                     chai.expect(res).to.not.be.undefined;
@@ -103,12 +109,18 @@ describe('badges/', function () {
     });
 
     describe('badges/{id}/', function () {
+
+        beforeEach(function() {
+            if(shared.badge.length < 2) 
+                this.skip();
+        });
         
         describe('GET', function () {
             
             it('should return a specifiy badge', function (done) {
                 chai.request(CONFIG.API)
                     .get('badges/' + shared.badge[0].id + '/')
+                    .set('content-type', 'application/json')
                     .set('autorization', shared.token)
                     .then(function(res) {
                         chai.expect(res).to.not.be.undefined;
@@ -126,6 +138,7 @@ describe('badges/', function () {
             it('should not allow an undefined ID', function (done) {
                 chai.request(CONFIG.API)
                     .get('badges/7834/')
+                    .set('content-type', 'application/json')
                     .set('autorization', shared.token)
                     .end(function(err, res) {
                         chai.expect(err).to.not.be.undefined;

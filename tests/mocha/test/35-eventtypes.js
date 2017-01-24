@@ -80,10 +80,16 @@ describe('eventtypes/', function () {
     });
 
     describe('GET', function () {
+
+        beforeEach(function() {
+            if(shared.eventtype.length < 2) 
+                this.skip();
+        });
         
         it('should return an array of created eventtypes', function (done) {
             chai.request(CONFIG.API)
                 .get('eventtypes/')
+                .set('content-type', 'application/json')
                 .set('autorization', shared.token)
                 .then(function(res) {
                     chai.expect(res).to.not.be.undefined;
@@ -103,12 +109,18 @@ describe('eventtypes/', function () {
     });
 
     describe('eventtypes/{id}/', function () {
+
+        beforeEach(function() {
+            if(shared.eventtype.length < 2) 
+                this.skip();
+        });
         
         describe('GET', function () {
             
             it('should return a specifiy eventtype', function (done) {
                 chai.request(CONFIG.API)
                     .get('eventtypes/' + shared.eventtype[0].id + '/')
+                    .set('content-type', 'application/json')
                     .set('autorization', shared.token)
                     .then(function(res) {
                         chai.expect(res).to.not.be.undefined;
@@ -126,6 +138,7 @@ describe('eventtypes/', function () {
             it('should not allow an undefined ID', function (done) {
                 chai.request(CONFIG.API)
                     .get('eventtypes/7834/')
+                    .set('content-type', 'application/json')
                     .set('autorization', shared.token)
                     .end(function(err, res) {
                         chai.expect(err).to.not.be.undefined;

@@ -12,16 +12,17 @@ describe('leaderboards/', function () {
 
     describe('GET', function () {
         
-        it('should return an array of top users', function (done) {
+        it.skip('should return an array of top users', function (done) {
             chai.request(CONFIG.API)
                 .get('leaderboards/')
+                .set('content-type', 'application/json')
                 .set('autorization', shared.token)
                 .then(function(res) {
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(200);
                     chai.expect(res).to.have.property('body');
                     chai.expect(res.body).to.have.lenght(2);
-                    this.skip(); // TODO
+                    // TODO
                     done();
                 })
                 .catch(function(err) {
