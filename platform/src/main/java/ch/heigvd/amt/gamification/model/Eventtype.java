@@ -31,9 +31,6 @@ public class Eventtype   {
     private String name;
 
     @Column(nullable = false)
-    private BigDecimal code;
-
-    @Column(nullable = false)
     private BigDecimal points;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "eventtype")
@@ -50,14 +47,23 @@ public class Eventtype   {
     public Eventtype() {
     }
 
+    public Eventtype(String name, BigDecimal points, Application application) {
+        this.name = name;
+        this.points = points;
+        this.application = application;
+    }
+
     public Eventtype(EventtypeCreationDTO event) {
         this.name = event.getName();
-        this.code = event.getCode();
         this.points = event.getPoints();
     }
 
     public void setApplication(Application application) {
         this.application = application;
+    }
+
+    public Application getApplication() {
+        return application;
     }
 
     public long getId() {
@@ -66,6 +72,10 @@ public class Eventtype   {
 
     public BigDecimal getPoints() {
         return points;
+    }
+
+    public void setPoints(BigDecimal points) {
+        this.points = points;
     }
 
     /**
@@ -81,25 +91,6 @@ public class Eventtype   {
         this.name = name;
     }
 
-    public Eventtype code(BigDecimal code) {
-        this.code = code;
-        return this;
-    }
-
-    /**
-     * Get code
-     * @return code
-     **/
-    @ApiModelProperty(value = "")
-    public BigDecimal getCode() {
-        return code;
-    }
-
-    public void setCode(BigDecimal code) {
-        this.code = code;
-    }
-
-
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -110,13 +101,12 @@ public class Eventtype   {
         }
         Eventtype eventtype = (Eventtype) o;
         return Objects.equals(this.name, eventtype.name) &&
-                Objects.equals(this.code, eventtype.code) &&
                 Objects.equals(this.application, eventtype.application);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, code);
+        return Objects.hash(name, points);
     }
 
     @Override
@@ -125,7 +115,6 @@ public class Eventtype   {
         sb.append("class Eventtype {\n");
 
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
-        sb.append("    code: ").append(toIndentedString(code)).append("\n");
         sb.append("}");
         return sb.toString();
     }
