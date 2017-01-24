@@ -697,9 +697,6 @@ definitions:
         format: int32
       username:
         type: string
-      points:
-        type: number
-        format: int32
       level_id:
         type: number
         format: int32
