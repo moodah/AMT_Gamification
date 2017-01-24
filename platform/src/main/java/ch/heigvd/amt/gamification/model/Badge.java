@@ -90,6 +90,13 @@ public class Badge {
         this.description = description;
     }
 
+    public Set<Achievement> getAchievements() {
+        return achievements;
+    }
+
+    public void setAchievements(Set<Achievement> achievements) {
+        this.achievements = achievements;
+    }
 
     @Override
     public boolean equals(java.lang.Object o) {
