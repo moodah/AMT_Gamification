@@ -23,6 +23,9 @@ public class Achievement   {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(nullable = false)
     private int count;
 
     @ManyToOne
@@ -40,6 +43,15 @@ public class Achievement   {
     public Achievement count(int count) {
         this.count = count;
         return this;
+    }
+
+    @ApiModelProperty(value = "")
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     /**
