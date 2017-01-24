@@ -4,5 +4,8 @@
 module.exports = {
 
     // application token
-    token: null
+    token: null,
+
+    // level url
+    level: null
 };

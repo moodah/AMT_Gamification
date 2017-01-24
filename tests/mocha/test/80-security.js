@@ -23,7 +23,58 @@ let TESTS = [
     { endpoint: 'leaderboards/', verbs: ['GET'] }
 ];
 
-// dynamically generated tests
+// All requests are the same
+let REQUESTS = {
+    'GET': function(endpoint, token, done) {
+        let r = chai.request(CONFIG.API)
+            .get(endpoint);
+        if(token != null)
+            r.set('autorization', token);
+        r.end(function(err, res) {
+            chai.expect(err).to.not.be.undefined;
+            chai.expect(err).to.have.status(403);
+            done();
+        });
+    },
+    'POST': function(endpoint, token, done) {        
+        let r = chai.request(CONFIG.API)
+            .post(endpoint)
+            .set('content-type', 'application/json');
+        if(token != null)
+            r.set('autorization', token);
+        r.end(function(err, res) {
+            chai.expect(err).to.not.be.undefined;
+            chai.expect(err).to.have.status(403);
+            done();
+        });
+    },
+    'PATCH': function(endpoint, token, done) {
+        let r = chai.request(CONFIG.API)
+            .patch(endpoint)
+            .set('content-type', 'application/json');
+        if(token != null)
+            r.set('autorization', token);
+        r.end(function(err, res) {
+            chai.expect(err).to.not.be.undefined;
+            chai.expect(err).to.have.status(403);
+            done();
+        });
+    },
+    'DELETE': function(endpoint, token, done) {        
+        let r = chai.request(CONFIG.API)
+            .delete(endpoint)
+            .set('content-type', 'application/json');
+        if(token != null)
+            r.set('autorization', token);
+        r.end(function(err, res) {
+            chai.expect(err).to.not.be.undefined;
+            chai.expect(err).to.have.status(403);
+            done();
+        });
+    }
+};
+
+// Dynamically generated tests
 describe('SECURITY', function () {
     
     TESTS.forEach(function (TEST) {
@@ -35,11 +86,12 @@ describe('SECURITY', function () {
                 describe(verb, function () {
                     
                     it('should be forbidden with no token', function (done) {
-                        this.skip();
+                        REQUESTS[verb](TEST.endpoint, null, done);
                     });
 
                     it('should be forbidden with bad token', function (done) {
-                        this.skip();
+                        let badToken = shared.token + '123';
+                        REQUESTS[verb](TEST.endpoint, badToken, done);
                     });
                 });
             });
