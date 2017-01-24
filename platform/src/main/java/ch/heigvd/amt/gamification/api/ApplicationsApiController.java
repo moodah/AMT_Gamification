@@ -81,25 +81,6 @@ public class ApplicationsApiController implements ApplicationsApi {
         return new ResponseEntity<Application>(persistentApp, HttpStatus.CREATED);
     }
 
-    public ResponseEntity<Void> applicationsIdDelete(@ApiParam(value = "The applications's ID", required = true) @PathVariable("id") BigDecimal id,
-                                                     @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
-        // do some magic!
-        return new ResponseEntity<Void>(HttpStatus.OK);
-    }
-
-    public ResponseEntity<Application> applicationsIdGet(@ApiParam(value = "The applications's id", required = true) @PathVariable("id") BigDecimal id,
-                                                         @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
-        // do some magic!
-        return new ResponseEntity<Application>(HttpStatus.OK);
-    }
-
-    public ResponseEntity<Application> applicationsIdPatch(@ApiParam(value = "The applications's ID", required = true) @PathVariable("id") BigDecimal id,
-                                                           @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
-                                                           @ApiParam(value = "Updated application", required = true) @RequestBody ApplicationDTO application) {
-        // do some magic!
-        return new ResponseEntity<Application>(HttpStatus.OK);
-    }
-
     private void dataValidation(ApplicationDTO application) {
         String appName = application.getName();
         String appPass = application.getPassword();
