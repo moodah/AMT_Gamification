@@ -37,11 +37,6 @@ public class Badge {
 
     @ManyToMany
     @Cascade({CascadeType.SAVE_UPDATE})
-    @JoinTable(name="user_badge", joinColumns={@JoinColumn(name="badge_id")}, inverseJoinColumns={@JoinColumn(name="user_id")})
-    Set<User> users = new HashSet<>(); // users are unique for a given badge
-
-    @ManyToMany
-    @Cascade({CascadeType.SAVE_UPDATE})
     @JoinTable(name="badge_achievement", joinColumns={@JoinColumn(name="badge_id")}, inverseJoinColumns={@JoinColumn(name="achievement_id")})
     Set<Achievement> achievements = new HashSet<>(); // achivements are unique for a given badge
 

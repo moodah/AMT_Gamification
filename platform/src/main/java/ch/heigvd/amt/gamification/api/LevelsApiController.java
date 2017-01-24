@@ -9,6 +9,7 @@ import ch.heigvd.amt.gamification.errors.ErrorMessageGenerator;
 import ch.heigvd.amt.gamification.errors.HttpStatusException;
 import ch.heigvd.amt.gamification.model.Application;
 import ch.heigvd.amt.gamification.model.Level;
+
 import java.math.BigDecimal;
 
 import ch.heigvd.amt.gamification.security.Authentication;
@@ -36,14 +37,14 @@ public class LevelsApiController implements LevelsApi {
     @Autowired
     ApplicationDao applicationDao;
 
-    public ResponseEntity<Void> levelsDelete(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
+    public ResponseEntity<Void> levelsDelete(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
         long appId = Authentication.getApplicationId(authorization);
         levelDao.delete(levelDao.findAllByApplicationIdOrderByPointsAsc(appId)); // TODO : une seule requete ? deleteAllByApplicationId par exemple (ne marchait pas quand j'ai essayé)
 
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
-    public ResponseEntity<ArrayList<LevelPresentationDTO>> levelsGet(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
+    public ResponseEntity<ArrayList<LevelPresentationDTO>> levelsGet(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
         long appId = Authentication.getApplicationId(authorization);
 
         ArrayList<LevelPresentationDTO> levels = new ArrayList<>();
@@ -53,8 +54,8 @@ public class LevelsApiController implements LevelsApi {
         return new ResponseEntity<ArrayList<LevelPresentationDTO>>(levels, HttpStatus.OK);
     }
 
-    public ResponseEntity<Void> levelsIdDelete(@ApiParam(value = "",required=true ) @PathVariable("id") BigDecimal id,
-                                               @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
+    public ResponseEntity<Void> levelsIdDelete(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
+                                               @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
         long appId = Authentication.getApplicationId(authorization);
 
         if (levelDao.findByApplicationIdAndId(appId, id.longValue()) == null)
@@ -66,8 +67,8 @@ public class LevelsApiController implements LevelsApi {
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
-    public ResponseEntity<LevelPresentationDTO> levelsIdGet(@ApiParam(value = "",required=true ) @PathVariable("id") BigDecimal id,
-                                                @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
+    public ResponseEntity<LevelPresentationDTO> levelsIdGet(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
+                                                            @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
         long appId = Authentication.getApplicationId(authorization);
 
         Level persistentLevel = levelDao.findByApplicationIdAndId(appId, id.longValue());
@@ -78,19 +79,19 @@ public class LevelsApiController implements LevelsApi {
         return new ResponseEntity<LevelPresentationDTO>(toPresentationDTO(persistentLevel), HttpStatus.OK);
     }
 
-    public ResponseEntity<LevelPresentationDTO> levelsIdPatch(@ApiParam(value = "",required=true ) @PathVariable("id") BigDecimal id,
-                                                          @ApiParam(value = "", required=false) @RequestBody LevelCreationDTO newLevel,
-                                                          @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
+    public ResponseEntity<LevelPresentationDTO> levelsIdPatch(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
+                                                              @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
+                                                              @ApiParam(value = "Updated level", required = true) @RequestBody Level newLevel) {
         long appId = Authentication.getApplicationId(authorization);
         Level oldLevel = levelDao.findByApplicationIdAndId(appId, id.longValue());
 
-        if(oldLevel == null)
+        if (oldLevel == null)
             throw new HttpStatusException(HttpStatus.NOT_FOUND, ErrorMessageGenerator.notFoundById("Level", id.toString()));
 
         List<Level> levels = levelDao.findAllByApplicationId(appId);
 
         // Check if name already exists
-        if(newLevel.getName() != null) {
+        if (newLevel.getName() != null) {
 
             levels.forEach(level -> {
                 if (level.getId() != id.longValue()) {
@@ -103,7 +104,7 @@ public class LevelsApiController implements LevelsApi {
         }
 
         // check if points already exist
-        if(newLevel.getPoints() != null) {
+        if (newLevel.getPoints() != null) {
 
             levels.forEach(level -> {
                 if (level.getId() != id.longValue()) {
@@ -122,8 +123,8 @@ public class LevelsApiController implements LevelsApi {
         return new ResponseEntity<LevelPresentationDTO>(toPresentationDTO(oldLevel), HttpStatus.OK);
     }
 
-    public ResponseEntity<ArrayList<String>> levelsPost(@ApiParam(value = "" ,required=true ) @RequestBody List<LevelCreationDTO> levels,
-                                            @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization) {
+    public ResponseEntity<ArrayList<String>> levelsPost(@ApiParam(value = "", required = true) @RequestBody List<LevelCreationDTO> levels,
+                                                        @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
         // levels payload verification
         levels.forEach(level -> {
             String levelName = level.getName();

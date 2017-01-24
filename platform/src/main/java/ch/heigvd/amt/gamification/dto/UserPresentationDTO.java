@@ -10,22 +10,38 @@ import java.math.BigDecimal;
  */
 public class UserPresentationDTO {
 
-    @JsonProperty("username")
-    private String username;
+    @JsonProperty("user_id")
+    private long userId;
 
     @JsonProperty("points")
-    private BigDecimal points;
+    private long points;
 
-    @JsonProperty("level")
+    /*@JsonProperty("level")
     private LevelPresentationDTO level;
 
     @JsonProperty("badges")
-    private List<BadgePresentationDTO> badges = new ArrayList<BadgePresentationDTO>();
+    private List<BadgePresentationDTO> badges = new ArrayList<BadgePresentationDTO>();*/
 
-    public UserPresentationDTO(String username, BigDecimal points, LevelPresentationDTO level, List<BadgePresentationDTO> badges) {
-        this.username = username;
+    public UserPresentationDTO(long userId, long points/*, LevelPresentationDTO level, List<BadgePresentationDTO> badges*/) {
+        this.userId = userId;
         this.points = points;
-        this.level = level;
-        this.badges = badges;
+        /*this.level = level;
+        this.badges = badges;*/
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public long getPoints() {
+        return points;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public void setPoints(long points) {
+        this.points = points;
     }
 }

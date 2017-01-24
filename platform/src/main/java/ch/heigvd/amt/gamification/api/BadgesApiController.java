@@ -61,24 +61,24 @@ public class BadgesApiController implements BadgesApi {
     }
 
     public ResponseEntity<Badge> badgesIdPatch(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
-                                               @ApiParam(value = "", required = false) @RequestBody Badge newBadge,
-                                               @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
+                                               @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
+                                               @ApiParam(value = "Updated badge", required = true) @RequestBody Badge newBadge) {
         Badge oldBadge = badgeDao.findById(id.longValue());
 
-        if(oldBadge == null)
+        if (oldBadge == null)
             throw new HttpStatusException(HttpStatus.NOT_FOUND, ErrorMessageGenerator.notFoundById("Badge", id.toString()));
 
-        if(newBadge.getId() != 0)
+        if (newBadge.getId() != 0)
             throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.cannotEditField("Badge", "id"));
 
-        if(newBadge.getName() != null){
-            if(badgeDao.findByName(newBadge.getName()) != null)
+        if (newBadge.getName() != null) {
+            if (badgeDao.findByName(newBadge.getName()) != null)
                 throw new HttpStatusException(HttpStatus.CONFLICT, ErrorMessageGenerator.nameAlreadyExists("Badge", newBadge.getName()));
             else
                 oldBadge.setName(newBadge.getName());
         }
 
-        if(newBadge.getDescription() != null)
+        if (newBadge.getDescription() != null)
             oldBadge.setDescription(newBadge.getDescription());
 
         badgeDao.save(oldBadge);
@@ -87,8 +87,8 @@ public class BadgesApiController implements BadgesApi {
     }
 
 
-    public ResponseEntity<Badge> badgesPost(@ApiParam(value = "", required = true) @RequestBody Badge badge,
-                                            @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
+    public ResponseEntity<Badge> badgesPost(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
+                                            @ApiParam(value = "", required = true) @RequestBody Badge badge) {
         if (badge.getName() == null)
             throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.fieldMissing("Badge", "name"));
 
@@ -103,4 +103,10 @@ public class BadgesApiController implements BadgesApi {
         return new ResponseEntity<Badge>(badge, HttpStatus.CREATED);
     }
 
+    /*public ResponseEntity<Badge> badgesIdPatch(@ApiParam(value = "",required=true ) @PathVariable("id") BigDecimal id,
+        @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization,
+        @ApiParam(value = "Updated badge" ,required=true ) @RequestBody Badge badge) {
+        // do some magic!
+        return new ResponseEntity<Badge>(HttpStatus.OK);
+    }*/
 }

@@ -18,17 +18,17 @@ public class EventtypePresentationDTO {
     @JsonProperty("name")
     private String name;
 
-    @JsonProperty("code")
-    private BigDecimal code;
-
     @JsonProperty("points")
     private BigDecimal points;
+
+    @JsonProperty("application_id")
+    private long application_id;
 
     public EventtypePresentationDTO(Eventtype eventtype) {
         this.id = eventtype.getId();
         this.name = eventtype.getName();
-        this.code = eventtype.getCode();
         this.points = eventtype.getPoints();
+        this.application_id = eventtype.getApplication().getId();
     }
 
     public long getId() {
@@ -37,10 +37,6 @@ public class EventtypePresentationDTO {
 
     public String getName() {
         return name;
-    }
-
-    public BigDecimal getCode() {
-        return code;
     }
 
     public BigDecimal getPoints() {
@@ -55,11 +51,15 @@ public class EventtypePresentationDTO {
         this.name = name;
     }
 
-    public void setCode(BigDecimal code) {
-        this.code = code;
-    }
-
     public void setPoints(BigDecimal points) {
         this.points = points;
+    }
+
+    public long getApplication_id() {
+        return application_id;
+    }
+
+    public void setApplication_id(long application_id) {
+        this.application_id = application_id;
     }
 }
