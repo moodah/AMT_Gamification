@@ -38,10 +38,6 @@ public class Application   {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "application")
     @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
-    Set<User> users = new HashSet<>(); // users are unique in a given application
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "application")
-    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
     Set<Badge> badges = new HashSet<>(); // badges are unique in a given application
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "application")

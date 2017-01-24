@@ -1,6 +1,6 @@
 package ch.heigvd.amt.gamification.api;
 
-import ch.heigvd.amt.gamification.model.User;
+import ch.heigvd.amt.gamification.dto.UserPresentationDTO;
 
 import java.math.BigDecimal;
 
@@ -18,16 +18,16 @@ import java.util.List;
 @Api(value = "leaderboards", description = "the leaderboards API")
 public interface LeaderboardsApi {
 
-    @ApiOperation(value = "Get a list of top users", notes = "", response = User.class, responseContainer = "List", tags = {"Leaderboards", "Users",})
+    @ApiOperation(value = "Get a list of top users", notes = "", response = UserPresentationDTO.class, responseContainer = "List", tags = {"Leaderboards", "Users",})
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "An list of users, ordered by their global reputation", response = User.class)})
+            @ApiResponse(code = 200, message = "An list of users, ordered by their global reputation", response = UserPresentationDTO.class)})
     @RequestMapping(value = "/leaderboards",
             produces = {"application/json"},
             consumes = {"application/json"},
             method = RequestMethod.GET)
-    ResponseEntity<List<User>> leaderboardsGet(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
-                                               @ApiParam(value = "The page number", defaultValue = "1") @RequestParam(value = "page", required = false, defaultValue = "1") BigDecimal page,
-                                               @ApiParam(value = "Number of result per page", defaultValue = "10") @RequestParam(value = "perPage", required = false, defaultValue = "10") BigDecimal perPage);
+    ResponseEntity<List<UserPresentationDTO>> leaderboardsGet(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
+                                                              @ApiParam(value = "The page number", defaultValue = "1") @RequestParam(value = "page", required = false, defaultValue = "1") BigDecimal page,
+                                                              @ApiParam(value = "Number of result per page", defaultValue = "10") @RequestParam(value = "perPage", required = false, defaultValue = "10") BigDecimal perPage);
 
 }
 

@@ -1,7 +1,6 @@
 package ch.heigvd.amt.gamification.api;
 
 import ch.heigvd.amt.gamification.dto.UserPresentationDTO;
-import ch.heigvd.amt.gamification.model.User;
 
 import java.math.BigDecimal;
 
@@ -10,16 +9,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-18T13:30:19.867Z")
 
 @Api(value = "users", description = "the users API")
 public interface UsersApi {
 
-    @ApiOperation(value = "Get a list of all users of this application", notes = "", response = User.class, responseContainer = "List", tags = {"Users",})
+    @ApiOperation(value = "Get a list of all users of this application", notes = "", response = UserPresentationDTO.class, responseContainer = "List", tags = {"Users",})
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "List of all users of this application", response = User.class)})
+            @ApiResponse(code = 200, message = "List of all users of this application", response = UserPresentationDTO.class)})
     @RequestMapping(value = "/users",
             produces = {"application/json"},
             consumes = {"application/json"},
@@ -29,9 +27,9 @@ public interface UsersApi {
                                                             @ApiParam(value = "Number of result per page", defaultValue = "10") @RequestParam(value = "perPage", required = false, defaultValue = "10") BigDecimal perPage);
 
 
-    @ApiOperation(value = "Get user with specified id", notes = "", response = User.class, tags = {"Users",})
+    @ApiOperation(value = "Get user with specified id", notes = "", response = UserPresentationDTO.class, tags = {"Users",})
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Requested user", response = User.class)})
+            @ApiResponse(code = 200, message = "Requested user", response = UserPresentationDTO.class)})
     @RequestMapping(value = "/users/{id}",
             produces = {"application/json"},
             consumes = {"application/json"},
