@@ -81,7 +81,7 @@ public class AchievementsApiController implements AchievementsApi {
         if (newAchievement.getCount() != null) {
             achievement.setCount(newAchievement.getCount().intValue());
         }
-        if (newAchievement.getEventtype_id() != null && eventtypeDao.findByApplicationIdAndId(appId, newAchievement.getEventtype_id().longValue()) == null) {
+        if (newAchievement.getEventtype_id() != null) {
             achievement.setEventtype(eventtypeDao.findByApplicationIdAndId(appId, newAchievement.getEventtype_id().longValue()));
         }
 
@@ -96,7 +96,7 @@ public class AchievementsApiController implements AchievementsApi {
 
         Achievement achievement = new Achievement(achievementDTO.getCount().intValue(),
                 applicationDao.findById(appId),
-                eventtypeDao.findById(achievementDTO.getEventtype_id().longValue()),
+                eventtypeDao.findByApplicationIdAndId(appId, achievementDTO.getEventtype_id().longValue()),
                 achievementDTO.getName());
 
         achievementDao.save(achievement);

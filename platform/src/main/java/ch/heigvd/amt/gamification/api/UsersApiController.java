@@ -1,9 +1,13 @@
 package ch.heigvd.amt.gamification.api;
 
+import ch.heigvd.amt.gamification.dao.EventDao;
+import ch.heigvd.amt.gamification.dao.EventtypeDao;
 import ch.heigvd.amt.gamification.dto.BadgePresentationDTO;
 import ch.heigvd.amt.gamification.dto.LevelPresentationDTO;
 import ch.heigvd.amt.gamification.dto.UserPresentationDTO;
 import ch.heigvd.amt.gamification.model.Badge;
+import ch.heigvd.amt.gamification.model.Event;
+import ch.heigvd.amt.gamification.model.Eventtype;
 import ch.heigvd.amt.gamification.model.Level;
 
 import java.math.BigDecimal;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 @javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-18T13:30:19.867Z")
@@ -27,6 +32,11 @@ import java.util.ArrayList;
 @Controller
 public class UsersApiController implements UsersApi {
 
+    @Autowired
+    private EventDao eventDao;
+
+    @Autowired
+    private EventtypeDao eventtypeDao;
 
 
     public ResponseEntity<ArrayList<UserPresentationDTO>> usersGet(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
@@ -43,8 +53,17 @@ public class UsersApiController implements UsersApi {
 
         long appId = Authentication.getApplicationId(authorization);
 
+        List<Event> events = eventDao.findAllByApplicationIdAndUserId(appId, id.longValue());
 
-        return new ResponseEntity<UserPresentationDTO>(HttpStatus.OK);
+        long points = 0;
+
+        if(events != null) {
+            for (Event event : events) {
+                points += event.getEventtype().getPoints().longValue();
+            }
+        }
+
+        return new ResponseEntity<UserPresentationDTO>(new UserPresentationDTO(id.longValue(), points), HttpStatus.OK);
     }
 
 

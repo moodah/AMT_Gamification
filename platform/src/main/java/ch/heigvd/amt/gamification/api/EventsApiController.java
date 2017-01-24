@@ -42,9 +42,11 @@ public class EventsApiController implements EventsApi {
                                                            @ApiParam(value = "New event" ,required=true ) @RequestBody EventCreationDTO eventDTO) {
         dataValidation(authorization, eventDTO);
 
+        long appId = Authentication.getApplicationId(authorization);
+
         Event event = new Event(new Date(),
                 eventDTO.getUser_id(),
-                eventtypeDao.findById(eventDTO.getEventtype_id()),
+                eventtypeDao.findByApplicationIdAndId(appId, eventDTO.getEventtype_id()),
                 applicationDao.findById(Authentication.getApplicationId(authorization)));
 
         eventDao.save(event);

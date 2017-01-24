@@ -60,7 +60,9 @@ public class EventtypesApiController implements EventtypesApi {
 
     public ResponseEntity<EventtypePresentationDTO> eventtypesIdGet(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                                      @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
-        Eventtype eventtype = eventtypeDao.findById(id.longValue());
+        long appId = Authentication.getApplicationId(authorization);
+
+        Eventtype eventtype = eventtypeDao.findByApplicationIdAndId(appId, id.longValue());
 
         return new ResponseEntity<EventtypePresentationDTO>(new EventtypePresentationDTO(eventtype), HttpStatus.OK);
     }
@@ -68,7 +70,9 @@ public class EventtypesApiController implements EventtypesApi {
     public ResponseEntity<EventtypePresentationDTO> eventtypesIdPatch(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                                        @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
                                                        @ApiParam(value = "Updated eventtype", required = true) @RequestBody EventtypeCreationDTO eventtypeDTO) {
-        Eventtype eventtype = eventtypeDao.findById(id.intValue());
+        long appId = Authentication.getApplicationId(authorization);
+
+        Eventtype eventtype = eventtypeDao.findByApplicationIdAndId(appId, id.intValue());
 
         if(eventtypeDTO.getName() != null){
             eventtype.setName(eventtypeDTO.getName());
