@@ -3,9 +3,9 @@ package ch.heigvd.amt.gamification.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * ApplicationDTO
+ * ApplicationCreationDTO
  */
-public class ApplicationDTO {
+public class ApplicationCreationDTO {
 
     @JsonProperty("name")
     private String name;

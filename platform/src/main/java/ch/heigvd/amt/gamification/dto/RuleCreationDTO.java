@@ -28,6 +28,6 @@ public class RuleCreationDTO {
     @JsonProperty("badge")
     private BadgePresentationDTO badge;
 
-    private ApplicationDTO application;
+    private ApplicationCreationDTO application;
 }
 
