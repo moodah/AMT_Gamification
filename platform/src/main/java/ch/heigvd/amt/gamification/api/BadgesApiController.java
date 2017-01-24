@@ -87,8 +87,8 @@ public class BadgesApiController implements BadgesApi {
     }
 
 
-    public ResponseEntity<Badge> badgesPost(@ApiParam(value = "", required = true) @RequestBody Badge badge,
-                                            @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
+    public ResponseEntity<Badge> badgesPost(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
+                                            @ApiParam(value = "", required = true) @RequestBody Badge badge) {
         if (badge.getName() == null)
             throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.fieldMissing("Badge", "name"));
 
@@ -109,11 +109,4 @@ public class BadgesApiController implements BadgesApi {
         // do some magic!
         return new ResponseEntity<Badge>(HttpStatus.OK);
     }*/
-
-    public ResponseEntity<Badge> badgesPost(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
-                                            @ApiParam(value = "", required = true) @RequestBody Badge badge) {
-        // do some magic!
-        return new ResponseEntity<Badge>(HttpStatus.OK);
-    }
-
 }
