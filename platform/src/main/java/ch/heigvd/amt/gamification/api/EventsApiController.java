@@ -2,6 +2,7 @@ package ch.heigvd.amt.gamification.api;
 
 import ch.heigvd.amt.gamification.dao.*;
 import ch.heigvd.amt.gamification.dto.EventCreationDTO;
+import ch.heigvd.amt.gamification.dto.EventPresentationDTO;
 import ch.heigvd.amt.gamification.dto.EventtypeCreationDTO;
 import ch.heigvd.amt.gamification.dto.EventtypePresentationDTO;
 import ch.heigvd.amt.gamification.errors.ErrorMessageGenerator;
@@ -27,10 +28,33 @@ import java.util.Date;
 @Controller
 public class EventsApiController implements EventsApi {
 
-    public ResponseEntity<Event> eventsPost(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization,
-        @ApiParam(value = "New event" ,required=true ) @RequestBody Event event) {
-        // do some magic!
-        return new ResponseEntity<Event>(HttpStatus.OK);
+
+    @Autowired
+    private EventtypeDao eventtypeDao;
+
+    @Autowired
+    private EventDao eventDao;
+
+    @Autowired
+    private ApplicationDao applicationDao;
+
+    public ResponseEntity<EventPresentationDTO> eventsPost(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization,
+                                                           @ApiParam(value = "New event" ,required=true ) @RequestBody EventCreationDTO eventDTO) {
+        dataValidation(eventDTO);
+
+        Event event = new Event(new Date(),
+                eventDTO.getUser_id(),
+                eventtypeDao.findById(eventDTO.getEventtype_id()),
+                applicationDao.findById(Authentication.getApplicationId(authorization)));
+
+        eventDao.save(event);
+
+        return new ResponseEntity<EventPresentationDTO>(new EventPresentationDTO(event), HttpStatus.OK);
     }
 
+    private void dataValidation(EventCreationDTO eventDTO){
+        if(eventtypeDao.findById(eventDTO.getEventtype_id()) == null){
+            throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.notFoundById("eventtype", String.valueOf(eventDTO.getEventtype_id())));
+        }
+    }
 }

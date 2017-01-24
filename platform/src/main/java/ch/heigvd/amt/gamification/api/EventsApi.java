@@ -1,6 +1,7 @@
 package ch.heigvd.amt.gamification.api;
 
 import ch.heigvd.amt.gamification.dto.EventCreationDTO;
+import ch.heigvd.amt.gamification.dto.EventPresentationDTO;
 import ch.heigvd.amt.gamification.dto.EventtypeCreationDTO;
 
 import ch.heigvd.amt.gamification.dto.EventtypePresentationDTO;
@@ -27,7 +28,7 @@ public interface EventsApi {
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)
-    ResponseEntity<Event> eventsPost(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization,
-        @ApiParam(value = "New event" ,required=true ) @RequestBody Event event);
+    ResponseEntity<EventPresentationDTO> eventsPost(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization,
+                                                    @ApiParam(value = "New event" ,required=true ) @RequestBody EventCreationDTO event);
 
 }

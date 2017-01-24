@@ -28,11 +28,6 @@ public class Event   {
     @Column(length = AppConfig.MAX_APP_NAME_LENGTH, nullable = false)
     private Date timestamp;
 
-    @JsonProperty("user")
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
     @JsonProperty("eventtype")
     @ManyToOne
     @JoinColumn(name = "eventtype_id", nullable = false)
@@ -42,14 +37,25 @@ public class Event   {
     @JoinColumn(name = "application_id", nullable = false)
     private Application application;
 
+    @Column(nullable = false)
+    private long userId;
+
     public Event() {
     }
 
-    public Event(Date timestamp, User user, Eventtype eventtype, Application application) {
+    public Event(Date timestamp, long userId, Eventtype eventtype, Application application) {
         this.timestamp = timestamp;
-        this.user = user;
+        this.userId = userId;
         this.eventtype = eventtype;
         this.application = application;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     /**
@@ -65,22 +71,13 @@ public class Event   {
         this.timestamp = timestamp;
     }
 
-    public Event user(User user) {
-        this.user = user;
-        return this;
+
+    public long getId() {
+        return id;
     }
 
-    /**
-     * Get user
-     * @return user
-     **/
-    @ApiModelProperty(value = "")
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public Application getApplication() {
+        return application;
     }
 
     public Event eventtype(Eventtype eventtype) {
@@ -112,14 +109,13 @@ public class Event   {
         }
         Event event = (Event) o;
         return Objects.equals(this.timestamp, event.timestamp) &&
-                Objects.equals(this.user, event.user) &&
                 Objects.equals(this.eventtype, event.eventtype) &&
                 Objects.equals(this.application, event.application);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(timestamp, user, eventtype);
+        return Objects.hash(timestamp, eventtype);
     }
 
     @Override
@@ -128,7 +124,6 @@ public class Event   {
         sb.append("class Event {\n");
 
         sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
-        sb.append("    user: ").append(toIndentedString(user)).append("\n");
         sb.append("    eventtype: ").append(toIndentedString(eventtype)).append("\n");
         sb.append("}");
         return sb.toString();
