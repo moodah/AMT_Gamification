@@ -22,6 +22,8 @@ describe('SECURITY', function () {
         { endpoint: 'eventtypes/0/', verbs: ['GET', 'PATCH', 'DELETE'] },
         { endpoint: 'achievements/', verbs: ['GET', 'POST', 'DELETE'] },
         { endpoint: 'achievements/0/', verbs: ['GET', 'PATCH', 'DELETE'] },
+        { endpoint: 'badgeachievements/', verbs: ['GET', 'POST', 'DELETE'] },
+        { endpoint: 'badgeachievements/0/', verbs: ['GET', 'DELETE'] },
         { endpoint: 'events/', verbs: ['POST'] },
         { endpoint: 'users/', verbs: ['GET'] },
         { endpoint: 'users/0/', verbs: ['GET'] },

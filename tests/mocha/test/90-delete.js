@@ -8,6 +8,30 @@ chai.use(chaiHttp);
 let CONFIG = require('./config');
 let shared = require('./shared');
 
+describe('badgeachievements/', function () {
+
+    describe('DELETE', function () {
+                
+        it('should allow to delete all badgeachievements', function (done) {
+            this.skip();
+        });
+    });
+
+    describe('badgeachievements/{id}', function () {
+
+        describe('DELETE', function () {
+                        
+            it('should allow to delete a specific badgeachievement', function (done) {
+                this.skip();
+            });
+
+            it('should not allow an undefined ID', function (done) {
+                this.skip();
+            });
+        });
+    });
+});
+
 describe('achievements/', function () {
 
     describe('DELETE', function () {

@@ -59,10 +59,28 @@ describe('achievements/', function () {
                 });
         });
 
+        it('should not allow an invalid eventtype_id', function (done) {
+            chai.request(CONFIG.API)
+                .post('achievements/')
+                .set('content-type', 'application/json')
+                .set('autorization', shared.token)
+                .send({
+                    count: 30,
+                    eventtype_id: 2983,
+                    name: 'invalid'
+                })
+                .end(function(err, res) {
+                    chai.expect(err).to.not.be.undefined;
+                    chai.expect(err).to.have.status(400);
+                    done();
+                });
+        });
+
         // malformed payloads
         Utils.generateMalformed({
-            name: 'name',
-            points: 10829
+            count: 0,
+            eventtype_id: 0,
+            name: ''
         }).forEach(function(malformed) {
 
             it('should refuse a malformed payload (' + malformed.what + ')', function (done) {
