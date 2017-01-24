@@ -31,6 +31,9 @@ public class Eventtype   {
     private String name;
 
     @Column(nullable = false)
+    private BigDecimal code;
+
+    @Column(nullable = false)
     private BigDecimal points;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "eventtype")
