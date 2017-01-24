@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface EventtypeDao extends CrudRepository<Eventtype, Long> {
 
-    Eventtype findByApplicationIdAndId(long applicationId, BigDecimal id);
+    Eventtype findByApplicationIdAndId(long applicationId, long id);
 
     List<Eventtype> findAllByApplicationId(long applicationId);
 
