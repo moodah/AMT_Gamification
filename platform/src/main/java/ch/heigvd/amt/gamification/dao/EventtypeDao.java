@@ -16,6 +16,4 @@ public interface EventtypeDao extends CrudRepository<Eventtype, Long> {
     Eventtype findByApplicationIdAndCode(long applicationId, BigDecimal code);
 
     List<Eventtype> findAllByApplicationId(long applicationId);
-
-    Eventtype findByApplicationIdAndCode(long applicationId, long code);
 }

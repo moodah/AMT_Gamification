@@ -1,8 +1,15 @@
 package ch.heigvd.amt.gamification.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.*;
+
+import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 
 /**
@@ -10,87 +17,112 @@ import java.math.BigDecimal;
  */
 @javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-18T13:30:19.867Z")
 
+@Entity
+@Table(name = "achievement")
 public class Achievement   {
-  @JsonProperty("count")
-  private BigDecimal count = null;
 
-  @JsonProperty("eventType")
-  private Eventtype eventType = null;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-  public Achievement count(BigDecimal count) {
-    this.count = count;
-    return this;
-  }
+    @Column(nullable = false)
+    private int count;
 
-  /**
-   * Get count
-   * @return count
-   **/
-  @ApiModelProperty(value = "")
-  public BigDecimal getCount() {
-    return count;
-  }
+    @ManyToOne
+    @JoinColumn(name = "application_id", nullable = false)
+    private Application application;
 
-  public void setCount(BigDecimal count) {
-    this.count = count;
-  }
+    @ManyToOne
+    private Eventtype eventtype;
 
-  public Achievement eventType(Eventtype eventType) {
-    this.eventType = eventType;
-    return this;
-  }
+    @ManyToMany
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+    @JoinTable(name="badge_achievement", joinColumns={@JoinColumn(name="achievement_id")}, inverseJoinColumns={@JoinColumn(name="badge_id")})
+    private List<Badge> badges = new ArrayList<Badge>();
 
-  /**
-   * Get eventType
-   * @return eventType
-   **/
-  @ApiModelProperty(value = "")
-  public Eventtype getEventType() {
-    return eventType;
-  }
-
-  public void setEventType(Eventtype eventType) {
-    this.eventType = eventType;
-  }
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
+    public Achievement count(int count) {
+        this.count = count;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    @ApiModelProperty(value = "")
+    public long getId() {
+        return id;
     }
-    Achievement achievement = (Achievement) o;
-    return Objects.equals(this.count, achievement.count) &&
-            Objects.equals(this.eventType, achievement.eventType);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(count, eventType);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Achievement {\n");
-
-    sb.append("    count: ").append(toIndentedString(count)).append("\n");
-    sb.append("    eventType: ").append(toIndentedString(eventType)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
+    public void setId(long id) {
+        this.id = id;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    /**
+     * Get count
+     * @return count
+     **/
+    @ApiModelProperty(value = "")
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public Achievement eventType(Eventtype eventType) {
+        this.eventtype = eventType;
+        return this;
+    }
+
+    /**
+     * Get eventtype
+     * @return eventtype
+     **/
+    @ApiModelProperty(value = "")
+    public Eventtype getEventtype() {
+        return eventtype;
+    }
+
+    public void setEventtype(Eventtype eventtype) {
+        this.eventtype = eventtype;
+    }
+
+
+    @Override
+    public boolean equals(java.lang.Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Achievement achievement = (Achievement) o;
+        return Objects.equals(this.count, achievement.count) &&
+                Objects.equals(this.eventtype, achievement.eventtype);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(count, eventtype);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class Achievement {\n");
+
+        sb.append("    count: ").append(toIndentedString(count)).append("\n");
+        sb.append("    eventtype: ").append(toIndentedString(eventtype)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(java.lang.Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }

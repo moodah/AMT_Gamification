@@ -33,7 +33,7 @@ public interface LevelsApi {
     ResponseEntity<Void> levelsDelete(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization);
 
 
-    @ApiOperation(value = "Get Gamification levels", notes = "The levels endpoint returns the levels defined by the client", response = Level.class, responseContainer = "List", tags={ "Levels", })
+    @ApiOperation(value = "Get Gamification levels", notes = "The levels endpoint returns the levels defined by the client", response = LevelPresentationDTO.class, responseContainer = "List", tags={ "Levels", })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "An array of levels", response = LevelPresentationDTO.class )})
     @RequestMapping(value = "/levels",
@@ -55,7 +55,7 @@ public interface LevelsApi {
                                         @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization);
 
 
-    @ApiOperation(value = "Get level with this {id}", notes = "Get level with this {id}", response = Level.class, tags={ "Levels", })
+    @ApiOperation(value = "Get level with this {id}", notes = "Get level with this {id}", response = LevelPresentationDTO.class, tags={ "Levels", })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Requested level", response = LevelPresentationDTO.class) })
     @RequestMapping(value = "/levels/{id}",
@@ -66,7 +66,7 @@ public interface LevelsApi {
                                          @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization);
 
 
-    @ApiOperation(value = "Update the level with {id}", notes = "Update the level with {id}", response = Level.class, tags={ "Levels", })
+    @ApiOperation(value = "Update the level with {id}", notes = "Update the level with {id}", response = String.class, tags={ "Levels", })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Updated level", response = LevelPresentationDTO.class),
             @ApiResponse(code = 409, message = "Level already exists", response = ErrorMessageGenerator.class)})
@@ -79,7 +79,7 @@ public interface LevelsApi {
                                            @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization);
 
 
-    @ApiOperation(value = "Create Gamification levels", notes = "The levels endpoint allows the client to submit new levels", response = Level.class, tags={ "Levels", })
+    @ApiOperation(value = "Create Gamification levels", notes = "The levels endpoint allows the client to submit new levels", response = String.class, tags={ "Levels", })
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Newly created level's URIs", response = String.class),
             @ApiResponse(code = 400, message = "Error payload", response = ErrorMessageGenerator.class) })

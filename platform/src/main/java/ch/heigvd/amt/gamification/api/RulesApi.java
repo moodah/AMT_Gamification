@@ -1,8 +1,8 @@
 package ch.heigvd.amt.gamification.api;
 
-import ch.heigvd.amt.gamification.model.Rule;
 import java.math.BigDecimal;
 
+import ch.heigvd.amt.gamification.model.Badge;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,15 +29,15 @@ public interface RulesApi {
     ResponseEntity<Void> rulesDelete(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization);
 
 
-    @ApiOperation(value = "Get Gamification rules", notes = "The Rules endpoint returns the rules defined by the client", response = Rule.class, responseContainer = "List", tags={ "Rules", })
+    @ApiOperation(value = "Get Gamification rules", notes = "The Rules endpoint returns the rules defined by the client", response = Badge.class, responseContainer = "List", tags={ "Rules", })
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "An array of rules", response = Rule.class),
-            @ApiResponse(code = 200, message = "Error payload", response = Rule.class) })
+            @ApiResponse(code = 200, message = "An array of rules", response = Badge.class),
+            @ApiResponse(code = 200, message = "Error payload", response = Badge.class) })
     @RequestMapping(value = "/rules",
             produces = { "application/json" },
             consumes = { "application/json" },
             method = RequestMethod.GET)
-    ResponseEntity<List<Rule>> rulesGet(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization);
+    ResponseEntity<List<Badge>> rulesGet(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization);
 
 
     @ApiOperation(value = "Delete the rule with {id}", notes = "Delete the rule with {id}", response = Void.class, tags={ "Rules", })
@@ -52,39 +52,39 @@ public interface RulesApi {
                                        @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization);
 
 
-    @ApiOperation(value = "Get a rule specified by {id}", notes = "Get a rule specified by {id}", response = Rule.class, tags={ "Rules", })
+    @ApiOperation(value = "Get a rule specified by {id}", notes = "Get a rule specified by {id}", response = Badge.class, tags={ "Rules", })
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Requested rule", response = Rule.class),
-            @ApiResponse(code = 200, message = "Error payload", response = Rule.class) })
+            @ApiResponse(code = 200, message = "Requested rule", response = Badge.class),
+            @ApiResponse(code = 200, message = "Error payload", response = Badge.class) })
     @RequestMapping(value = "/rules/{id}",
             produces = { "application/json" },
             consumes = { "application/json" },
             method = RequestMethod.GET)
-    ResponseEntity<Rule> rulesIdGet(@ApiParam(value = "",required=true ) @PathVariable("id") BigDecimal id,
+    ResponseEntity<Badge> rulesIdGet(@ApiParam(value = "",required=true ) @PathVariable("id") BigDecimal id,
                                     @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization);
 
 
-    @ApiOperation(value = "Update rules with {id}", notes = "Update rules with {id}", response = Rule.class, tags={ "Rules", })
+    @ApiOperation(value = "Update rules with {id}", notes = "Update rules with {id}", response = Badge.class, tags={ "Rules", })
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Updated rule", response = Rule.class),
-            @ApiResponse(code = 200, message = "Error payload", response = Rule.class) })
+            @ApiResponse(code = 200, message = "Updated rule", response = Badge.class),
+            @ApiResponse(code = 200, message = "Error payload", response = Badge.class) })
     @RequestMapping(value = "/rules/{id}",
             produces = { "application/json" },
             consumes = { "application/json" },
             method = RequestMethod.PATCH)
-    ResponseEntity<Rule> rulesIdPatch(@ApiParam(value = "",required=true ) @PathVariable("id") BigDecimal id,
+    ResponseEntity<Badge> rulesIdPatch(@ApiParam(value = "",required=true ) @PathVariable("id") BigDecimal id,
                                       @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization);
 
 
-    @ApiOperation(value = "Create Gamification rules", notes = "The Rules endpoint allows the client to submit new rules", response = Rule.class, tags={ "Rules", })
+    @ApiOperation(value = "Create Gamification rules", notes = "The Rules endpoint allows the client to submit new rules", response = Badge.class, tags={ "Rules", })
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Newly created rule", response = Rule.class),
-            @ApiResponse(code = 200, message = "Error payload", response = Rule.class) })
+            @ApiResponse(code = 201, message = "Newly created rule", response = Badge.class),
+            @ApiResponse(code = 200, message = "Error payload", response = Badge.class) })
     @RequestMapping(value = "/rules",
             produces = { "application/json" },
             consumes = { "application/json" },
             method = RequestMethod.POST)
-    ResponseEntity<Rule> rulesPost(@ApiParam(value = "" ,required=true ) @RequestBody Rule rule,
+    ResponseEntity<Badge> rulesPost(@ApiParam(value = "" ,required=true ) @RequestBody Badge rule,
                                    @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization);
 
 }
