@@ -63,7 +63,7 @@ public interface AchievementsApi {
             method = RequestMethod.PATCH)
     ResponseEntity<Achievement> achievementsIdPatch(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                                     @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
-                                                    @ApiParam(value = "Updated achievement", required = true) @RequestBody Achievement achievement);
+                                                    @ApiParam(value = "Updated achievement", required = true) @RequestBody AchievementCreationDTO newAchievement);
 
 
     @ApiOperation(value = "Create a new achievement", notes = "", response = Achievement.class, tags = {"Achievements",})
