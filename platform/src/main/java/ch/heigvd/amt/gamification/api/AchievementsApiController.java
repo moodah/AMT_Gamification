@@ -81,7 +81,7 @@ public class AchievementsApiController implements AchievementsApi {
         if (newAchievement.getCount() != null) {
             achievement.setCount(newAchievement.getCount().intValue());
         }
-        if (newAchievement.getEventtype_id() != null && eventtypeDao.findByApplicationIdAndId(appId, newAchievement.getEventtype_id().longValue()) == null) {
+        if (newAchievement.getEventtype_id() != null) {
             achievement.setEventtype(eventtypeDao.findByApplicationIdAndId(appId, newAchievement.getEventtype_id().longValue()));
         }
 
@@ -111,7 +111,7 @@ public class AchievementsApiController implements AchievementsApi {
         if (achievement.getEventtype_id() == null) {
             throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.fieldMissing("Achievement", "eventtype_id"));
         }
-        if (eventtypeDao.findByApplicationIdAndId(appId, achievement.getEventtype_id()) == null) {
+        if (eventtypeDao.findByApplicationIdAndId(appId, achievement.getEventtype_id().longValue()) == null) {
             throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.notFoundById("eventtype", String.valueOf(achievement.getEventtype_id())));
         }
     }
