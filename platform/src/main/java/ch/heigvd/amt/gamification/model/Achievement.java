@@ -43,6 +43,9 @@ public class Achievement   {
     @JoinTable(name="badge_achievement", joinColumns={@JoinColumn(name="achievement_id")}, inverseJoinColumns={@JoinColumn(name="badge_id")})
     private List<Badge> badges = new ArrayList<Badge>();
 
+    public Achievement() {
+    }
+
     public Achievement(int count, Application application, Eventtype eventtype, String name) {
         this.count = count;
         this.application = application;
