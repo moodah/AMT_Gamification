@@ -11,6 +11,11 @@ let Utils = require('./utils');
 
 describe('badges/', function () {
 
+    beforeEach(function() {
+        if(shared.achievement.length < 2) 
+            this.skip();
+    });
+
     describe('POST', function () {
         
         it('should allow to create a new badge', function (done) {
@@ -62,10 +67,29 @@ describe('badges/', function () {
                 });
         });
 
+        it('should not allow to create a badge with no achievement', function (done) {
+            chai.request(CONFIG.API)
+                .post('badges/')
+                .set('content-type', 'application/json')
+                .set('authorization', shared.token)
+                .send({
+                    name: 'klasjldsa',
+                    description: 'should. not pass',
+                    achievements: []
+                })
+                .end(function(err, res) {
+                    Utils.debug('err', err);
+                    chai.expect(err).to.not.be.null;
+                    chai.expect(err).to.have.status(400);
+                    done();
+                });
+        });
+
         // malformed payloads
         Utils.generateMalformed({
             name: 'name',
-            description: 'description'
+            description: 'description',
+            achievements: [shared.achievement.id]
         }).forEach(function(malformed) {
 
             it('should refuse a malformed payload (' + malformed.what + ')', function (done) {
