@@ -165,7 +165,7 @@ describe('levels/', function () {
                     .set('authorization', shared.token)
                     .send({
                         name: 'semi-pro',
-                        points: 50
+                        points: 15
                     })
                     .then(function (res) {
                         Utils.debug('res', res);
@@ -173,7 +173,7 @@ describe('levels/', function () {
                         chai.expect(res).to.have.status(200);
                         chai.expect(res).to.have.property('text');
                         chai.expect(JSON.parse(res.text).name).to.equal('semi-pro');
-                        chai.expect(JSON.parse(res.text).points).to.equal(50);
+                        chai.expect(JSON.parse(res.text).points).to.equal(15);
                         shared.level[0] = JSON.parse(res.text);
                         done();
                     })

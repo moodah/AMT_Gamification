@@ -193,7 +193,7 @@ describe('achievements/', function () {
                     .set('content-type', 'application/json')
                     .set('authorization', shared.token)
                     .send({
-                        count: 50,
+                        count: 1,
                         eventtype_id: shared.eventtype[0].id,
                         name: 'amazing'
                     })
@@ -202,7 +202,7 @@ describe('achievements/', function () {
                         chai.expect(res).to.not.be.null;
                         chai.expect(res).to.have.status(200);
                         chai.expect(res).to.have.property('text');
-                        chai.expect(JSON.parse(res.text).count).to.equal(50);
+                        chai.expect(JSON.parse(res.text).count).to.equal(1);
                         chai.expect(JSON.parse(res.text).eventtype.id).to.equal(shared.eventtype[0].id);
                         chai.expect(JSON.parse(res.text).name).to.equal('amazing');
                         shared.achievement[0] = JSON.parse(res.text);
