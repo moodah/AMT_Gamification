@@ -34,6 +34,7 @@ public class Eventtype   {
     private BigDecimal points;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "eventtype")
+    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
     private List<Event> events = new LinkedList<>();
 
     @ManyToOne
