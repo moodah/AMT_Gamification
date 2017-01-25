@@ -44,9 +44,7 @@ public class BadgesApiController implements BadgesApi {
 
         long appId = Authentication.getApplicationId(authorization);
 
-        List<Badge> badges = badgeDao.findAllByApplicationId(appId);
-
-        badges.forEach(badge -> {
+        badgeDao.findAllByApplicationId(appId).forEach(badge -> {
             badgeDao.delete(badge);
         });
 

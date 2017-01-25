@@ -11,6 +11,7 @@ import ch.heigvd.amt.gamification.dto.AchievementPresentationDTO;
 import ch.heigvd.amt.gamification.errors.ErrorMessageGenerator;
 import ch.heigvd.amt.gamification.errors.HttpStatusException;
 import ch.heigvd.amt.gamification.model.Achievement;
+import ch.heigvd.amt.gamification.model.Badge;
 import ch.heigvd.amt.gamification.security.Authentication;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.*;
@@ -112,6 +113,16 @@ public class AchievementsApiController implements AchievementsApi {
         achievementDao.save(achievement);
 
         return new ResponseEntity<Achievement>(achievement, HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<Void> achievementsDelete(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
+        long appId = Authentication.getApplicationId(authorization);
+
+        achievementDao.findAllByApplicationId(appId).forEach(achievement -> {
+            achievementDao.delete(achievement);
+        });
+
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
     private void dataValidation(AchievementCreationDTO achievement, long appId) {

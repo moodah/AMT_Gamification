@@ -84,5 +84,4 @@ public interface BadgesApi {
             consumes = {"application/json"},
             method = RequestMethod.DELETE)
     ResponseEntity<Void> badgesDelete(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization);
-
 }

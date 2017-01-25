@@ -63,9 +63,7 @@ public class EventtypesApiController implements EventtypesApi {
     public ResponseEntity<Void> eventtypesDelete(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization){
         long appId = Authentication.getApplicationId(authorization);
 
-        List<Eventtype> eventtypes = eventtypeDao.findAllByApplicationId(appId);
-
-        eventtypes.forEach(eventtype -> {
+        eventtypeDao.findAllByApplicationId(appId).forEach(eventtype -> {
             eventtypeDao.delete(eventtype);
         });
 

@@ -76,4 +76,14 @@ public interface LevelsApi {
             method = RequestMethod.POST)
     ResponseEntity<LevelPresentationDTO> levelsPost(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization,
                                      @ApiParam(value = "" ,required=true ) @RequestBody LevelCreationDTO level);
+
+
+    @ApiOperation(value = "Delete all levels of applications", notes = "", response = Void.class, tags = {"Levels",})
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Deleted successfully", response = Void.class)})
+    @RequestMapping(value = "/levels",
+            produces = {"application/json"},
+            consumes = {"application/json"},
+            method = RequestMethod.DELETE)
+    ResponseEntity<Void> levelsDelete(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization);
 }

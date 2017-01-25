@@ -33,7 +33,7 @@ public interface AchievementsApi {
     ResponseEntity<List<AchievementPresentationDTO>> achievementsGet(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization);
 
 
-    @ApiOperation(value = "Delete achievement with specified", notes = "", response = Void.class, tags = {"Achievements",})
+    @ApiOperation(value = "Delete achievement with specified id", notes = "", response = Void.class, tags = {"Achievements",})
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "Deleted successfully", response = Void.class)})
     @RequestMapping(value = "/achievements/{id}",
@@ -76,5 +76,14 @@ public interface AchievementsApi {
             method = RequestMethod.POST)
     ResponseEntity<Achievement> achievementsPost(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
                                                  @ApiParam(value = "New achievement", required = true) @RequestBody AchievementCreationDTO achievement);
+
+    @ApiOperation(value = "Delete all achievements of applications", notes = "", response = Void.class, tags = {"Achievements",})
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Deleted successfully", response = Void.class)})
+    @RequestMapping(value = "/achievements",
+            produces = {"application/json"},
+            consumes = {"application/json"},
+            method = RequestMethod.DELETE)
+    ResponseEntity<Void> achievementsDelete(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization);
 
 }

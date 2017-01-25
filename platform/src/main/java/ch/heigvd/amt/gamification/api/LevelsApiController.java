@@ -37,14 +37,6 @@ public class LevelsApiController implements LevelsApi {
     @Autowired
     ApplicationDao applicationDao;
 
-    public ResponseEntity<Void> levelsDelete(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
-        long appId = Authentication.getApplicationId(authorization);
-
-        levelDao.delete(levelDao.findAllByApplicationIdOrderByPointsAsc(appId)); // TODO : une seule requete ? deleteAllByApplicationId par exemple (ne marchait pas quand j'ai essayé)
-
-        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-    }
-
     public ResponseEntity<ArrayList<LevelPresentationDTO>> levelsGet(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
         long appId = Authentication.getApplicationId(authorization);
 
@@ -155,6 +147,16 @@ public class LevelsApiController implements LevelsApi {
         levelDao.save(level);
 
         return new ResponseEntity<LevelPresentationDTO>(new LevelPresentationDTO(level), HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<Void> levelsDelete(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
+        long appId = Authentication.getApplicationId(authorization);
+
+        levelDao.findAllByApplicationId(appId).forEach(level -> {
+            levelDao.delete(level);
+        });
+
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
     private LevelPresentationDTO toPresentationDTO(Level level) {
