@@ -3,6 +3,9 @@ package ch.heigvd.amt.gamification.dto;
 import ch.heigvd.amt.gamification.model.Badge;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * BadgeDTO
  */
@@ -17,10 +20,16 @@ public class BadgePresentationDTO {
     @JsonProperty("description")
     private String description;
 
+    @JsonProperty("achievements")
+    private List<AchievementPresentationDTO> achievementPresentationDTOList = new ArrayList<>();
+
     public BadgePresentationDTO(Badge badge) {
         this.id = badge.getId();
         this.name = badge.getName();
         this.description = badge.getDescription();
+        badge.getAchievements().forEach(achievement -> {
+            achievementPresentationDTOList.add(new AchievementPresentationDTO(achievement));
+        });
     }
 
     public String getName() {
@@ -45,6 +54,14 @@ public class BadgePresentationDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<AchievementPresentationDTO> getAchievementPresentationDTOList() {
+        return achievementPresentationDTOList;
+    }
+
+    public void setAchievementPresentationDTOList(List<AchievementPresentationDTO> achievementPresentationDTOList) {
+        this.achievementPresentationDTOList = achievementPresentationDTOList;
     }
 }
 

@@ -51,10 +51,6 @@ public class LevelsApiController implements LevelsApi {
                                                @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
         long appId = Authentication.getApplicationId(authorization);
 
-        if (levelDao.findByApplicationIdAndId(appId, id.longValue()) == null)
-            throw new HttpStatusException(HttpStatus.NOT_FOUND,
-                    ErrorMessageGenerator.notFoundById("Level", id.toString()));
-
         levelDao.delete(id.longValue());
 
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

@@ -69,12 +69,7 @@ public class BadgesApiController implements BadgesApi {
                                                @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
         long appId = Authentication.getApplicationId(authorization);
 
-        Badge badge = badgeDao.findByApplicationIdAndId(appId, id.longValue());
-
-        if (badge == null)
-            throw new HttpStatusException(HttpStatus.NOT_FOUND, ErrorMessageGenerator.notFoundById("Badge", id.toString()));
-
-        badgeDao.delete(id.longValue());
+        badgeDao.delete(badgeDao.findByApplicationIdAndId(appId, id.longValue()));
 
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }

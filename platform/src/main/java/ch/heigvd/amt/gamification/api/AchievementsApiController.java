@@ -58,12 +58,8 @@ public class AchievementsApiController implements AchievementsApi {
     public ResponseEntity<Void> achievementsIdDelete(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                                      @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
         long appId = Authentication.getApplicationId(authorization);
-        Achievement achievement = achievementDao.findByApplicationIdAndId(appId, id.longValue());
 
-        if (achievement == null)
-            throw new HttpStatusException(HttpStatus.NOT_FOUND, ErrorMessageGenerator.notFoundById("Archievement", id.toString()));
-
-        achievementDao.delete(id.longValue());
+        achievementDao.delete(achievementDao.findByApplicationIdAndId(appId, id.longValue()));
 
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
@@ -79,7 +75,7 @@ public class AchievementsApiController implements AchievementsApi {
         return new ResponseEntity<AchievementPresentationDTO>(new AchievementPresentationDTO(achievement), HttpStatus.OK);
     }
 
-    public ResponseEntity<Achievement> achievementsIdPatch(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
+    public ResponseEntity<AchievementPresentationDTO> achievementsIdPatch(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                                            @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
                                                            @ApiParam(value = "Updated achievement", required = true) @RequestBody AchievementCreationDTO newAchievement) {
         long appId = Authentication.getApplicationId(authorization);
@@ -97,10 +93,10 @@ public class AchievementsApiController implements AchievementsApi {
         }
 
         achievementDao.save(achievement);
-        return new ResponseEntity<Achievement>(achievement, HttpStatus.OK);
+        return new ResponseEntity<AchievementPresentationDTO>(new AchievementPresentationDTO(achievement), HttpStatus.OK);
     }
 
-    public ResponseEntity<Achievement> achievementsPost(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
+    public ResponseEntity<AchievementPresentationDTO> achievementsPost(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
                                                         @ApiParam(value = "New achievement", required = true) @RequestBody AchievementCreationDTO achievementDTO) {
         long appId = Authentication.getApplicationId(authorization);
         dataValidation(achievementDTO, appId);
@@ -112,7 +108,7 @@ public class AchievementsApiController implements AchievementsApi {
 
         achievementDao.save(achievement);
 
-        return new ResponseEntity<Achievement>(achievement, HttpStatus.CREATED);
+        return new ResponseEntity<AchievementPresentationDTO>(new AchievementPresentationDTO(achievement), HttpStatus.CREATED);
     }
 
     public ResponseEntity<Void> achievementsDelete(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {

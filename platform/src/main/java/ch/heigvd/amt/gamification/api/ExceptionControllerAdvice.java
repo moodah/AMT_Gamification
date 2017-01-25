@@ -3,6 +3,7 @@ package ch.heigvd.amt.gamification.api;
 import ch.heigvd.amt.gamification.errors.ErrorMessageGenerator;
 import ch.heigvd.amt.gamification.errors.HttpErrorResponse;
 import ch.heigvd.amt.gamification.errors.HttpStatusException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -42,5 +43,13 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
         err.setCode(HttpStatus.NOT_FOUND.value());
         err.setMessage("Ressource not found");
         return new ResponseEntity<HttpErrorResponse>(err,HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value = {org.springframework.dao.EmptyResultDataAccessException.class})
+    protected ResponseEntity handleEmptyResultDataAccess(EmptyResultDataAccessException ex) {
+        HttpErrorResponse err = new HttpErrorResponse();
+        err.setCode(HttpStatus.NOT_FOUND.value());
+        err.setMessage("Ressource not found");
+        return new ResponseEntity<HttpErrorResponse>(err, HttpStatus.NOT_FOUND);
     }
 }

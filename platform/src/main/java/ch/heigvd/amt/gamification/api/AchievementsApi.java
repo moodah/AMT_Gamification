@@ -62,7 +62,7 @@ public interface AchievementsApi {
             produces = {"application/json"},
             consumes = {"application/json"},
             method = RequestMethod.PATCH)
-    ResponseEntity<Achievement> achievementsIdPatch(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
+    ResponseEntity<AchievementPresentationDTO> achievementsIdPatch(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                                     @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
                                                     @ApiParam(value = "Updated achievement", required = true) @RequestBody AchievementCreationDTO newAchievement);
 
@@ -74,7 +74,7 @@ public interface AchievementsApi {
             produces = {"application/json"},
             consumes = {"application/json"},
             method = RequestMethod.POST)
-    ResponseEntity<Achievement> achievementsPost(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
+    ResponseEntity<AchievementPresentationDTO> achievementsPost(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
                                                  @ApiParam(value = "New achievement", required = true) @RequestBody AchievementCreationDTO achievement);
 
     @ApiOperation(value = "Delete all achievements of applications", notes = "", response = Void.class, tags = {"Achievements",})
