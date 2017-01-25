@@ -137,9 +137,6 @@ public class BadgesApiController implements BadgesApi {
         }
 
         achievementIds.forEach(aLong -> {
-            if(achievementDao.findByApplicationIdAndId(appId, aLong) == null){
-                throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.notFoundById("Achievement", String.valueOf(aLong)));
-            }
             badge.addAchievement(achievementDao.findByApplicationIdAndId(appId, aLong));
         });
 

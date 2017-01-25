@@ -10,6 +10,7 @@ import org.hibernate.annotations.*;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.Null;
 import java.math.BigDecimal;
 
 /**
@@ -47,6 +48,9 @@ public class Achievement   {
     }
 
     public Achievement(int count, Application application, Eventtype eventtype, String name) {
+        if(eventtype == null){
+            throw new NullPointerException();
+        }
         this.count = count;
         this.application = application;
         this.eventtype = eventtype;

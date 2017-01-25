@@ -129,8 +129,5 @@ public class AchievementsApiController implements AchievementsApi {
         if (achievement.getEventtype_id() == null) {
             throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.fieldMissing("Achievement", "eventtype_id"));
         }
-        if (eventtypeDao.findByApplicationIdAndId(appId, achievement.getEventtype_id().longValue()) == null) {
-            throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.notFoundById("eventtype", String.valueOf(achievement.getEventtype_id())));
-        }
     }
 }
