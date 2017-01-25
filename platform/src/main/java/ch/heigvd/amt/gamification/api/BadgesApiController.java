@@ -88,16 +88,10 @@ public class BadgesApiController implements BadgesApi {
 
     public ResponseEntity<BadgePresentationDTO> badgesIdPatch(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                                @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
-                                               @ApiParam(value = "Updated badge", required = true) @RequestBody Badge newBadge) {
+                                               @ApiParam(value = "Updated badge", required = true) @RequestBody BadgeCreationDTO newBadge) {
         long appId = Authentication.getApplicationId(authorization);
 
         Badge oldBadge = badgeDao.findByApplicationIdAndId(appId, id.longValue());
-
-        if (oldBadge == null)
-            throw new HttpStatusException(HttpStatus.NOT_FOUND, ErrorMessageGenerator.notFoundById("Badge", id.toString()));
-
-        if (newBadge.getId() != 0)
-            throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.cannotEditField("Badge", "id"));
 
         if (newBadge.getName() != null) {
             if (badgeDao.findByApplicationIdAndName(appId, newBadge.getName()) != null)
@@ -108,6 +102,13 @@ public class BadgesApiController implements BadgesApi {
 
         if (newBadge.getDescription() != null)
             oldBadge.setDescription(newBadge.getDescription());
+
+        if (newBadge.getAchievementsIds() != null){
+            oldBadge.getAchievements().clear();
+            newBadge.getAchievementsIds().forEach(aLong -> {
+                oldBadge.addAchievement(achievementDao.findByApplicationIdAndId(appId, aLong));
+            });
+        }
 
         badgeDao.save(oldBadge);
 

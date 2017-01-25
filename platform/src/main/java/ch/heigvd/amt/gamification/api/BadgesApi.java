@@ -63,7 +63,7 @@ public interface BadgesApi {
             method = RequestMethod.PATCH)
     ResponseEntity<BadgePresentationDTO> badgesIdPatch(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                         @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
-                                        @ApiParam(value = "Updated badge", required = true) @RequestBody Badge badge);
+                                        @ApiParam(value = "Updated badge", required = true) @RequestBody BadgeCreationDTO badge);
 
 
     @ApiOperation(value = "Create a new badge", notes = "", response = Badge.class, tags = {"Badges",})

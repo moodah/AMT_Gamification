@@ -20,10 +20,8 @@ import java.util.List;
 @Controller
 public class LeaderboardsApiController implements LeaderboardsApi {
 
-    public ResponseEntity<List<UserPresentationDTO>> leaderboardsGet(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
-                                                                     @ApiParam(value = "The page number", defaultValue = "1") @RequestParam(value = "page", required = false, defaultValue = "1") BigDecimal page,
-                                                                     @ApiParam(value = "Number of result per page", defaultValue = "10") @RequestParam(value = "perPage", required = false, defaultValue = "10") BigDecimal perPage) {
-        // do some magic!
+    public ResponseEntity<List<UserPresentationDTO>> leaderboardsGet(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
+
         return new ResponseEntity<List<UserPresentationDTO>>(HttpStatus.OK);
     }
 

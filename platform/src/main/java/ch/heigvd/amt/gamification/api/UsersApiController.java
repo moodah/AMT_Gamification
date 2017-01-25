@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static ch.heigvd.amt.gamification.utils.getUserInfo;
+
 
 @javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-18T13:30:19.867Z")
 
@@ -62,7 +64,7 @@ public class UsersApiController implements UsersApi {
         List<UserPresentationDTO> userPresentationDTOS = new ArrayList<>();
 
         userIds.forEach(aLong -> {
-            userPresentationDTOS.add(getUserInfo(appId, aLong));
+            userPresentationDTOS.add(getUserInfo(appId, aLong, achievementDao, badgeDao, eventDao, levelDao));
         });
 
         return new ResponseEntity<List<UserPresentationDTO>>(userPresentationDTOS, HttpStatus.OK);
@@ -73,82 +75,6 @@ public class UsersApiController implements UsersApi {
 
         long appId = Authentication.getApplicationId(authorization);
 
-        return new ResponseEntity<UserPresentationDTO>(getUserInfo(appId, id.longValue()), HttpStatus.OK);
-    }
-
-    private UserPresentationDTO getUserInfo(long appId, long id){
-
-        List<Event> events = eventDao.findAllByApplicationIdAndUserId(appId, id);
-
-        if (events == null || events.size() == 0){
-            throw new HttpStatusException(HttpStatus.NOT_FOUND, ErrorMessageGenerator.notFoundById("User", String.valueOf(id)));
-        }
-
-        HashMap<Eventtype, Integer> eventtypeIntegerHashMap = new HashMap<>();
-
-        long points = 0;
-
-        for (Event event : events) {
-            points += event.getEventtype().getPoints().longValue();
-            Integer count = eventtypeIntegerHashMap.get(event.getEventtype());
-            if (count == null) {
-                eventtypeIntegerHashMap.put(event.getEventtype(), 0);
-            } else {
-                count = count + 1;
-            }
-        }
-
-        List<Achievement> potentialAchievements = new ArrayList<>();
-        eventtypeIntegerHashMap.forEach((eventtype, integer) -> {
-            achievementDao.findAllByApplicationIdAndEventtype(appId, eventtype).forEach(achievement -> {
-                if (!potentialAchievements.contains(achievement)) {
-                    potentialAchievements.add(achievement);
-                }
-            });
-        });
-
-        List<Achievement> achievements = new ArrayList<>();
-        potentialAchievements.forEach(achievement -> {
-            eventtypeIntegerHashMap.forEach((eventtype, integer) -> {
-                if (achievement.getEventtype() == eventtype && achievement.getCount() <= integer) {
-                    achievements.add(achievement);
-                }
-            });
-        });
-
-        List<Badge> potentialBadges = badgeDao.findAllByApplicationId(appId);
-        List<Badge> badges = new ArrayList<>();
-
-        potentialBadges.forEach(badge -> {
-            int c = badge.getAchievements().size();
-            for (Achievement achievement : badge.getAchievements()) {
-                if (achievements.contains(achievement)) {
-                    c--;
-                }
-            }
-            if (c == 0) {
-                badges.add(badge);
-            }
-        });
-
-        Level level = levelDao.findTopByPointsLessThanEqualOrderByPointsDesc(new BigDecimal(points));
-
-        LevelPresentationDTO levelPresentationDTO;
-
-        if (level == null) {
-            levelPresentationDTO = new LevelPresentationDTO(0, "none", new BigDecimal(0));
-        } else {
-            levelPresentationDTO = new LevelPresentationDTO(level);
-        }
-
-        List<BadgePresentationDTO> badgePresentationDTOList = new ArrayList<>();
-        badges.forEach(badge -> {
-            badgePresentationDTOList.add(new BadgePresentationDTO(badge));
-        });
-
-        return new UserPresentationDTO(id,
-                points,
-                levelPresentationDTO,
-                badgePresentationDTOList);
+        return new ResponseEntity<UserPresentationDTO>(getUserInfo(appId, id.longValue(), achievementDao, badgeDao, eventDao, levelDao), HttpStatus.OK);
     }
 }
