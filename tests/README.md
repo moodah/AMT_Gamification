@@ -14,7 +14,11 @@ They are many testing approachs in this folder, here we come with some explanati
 
 ### JMeter
 
-This part tests the high load and concurrency of the platform. It is only composed of a JMeter script, which ...
+This part tests the high load and concurrency of the platform. It is only composed of a JMeter script, which initialize a new application and add some event types. Then, it starts to add events with several concurrents threads.
+
+This test showed us that there is no concurrency problem with the most problematic part of the API. Add events will be the most used endpoint of the application. At the end of the test, the user points are correct.
+
+The JMeter script is located under the `jmeter/` sub-folder. To use it, it's necessary to configure the URL to the API inside JMeter.
 
 ### MochaJS
 
