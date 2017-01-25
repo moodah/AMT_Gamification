@@ -41,8 +41,16 @@ public class BadgesApiController implements BadgesApi {
     private AchievementDao achievementDao;
 
     public ResponseEntity<Void> badgesDelete(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
-        badgeDao.deleteAll();
-        return new ResponseEntity<Void>(HttpStatus.OK);
+
+        long appId = Authentication.getApplicationId(authorization);
+
+        List<Badge> badges = badgeDao.findAllByApplicationId(appId);
+
+        badges.forEach(badge -> {
+            badgeDao.delete(badge);
+        });
+
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
     public ResponseEntity<List<Badge>> badgesGet(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
@@ -51,7 +59,9 @@ public class BadgesApiController implements BadgesApi {
 
     public ResponseEntity<Void> badgesIdDelete(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                                @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
-        Badge badge = badgeDao.findById(id.longValue());
+        long appId = Authentication.getApplicationId(authorization);
+
+        Badge badge = badgeDao.findByApplicationIdAndId(appId, id.longValue());
 
         if (badge == null)
             throw new HttpStatusException(HttpStatus.NOT_FOUND, ErrorMessageGenerator.notFoundById("Badge", id.toString()));
@@ -63,7 +73,9 @@ public class BadgesApiController implements BadgesApi {
 
     public ResponseEntity<Badge> badgesIdGet(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                              @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
-        Badge badge = badgeDao.findById(id.longValue());
+        long appId = Authentication.getApplicationId(authorization);
+
+        Badge badge = badgeDao.findByApplicationIdAndId(appId, id.longValue());
 
         if (badge == null)
             throw new HttpStatusException(HttpStatus.NOT_FOUND, ErrorMessageGenerator.notFoundById("Badge", id.toString()));
@@ -74,9 +86,9 @@ public class BadgesApiController implements BadgesApi {
     public ResponseEntity<Badge> badgesIdPatch(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                                @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
                                                @ApiParam(value = "Updated badge", required = true) @RequestBody Badge newBadge) {
-        Badge oldBadge = badgeDao.findById(id.longValue());
         long appId = Authentication.getApplicationId(authorization);
 
+        Badge oldBadge = badgeDao.findByApplicationIdAndId(appId, id.longValue());
 
         if (oldBadge == null)
             throw new HttpStatusException(HttpStatus.NOT_FOUND, ErrorMessageGenerator.notFoundById("Badge", id.toString()));
@@ -128,11 +140,4 @@ public class BadgesApiController implements BadgesApi {
 
         return new ResponseEntity<BadgePresentationDTO>(new BadgePresentationDTO(badge), HttpStatus.CREATED);
     }
-
-    /*public ResponseEntity<Badge> badgesIdPatch(@ApiParam(value = "",required=true ) @PathVariable("id") BigDecimal id,
-        @ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization,
-        @ApiParam(value = "Updated badge" ,required=true ) @RequestBody Badge badge) {
-        // do some magic!
-        return new ResponseEntity<Badge>(HttpStatus.OK);
-    }*/
 }

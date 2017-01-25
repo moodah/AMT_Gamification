@@ -13,7 +13,7 @@ public interface BadgeDao extends CrudRepository<Badge, Long> {
 
     Badge findByApplicationIdAndName(long id, String name);
 
-    Badge findById(Long id);
+    Badge findByApplicationIdAndId(long appId, long id);
 
     List<Badge> findAllByApplicationId(long id);
 }

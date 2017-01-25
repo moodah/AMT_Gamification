@@ -7,6 +7,7 @@ import ch.heigvd.amt.gamification.dao.AchievementDao;
 import ch.heigvd.amt.gamification.dao.ApplicationDao;
 import ch.heigvd.amt.gamification.dao.EventtypeDao;
 import ch.heigvd.amt.gamification.dto.AchievementCreationDTO;
+import ch.heigvd.amt.gamification.dto.AchievementPresentationDTO;
 import ch.heigvd.amt.gamification.errors.ErrorMessageGenerator;
 import ch.heigvd.amt.gamification.errors.HttpStatusException;
 import ch.heigvd.amt.gamification.model.Achievement;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -39,9 +41,17 @@ public class AchievementsApiController implements AchievementsApi {
     @Autowired
     private EventtypeDao eventtypeDao;
 
-    public ResponseEntity<List<Achievement>> achievementsGet(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
+    public ResponseEntity<List<AchievementPresentationDTO>> achievementsGet(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
         long appId = Authentication.getApplicationId(authorization);
-        return new ResponseEntity<List<Achievement>>(Lists.newArrayList(achievementDao.findAllByApplicationId(appId)), HttpStatus.OK);
+
+        List<Achievement> achievements = achievementDao.findAllByApplicationId(appId);
+        List<AchievementPresentationDTO> achievementPresentationDTOS = new ArrayList<>();
+
+        achievements.forEach(achievement -> {
+            achievementPresentationDTOS.add(new AchievementPresentationDTO(achievement));
+        });
+
+        return new ResponseEntity<List<AchievementPresentationDTO>>(achievementPresentationDTOS, HttpStatus.OK);
     }
 
     public ResponseEntity<Void> achievementsIdDelete(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
@@ -57,7 +67,7 @@ public class AchievementsApiController implements AchievementsApi {
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
-    public ResponseEntity<Achievement> achievementsIdGet(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
+    public ResponseEntity<AchievementPresentationDTO> achievementsIdGet(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                                          @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
         long appId = Authentication.getApplicationId(authorization);
         Achievement achievement = achievementDao.findByApplicationIdAndId(appId, id.longValue());
@@ -65,7 +75,7 @@ public class AchievementsApiController implements AchievementsApi {
         if (achievement == null)
             throw new HttpStatusException(HttpStatus.NOT_FOUND, ErrorMessageGenerator.notFoundById("Badge", id.toString()));
 
-        return new ResponseEntity<Achievement>(achievement, HttpStatus.OK);
+        return new ResponseEntity<AchievementPresentationDTO>(new AchievementPresentationDTO(achievement), HttpStatus.OK);
     }
 
     public ResponseEntity<Achievement> achievementsIdPatch(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,

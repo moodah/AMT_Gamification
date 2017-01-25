@@ -6,6 +6,7 @@ import ch.heigvd.amt.gamification.model.Badge;
 
 import java.math.BigDecimal;
 
+import ch.heigvd.amt.gamification.model.Eventtype;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -74,5 +75,14 @@ public interface BadgesApi {
             method = RequestMethod.POST)
     ResponseEntity<BadgePresentationDTO> badgesPost(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
                                                     @ApiParam(value = "", required = true) @RequestBody BadgeCreationDTO badge);
+
+    @ApiOperation(value = "Delete all badges of applications", notes = "", response = Void.class, tags = {"Badges",})
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Deleted successfully", response = Void.class)})
+    @RequestMapping(value = "/badges",
+            produces = {"application/json"},
+            consumes = {"application/json"},
+            method = RequestMethod.DELETE)
+    ResponseEntity<Void> badgesDelete(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization);
 
 }

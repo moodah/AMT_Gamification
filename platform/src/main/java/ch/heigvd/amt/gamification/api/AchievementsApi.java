@@ -3,6 +3,7 @@ package ch.heigvd.amt.gamification.api;
 import java.math.BigDecimal;
 
 import ch.heigvd.amt.gamification.dto.AchievementCreationDTO;
+import ch.heigvd.amt.gamification.dto.AchievementPresentationDTO;
 import ch.heigvd.amt.gamification.model.Achievement;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public interface AchievementsApi {
             produces = {"application/json"},
             consumes = {"application/json"},
             method = RequestMethod.GET)
-    ResponseEntity<List<Achievement>> achievementsGet(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization);
+    ResponseEntity<List<AchievementPresentationDTO>> achievementsGet(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization);
 
 
     @ApiOperation(value = "Delete achievement with specified", notes = "", response = Void.class, tags = {"Achievements",})
@@ -50,7 +51,7 @@ public interface AchievementsApi {
             produces = {"application/json"},
             consumes = {"application/json"},
             method = RequestMethod.GET)
-    ResponseEntity<Achievement> achievementsIdGet(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
+    ResponseEntity<AchievementPresentationDTO> achievementsIdGet(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                                   @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization);
 
 

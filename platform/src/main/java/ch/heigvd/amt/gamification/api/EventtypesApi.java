@@ -45,7 +45,7 @@ public interface EventtypesApi {
 
     @ApiOperation(value = "Delete all eventtypes of applications", notes = "", response = Void.class, tags = {"Eventtypes",})
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Deleted successfully", response = Eventtype.class)})
+            @ApiResponse(code = 204, message = "Deleted successfully", response = Void.class)})
     @RequestMapping(value = "/eventtypes",
             produces = {"application/json"},
             consumes = {"application/json"},

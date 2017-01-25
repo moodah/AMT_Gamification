@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface AchievementDao extends CrudRepository<Achievement, Long> {
 
-    Achievement findAllByApplicationId(Long appId);
+    List<Achievement> findAllByApplicationId(Long appId);
 
     Achievement findByApplicationIdAndId(Long appId, Long id);
 
