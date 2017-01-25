@@ -152,7 +152,7 @@ describe('badges/', function () {
         
         describe('GET', function () {
             
-            it('should return a specifiy badge', function (done) {
+            it('should return a specific badge', function (done) {
                 chai.request(CONFIG.API)
                     .get('badges/' + shared.badge[0].id + '/')
                     .set('content-type', 'application/json')

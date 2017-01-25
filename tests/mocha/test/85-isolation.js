@@ -73,7 +73,7 @@ describe('ISOLATION', function () {
                         .end(function(err, res) {
                             Utils.debug('err', err);
                             chai.expect(err).to.not.be.null;
-                            chai.expect(err).to.have.status(403);
+                            chai.expect(err).to.have.status(404);
                             done();
                         });
                 });
@@ -89,7 +89,7 @@ describe('ISOLATION', function () {
                         .end(function(err, res) {
                             Utils.debug('err', err);
                             chai.expect(err).to.not.be.null;
-                            chai.expect(err).to.have.status(403);
+                            chai.expect(err).to.have.status(404);
                             done();
                         });
                 });
@@ -105,7 +105,7 @@ describe('ISOLATION', function () {
                         .end(function(err, res) {
                             Utils.debug('err', err);
                             chai.expect(err).to.not.be.null;
-                            chai.expect(err).to.have.status(403);
+                            chai.expect(err).to.have.status(404);
                             done();
                         });
                 });
@@ -121,7 +121,7 @@ describe('ISOLATION', function () {
                         .end(function(err, res) {
                             Utils.debug('err', err);
                             chai.expect(err).to.not.be.null;
-                            chai.expect(err).to.have.status(403);
+                            chai.expect(err).to.have.status(404);
                             done();
                         });
                 });
@@ -145,7 +145,28 @@ describe('ISOLATION', function () {
                         .end(function(err, res) {
                             Utils.debug('err', err);
                             chai.expect(err).to.not.be.null;
-                            chai.expect(err).to.have.status(403);
+                            chai.expect(err).to.have.status(404);
+                            done();
+                        });
+                }); 
+            });
+
+            describe('badges/', function () {
+
+                it('should not be able to use an other application achievement_id', function (done) {
+                    chai.request(CONFIG.API)
+                        .post('badges/')
+                        .set('content-type', 'application/json')
+                        .set('authorization', tmptoken)
+                        .send({
+                            name: 'should',
+                            description: 'not work',
+                            achievements: [shared.achievement[0].id]
+                        })
+                        .end(function(err, res) {
+                            Utils.debug('err', err);
+                            chai.expect(err).to.not.be.null;
+                            chai.expect(err).to.have.status(404);
                             done();
                         });
                 }); 
@@ -168,7 +189,7 @@ describe('ISOLATION', function () {
                         .end(function(err, res) {
                             Utils.debug('err', err);
                             chai.expect(err).to.not.be.null;
-                            chai.expect(err).to.have.status(403);
+                            chai.expect(err).to.have.status(404);
                             done();
                         });
                 });
@@ -189,7 +210,7 @@ describe('ISOLATION', function () {
                         .end(function(err, res) {
                             Utils.debug('err', err);
                             chai.expect(err).to.not.be.null;
-                            chai.expect(err).to.have.status(403);
+                            chai.expect(err).to.have.status(404);
                             done();
                         });
                 });
@@ -209,7 +230,7 @@ describe('ISOLATION', function () {
                         .end(function(err, res) {
                             Utils.debug('err', err);
                             chai.expect(err).to.not.be.null;
-                            chai.expect(err).to.have.status(403);
+                            chai.expect(err).to.have.status(404);
                             done();
                         });
                 });
@@ -230,7 +251,7 @@ describe('ISOLATION', function () {
                         .end(function(err, res) {
                             Utils.debug('err', err);
                             chai.expect(err).to.not.be.null;
-                            chai.expect(err).to.have.status(403);
+                            chai.expect(err).to.have.status(404);
                             done();
                         });
                 });
@@ -249,7 +270,7 @@ describe('ISOLATION', function () {
                         .end(function(err, res) {
                             Utils.debug('err', err);
                             chai.expect(err).to.not.be.null;
-                            chai.expect(err).to.have.status(403);
+                            chai.expect(err).to.have.status(404);
                             done();
                         });
                 });
@@ -265,7 +286,7 @@ describe('ISOLATION', function () {
                         .end(function(err, res) {
                             Utils.debug('err', err);
                             chai.expect(err).to.not.be.null;
-                            chai.expect(err).to.have.status(403);
+                            chai.expect(err).to.have.status(404);
                             done();
                         });
                 });
@@ -281,7 +302,7 @@ describe('ISOLATION', function () {
                         .end(function(err, res) {
                             Utils.debug('err', err);
                             chai.expect(err).to.not.be.null;
-                            chai.expect(err).to.have.status(403);
+                            chai.expect(err).to.have.status(404);
                             done();
                         });
                 });
@@ -297,7 +318,7 @@ describe('ISOLATION', function () {
                         .end(function(err, res) {
                             Utils.debug('err', err);
                             chai.expect(err).to.not.be.null;
-                            chai.expect(err).to.have.status(403);
+                            chai.expect(err).to.have.status(404);
                             done();
                         });
                 });

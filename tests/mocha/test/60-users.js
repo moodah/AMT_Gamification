@@ -13,7 +13,7 @@ describe('users/', function () {
 
     describe('GET', function () {
         
-        it.skip('should return an array of users', function (done) {
+        it('should return an array of users', function (done) {
             chai.request(CONFIG.API)
                 .get('users/')
                 .set('content-type', 'application/json')
@@ -24,7 +24,7 @@ describe('users/', function () {
                     chai.expect(res).to.have.status(200);
                     chai.expect(res).to.have.property('text');
                     chai.expect(JSON.parse(res.text)).to.have.lengthOf(2);
-                    // TODO
+                    chai.expect('TODO TEST').to.be.null; 
                     done();
                 })
                 .catch(function(err) {
@@ -70,7 +70,7 @@ describe('users/', function () {
         
         describe('GET', function () {
             
-            it.skip('should return a specific user', function (done) {
+            it('should return a specific user', function (done) {
                 chai.request(CONFIG.API)
                     .get('users/0/')
                     .set('content-type', 'application/json')
@@ -80,7 +80,7 @@ describe('users/', function () {
                         chai.expect(res).to.not.be.null;
                         chai.expect(res).to.have.status(200);
                         chai.expect(res).to.have.property('text');
-                        // TODO
+                        chai.expect('TODO TEST').to.be.null; 
                         done();
                     })
                     .catch(function(err) {
