@@ -21,7 +21,7 @@ describe('ISOLATION', function () {
             .post('applications/')
             .set('content-type', 'application/json')
             .send({
-                name: '__tempapp32190s38',
+                name: '__tempapp32u190s38',
                 password: '23891ldas'
             })
             .then(function(res) {
@@ -29,7 +29,7 @@ describe('ISOLATION', function () {
                     .post('applications/auth/')
                     .set('content-type', 'application/json')
                     .send({
-                        name: '__tempapp32190s38',
+                        name: '__tempapp32u190s38',
                         password: '23891ldas'
                     })
                     .then(function(res) {
@@ -55,10 +55,12 @@ describe('ISOLATION', function () {
             .set('content-type', 'application/json')
             .set('authorization', tmptoken)
             .then(function(res) {
+                Utils.debug('res', res);
                 done();
             })
             .catch(function(err) {
                 Utils.debug('err', err);
+                done(err);
             });
     });
 

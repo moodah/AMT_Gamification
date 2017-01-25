@@ -113,7 +113,7 @@ describe('SECURITY', function () {
                     });
 
                     it('should be forbidden with bad token', function (done) {
-                        let badToken = shared.token + '123';
+                        let badToken = '987' + shared.token + '123';
                         REQUESTS[verb](TEST.ep == null ? TEST.endpoint : TEST.ep(), badToken, done, TEST.payload);
                     });
                 });
