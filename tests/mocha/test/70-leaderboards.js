@@ -24,7 +24,15 @@ describe('leaderboards/', function () {
                     chai.expect(res).to.have.status(200);
                     chai.expect(res).to.have.property('text');
                     chai.expect(JSON.parse(res.text)).to.have.lengthOf(2);
-                    chai.expect('TODO TEST').to.be.null; 
+                    chai.expect(JSON.parse(res.text)[0].user_id).to.equal(1);
+                    chai.expect(JSON.parse(res.text)[0].points).to.equal(20);
+                    chai.expect(JSON.parse(res.text)[0].level.name).to.equal('semi-pro');
+                    chai.expect(JSON.parse(res.text)[0].badges).to.have.lengthOf(0);
+                    chai.expect(JSON.parse(res.text)[1].user_id).to.equal(0);
+                    chai.expect(JSON.parse(res.text)[1].points).to.equal(5);
+                    chai.expect(JSON.parse(res.text)[1].level.name).to.equal('none');
+                    chai.expect(JSON.parse(res.text)[1].badges).to.have.lengthOf(1);
+                    chai.expect(JSON.parse(res.text)[1].badges[0].name).to.equal('super-writer');
                     done();
                 })
                 .catch(function(err) {

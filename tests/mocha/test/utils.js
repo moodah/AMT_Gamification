@@ -32,7 +32,7 @@ module.exports = {
     /**
      * Debug
      */
-    enableDebug: true,
+    enableDebug: false,
     debug: function(n, v) {
         if(this.enableDebug) {
             let intro = 'DEBUG(' + n + ') => ';
