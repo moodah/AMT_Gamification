@@ -22,13 +22,13 @@ describe('applications/', function () {
                     password: CONFIG.APPPWD
                 })
                 .then(function (res) {
-                    Utils.debug(res);
+                    Utils.debug('res', res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(201);
                     done();
                 })
                 .catch(function(err) { 
-                    Utils.debug(err);
+                    Utils.debug('err', err);
                     done(err);
                 });
         });
@@ -42,7 +42,7 @@ describe('applications/', function () {
                     password: CONFIG.APPPWD + '_'
                 })
                 .end(function(err, res) { 
-                    Utils.debug(err);
+                    Utils.debug('err', err);
                     chai.expect(err).to.not.be.undefined;
                     chai.expect(err).to.have.status(409);
                     done();
@@ -61,7 +61,7 @@ describe('applications/', function () {
                     .set('content-type', 'application/json')
                     .send(malformed.payload)
                     .end(function(err, res) { 
-                        Utils.debug(err);
+                        Utils.debug('err', err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(400);
                         done();
@@ -78,7 +78,7 @@ describe('applications/', function () {
                     password: CONFIG.APPPWD 
                 })
                 .end(function(err, res) { 
-                    Utils.debug(err);
+                    Utils.debug('err', err);
                     chai.expect(err).to.not.be.undefined;
                     chai.expect(err).to.have.status(400);
                     done();
@@ -94,7 +94,7 @@ describe('applications/', function () {
                     password: '1234567'
                 })
                 .end(function(err, res) { 
-                    Utils.debug(err);
+                    Utils.debug('err', err);
                     chai.expect(err).to.not.be.undefined;
                     chai.expect(err).to.have.status(400);
                     done();
@@ -115,7 +115,7 @@ describe('applications/', function () {
                         password: CONFIG.APPPWD
                     })
                     .then(function (res) {
-                        Utils.debug(res);
+                        Utils.debug('res', res);
                         chai.expect(res).to.not.be.undefined;
                         chai.expect(res).to.have.status(201);
                         chai.expect(res).to.have.property('body');
@@ -123,7 +123,7 @@ describe('applications/', function () {
                         done();
                     })
                     .catch(function(err) { 
-                        Utils.debug(err);
+                        Utils.debug('err', err);
                         done(err);
                     });
             });
@@ -137,7 +137,7 @@ describe('applications/', function () {
                         password: CONFIG.APPPWD
                     })
                     .end(function(err, res) { 
-                        Utils.debug(err);
+                        Utils.debug('err', err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(404);
                         done();
@@ -153,7 +153,7 @@ describe('applications/', function () {
                         password: CONFIG.APPPWD + '_'
                     })
                     .end(function(err, res) { 
-                        Utils.debug(err);
+                        Utils.debug('err', err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(404);
                         done();
@@ -172,7 +172,7 @@ describe('applications/', function () {
                         .set('content-type', 'application/json')
                         .send(malformed.payload)
                         .end(function(err, res) { 
-                            Utils.debug(err);
+                            Utils.debug('err', err);
                             chai.expect(err).to.not.be.undefined;
                             chai.expect(err).to.have.status(400);
                             done();
@@ -189,7 +189,7 @@ describe('applications/', function () {
                         password: CONFIG.APPPWD 
                     })
                     .end(function(err, res) { 
-                        Utils.debug(err);
+                        Utils.debug('err', err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(400);
                         done();
@@ -205,7 +205,7 @@ describe('applications/', function () {
                         password: '1234567' 
                     })
                     .end(function(err, res) { 
-                        Utils.debug(err);
+                        Utils.debug('err', err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(400);
                         done();

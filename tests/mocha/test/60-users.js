@@ -13,13 +13,13 @@ describe('users/', function () {
 
     describe('GET', function () {
         
-        it.skip('should return an array of users', function (done) {
+        it('should return an array of users', function (done) {
             chai.request(CONFIG.API)
                 .get('users/')
                 .set('content-type', 'application/json')
                 .set('authorization', shared.token)
                 .then(function (res) {
-                    Utils.debug(res);
+                    Utils.debug('res', res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(200);
                     chai.expect(res).to.have.property('text');
@@ -28,7 +28,7 @@ describe('users/', function () {
                     done();
                 })
                 .catch(function(err) {
-                    Utils.debug(err);
+                    Utils.debug('err', err);
                     done(err);
                 });
         });
@@ -70,13 +70,13 @@ describe('users/', function () {
         
         describe('GET', function () {
             
-            it.skip('should return a specific user', function (done) {
+            it('should return a specific user', function (done) {
                 chai.request(CONFIG.API)
                     .get('users/0/')
                     .set('content-type', 'application/json')
                     .set('authorization', shared.token)
                     .then(function (res) {
-                        Utils.debug(res);
+                        Utils.debug('res', res);
                         chai.expect(res).to.not.be.undefined;
                         chai.expect(res).to.have.status(200);
                         chai.expect(res).to.have.property('text');
@@ -84,7 +84,7 @@ describe('users/', function () {
                         done();
                     })
                     .catch(function(err) {
-                        Utils.debug(err);
+                        Utils.debug('err', err);
                         done(err);
                     });
             });
@@ -95,9 +95,9 @@ describe('users/', function () {
                     .set('content-type', 'application/json')
                     .set('authorization', shared.token)
                     .end(function(err, res) { 
-                        Utils.debug(err);
+                        Utils.debug('err', err);
                         chai.expect(err).to.not.be.undefined;
-                        chai.expect(err).to.have.status(400);
+                        chai.expect(err).to.have.status(404);
                         done();
                     });
             });
