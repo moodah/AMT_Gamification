@@ -23,7 +23,7 @@ describe('eventtypes/', function () {
                     points: 10
                 })
                 .then(function (res) {
-                    Utils.debug(res);
+                    Utils.debug('res', res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(201);
                     chai.expect(res).to.have.property('text');
@@ -31,7 +31,7 @@ describe('eventtypes/', function () {
                     done();
                 })
                 .catch(function(err) {
-                    Utils.debug(err);
+                    Utils.debug('err', err);
                     done(err);
                 });
         });
@@ -46,16 +46,16 @@ describe('eventtypes/', function () {
                     points: 20
                 })
                 .then(function (res) {
-                    Utils.debug(res);
+                    Utils.debug('res', res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(201);
                     chai.expect(res).to.have.property('text');
-                    chai.expect(JSON.parse(res.text)).to.be.not.equal.to(shared.eventtype[0]);
+                    chai.expect(JSON.parse(res.text)).to.not.equal(shared.eventtype[0]);
                     shared.eventtype.push(JSON.parse(res.text));
                     done();
                 })
                 .catch(function(err) {
-                    Utils.debug(err);
+                    Utils.debug('err', err);
                     done(err);
                 });
         });
@@ -73,7 +73,7 @@ describe('eventtypes/', function () {
                     .set('authorization', shared.token)
                     .send(malformed)
                     .end(function(err, res) { 
-                        Utils.debug(err);
+                        Utils.debug('err', err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(400);
                         done();
@@ -95,7 +95,7 @@ describe('eventtypes/', function () {
                 .set('content-type', 'application/json')
                 .set('authorization', shared.token)
                 .then(function (res) {
-                    Utils.debug(res);
+                    Utils.debug('res', res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(200);
                     chai.expect(res).to.have.property('text');
@@ -107,7 +107,7 @@ describe('eventtypes/', function () {
                     done();
                 })
                 .catch(function(err) {
-                    Utils.debug(err);
+                    Utils.debug('err', err);
                     done(err);
                 });
         });
@@ -128,7 +128,7 @@ describe('eventtypes/', function () {
                     .set('content-type', 'application/json')
                     .set('authorization', shared.token)
                     .then(function (res) {
-                        Utils.debug(res);
+                        Utils.debug('res', res);
                         chai.expect(res).to.not.be.undefined;
                         chai.expect(res).to.have.status(200);
                         chai.expect(res).to.have.property('text');
@@ -137,7 +137,7 @@ describe('eventtypes/', function () {
                         done();
                     })
                     .catch(function(err) {
-                        Utils.debug(err);
+                        Utils.debug('err', err);
                         done(err);
                     });
             });
@@ -148,7 +148,7 @@ describe('eventtypes/', function () {
                     .set('content-type', 'application/json')
                     .set('authorization', shared.token)
                     .end(function(err, res) { 
-                        Utils.debug(err);
+                        Utils.debug('err', err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(404);
                         done();
@@ -168,7 +168,7 @@ describe('eventtypes/', function () {
                         points: 5
                     })
                     .then(function (res) {
-                        Utils.debug(res);
+                        Utils.debug('res', res);
                         chai.expect(res).to.not.be.undefined;
                         chai.expect(res).to.have.status(200);
                         chai.expect(res).to.have.property('text');
@@ -178,7 +178,7 @@ describe('eventtypes/', function () {
                         done();
                     })
                     .catch(function(err) {
-                        Utils.debug(err);
+                        Utils.debug('err', err);
                         done(err);
                     });
             });
@@ -193,7 +193,7 @@ describe('eventtypes/', function () {
                         points: 9823
                     })
                     .end(function(err, res) { 
-                        Utils.debug(err);
+                        Utils.debug('err', err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(404);
                         done();

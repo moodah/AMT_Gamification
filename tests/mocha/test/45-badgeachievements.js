@@ -29,7 +29,7 @@ describe('badgeachievements/', function () {
                     badge_id: shared.badge[0].id
                 })
                 .then(function (res) {
-                    Utils.debug(res);
+                    Utils.debug('res', res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(201);
                     chai.expect(res).to.have.property('text');
@@ -37,7 +37,7 @@ describe('badgeachievements/', function () {
                     done();
                 })
                 .catch(function(err) {
-                    Utils.debug(err);
+                    Utils.debug('err', err);
                     done(err);
                 });
         });
@@ -52,16 +52,16 @@ describe('badgeachievements/', function () {
                     badge_id: shared.badge[1].id
                 })
                 .then(function (res) {
-                    Utils.debug(res);
+                    Utils.debug('res', res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(201);
                     chai.expect(res).to.have.property('text');
-                    chai.expect(JSON.parse(res.text)).to.be.not.equal.to(shared.badgeachievement[0]);
+                    chai.expect(JSON.parse(res.text)).to.not.equal(shared.badgeachievement[0]);
                     shared.badgeachievement.push(JSON.parse(res.text));
                     done();
                 })
                 .catch(function(err) {
-                    Utils.debug(err);
+                    Utils.debug('err', err);
                     done(err);
                 });
         });
@@ -76,7 +76,7 @@ describe('badgeachievements/', function () {
                     badge_id: shared.badge[0].id
                 })
                 .end(function(err, res) { 
-                    Utils.debug(err);
+                    Utils.debug('err', err);
                     chai.expect(err).to.not.be.undefined;
                     chai.expect(err).to.have.status(409);
                     done();
@@ -93,7 +93,7 @@ describe('badgeachievements/', function () {
                     badge_id: shared.badge[0].id
                 })
                 .end(function(err, res) { 
-                    Utils.debug(err);
+                    Utils.debug('err', err);
                     chai.expect(err).to.not.be.undefined;
                     chai.expect(err).to.have.status(400);
                     done();
@@ -110,7 +110,7 @@ describe('badgeachievements/', function () {
                     badge_id: 3209
                 })
                 .end(function(err, res) { 
-                    Utils.debug(err);
+                    Utils.debug('err', err);
                     chai.expect(err).to.not.be.undefined;
                     chai.expect(err).to.have.status(400);
                     done();
@@ -130,7 +130,7 @@ describe('badgeachievements/', function () {
                     .set('authorization', shared.token)
                     .send(malformed)
                     .end(function(err, res) { 
-                        Utils.debug(err);
+                        Utils.debug('err', err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(400);
                         done();
@@ -152,7 +152,7 @@ describe('badgeachievements/', function () {
                 .set('content-type', 'application/json')
                 .set('authorization', shared.token)
                 .then(function (res) {
-                    Utils.debug(res);
+                    Utils.debug('res', res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(200);
                     chai.expect(res).to.have.property('text');
@@ -164,7 +164,7 @@ describe('badgeachievements/', function () {
                     done();
                 })
                 .catch(function(err) {
-                    Utils.debug(err);
+                    Utils.debug('err', err);
                     done(err);
                 });
         });
@@ -185,7 +185,7 @@ describe('badgeachievements/', function () {
                     .set('content-type', 'application/json')
                     .set('authorization', shared.token)
                     .then(function (res) {
-                        Utils.debug(res);
+                        Utils.debug('res', res);
                         chai.expect(res).to.not.be.undefined;
                         chai.expect(res).to.have.status(200);
                         chai.expect(res).to.have.property('text');
@@ -194,7 +194,7 @@ describe('badgeachievements/', function () {
                         done();
                     })
                     .catch(function(err) {
-                        Utils.debug(err);
+                        Utils.debug('err', err);
                         done(err);
                     });
             });
@@ -205,7 +205,7 @@ describe('badgeachievements/', function () {
                     .set('content-type', 'application/json')
                     .set('authorization', shared.token)
                     .end(function(err, res) { 
-                        Utils.debug(err);
+                        Utils.debug('err', err);
                         chai.expect(err).to.not.be.undefined;
                         chai.expect(err).to.have.status(404);
                         done();

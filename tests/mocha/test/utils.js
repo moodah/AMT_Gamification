@@ -32,13 +32,14 @@ module.exports = {
     /**
      * Debug
      */
-    debug: function(v) {
-        var enable = true;
-        if(enable) {
+    enableDebug: true,
+    debug: function(n, v) {
+        if(this.enableDebug) {
+            let intro = 'DEBUG(' + n + ') => ';
             try {
-                console.log(JSON.stringify(v));
+                console.log(intro + JSON.stringify(v));
             } catch(e) {
-                console.log(v);
+                console.log(intro + v);
             }
         }
     }

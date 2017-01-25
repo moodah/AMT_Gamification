@@ -13,13 +13,13 @@ describe('leaderboards/', function () {
 
     describe('GET', function () {
         
-        it.skip('should return an array of top users', function (done) {
+        it('should return an array of top users', function (done) {
             chai.request(CONFIG.API)
                 .get('leaderboards/')
                 .set('content-type', 'application/json')
                 .set('authorization', shared.token)
                 .then(function (res) {
-                    Utils.debug(res);
+                    Utils.debug('res', res);
                     chai.expect(res).to.not.be.undefined;
                     chai.expect(res).to.have.status(200);
                     chai.expect(res).to.have.property('text');
@@ -28,7 +28,7 @@ describe('leaderboards/', function () {
                     done();
                 })
                 .catch(function(err) {
-                    Utils.debug(err);
+                    Utils.debug('err', err);
                     done(err);
                 });
         });

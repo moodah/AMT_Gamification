@@ -40,7 +40,7 @@ describe('SECURITY', function () {
             if(token != null)
                 r.set('authorization', token);
             r.end(function(err, res) { 
-                Utils.debug(err);
+                Utils.debug('err', err);
                 chai.expect(err).to.not.be.undefined;
                 chai.expect(err).to.have.status(403);
                 done();
@@ -53,7 +53,7 @@ describe('SECURITY', function () {
             if(token != null)
                 r.set('authorization', token);
             r.end(function(err, res) { 
-                Utils.debug(err);
+                Utils.debug('err', err);
                 chai.expect(err).to.not.be.undefined;
                 chai.expect(err).to.have.status(403);
                 done();
@@ -66,7 +66,7 @@ describe('SECURITY', function () {
             if(token != null)
                 r.set('authorization', token);
             r.end(function(err, res) { 
-                Utils.debug(err);
+                Utils.debug('err', err);
                 chai.expect(err).to.not.be.undefined;
                 chai.expect(err).to.have.status(403);
                 done();
@@ -79,7 +79,7 @@ describe('SECURITY', function () {
             if(token != null)
                 r.set('authorization', token);
             r.end(function(err, res) { 
-                Utils.debug(err);
+                Utils.debug('err', err);
                 chai.expect(err).to.not.be.undefined;
                 chai.expect(err).to.have.status(403);
                 done();
