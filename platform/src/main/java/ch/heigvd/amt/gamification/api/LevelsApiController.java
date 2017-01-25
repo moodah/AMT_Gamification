@@ -39,6 +39,7 @@ public class LevelsApiController implements LevelsApi {
 
     public ResponseEntity<Void> levelsDelete(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
         long appId = Authentication.getApplicationId(authorization);
+
         levelDao.delete(levelDao.findAllByApplicationIdOrderByPointsAsc(appId)); // TODO : une seule requete ? deleteAllByApplicationId par exemple (ne marchait pas quand j'ai essayé)
 
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

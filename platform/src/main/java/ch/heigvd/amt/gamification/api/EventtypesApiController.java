@@ -99,7 +99,7 @@ public class EventtypesApiController implements EventtypesApi {
 
         eventtypeDao.save(eventtype);
 
-        return new ResponseEntity<EventtypePresentationDTO>(new EventtypePresentationDTO(eventtype), HttpStatus.OK);
+        return new ResponseEntity<EventtypePresentationDTO>(new EventtypePresentationDTO(eventtype), HttpStatus.CREATED);
     }
 
     private void dataValidation(EventtypeCreationDTO eventtypeDTO){

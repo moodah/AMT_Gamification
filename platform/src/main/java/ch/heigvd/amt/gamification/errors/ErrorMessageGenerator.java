@@ -45,4 +45,8 @@ public class ErrorMessageGenerator {
     public static String cannotEditField(String model, String field){
         return model + " " + field + " can not be edited.";
     }
+
+    public static String tokenMissing(){
+        return new String("The Authorization token is missing or malformed!");
+    }
 }

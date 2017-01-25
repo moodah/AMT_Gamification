@@ -51,7 +51,7 @@ public class EventsApiController implements EventsApi {
 
         eventDao.save(event);
 
-        return new ResponseEntity<EventPresentationDTO>(new EventPresentationDTO(event), HttpStatus.OK);
+        return new ResponseEntity<EventPresentationDTO>(new EventPresentationDTO(event), HttpStatus.CREATED);
     }
 
     private void dataValidation(String authorization, EventCreationDTO eventDTO){

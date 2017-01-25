@@ -44,9 +44,18 @@ public class Badge {
     @JoinColumn(name = "application_id", nullable = false)
     private Application application;
 
+    public Badge() {
+    }
+
     public Badge name(String name) {
         this.name = name;
         return this;
+    }
+
+    public Badge(String name, String description, Application application) {
+        this.name = name;
+        this.description = description;
+        this.application = application;
     }
 
     public long getId() {
@@ -96,6 +105,11 @@ public class Badge {
 
     public void setAchievements(Set<Achievement> achievements) {
         this.achievements = achievements;
+    }
+
+    public void addAchievement(Achievement achievement){
+        achievements.add(achievement);
+        achievement.getBadges().add(this);
     }
 
     @Override

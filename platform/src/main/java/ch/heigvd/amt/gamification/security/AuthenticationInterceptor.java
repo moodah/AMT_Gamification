@@ -2,6 +2,8 @@ package ch.heigvd.amt.gamification.security;
 
 import ch.heigvd.amt.gamification.annotations.Authenticate;
 import ch.heigvd.amt.gamification.configuration.AppConfig;
+import ch.heigvd.amt.gamification.errors.ErrorMessageGenerator;
+import ch.heigvd.amt.gamification.errors.HttpStatusException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -35,8 +37,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
                 jwt = request.getHeader(AppConfig.X_GAMIFICATION_TOKEN);
                 return auth.authenticate(jwt);
             } else {
-                response.sendError(HttpStatus.UNAUTHORIZED.value());
-                return false; // cancel default lifecycle
+                return false;
             }
         }
 

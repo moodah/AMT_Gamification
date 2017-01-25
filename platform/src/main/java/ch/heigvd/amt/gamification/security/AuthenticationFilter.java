@@ -4,6 +4,7 @@ import ch.heigvd.amt.gamification.configuration.AppConfig;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import ch.heigvd.amt.gamification.errors.HttpStatusException;
@@ -28,9 +29,8 @@ public class AuthenticationFilter implements Filter {
         if (auth.authenticate(jwt)) {
             chain.doFilter(request, response);
         } else {
-            throw new HttpStatusException(HttpStatus.UNAUTHORIZED, "Invalid token");
+            ((HttpServletResponse)response).sendError(HttpServletResponse.SC_FORBIDDEN, "The Authorization token is missing or malformed!");
         }
-
     }
 
     @Override

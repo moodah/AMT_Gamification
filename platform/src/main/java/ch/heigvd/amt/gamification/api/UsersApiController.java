@@ -4,6 +4,8 @@ import ch.heigvd.amt.gamification.dao.*;
 import ch.heigvd.amt.gamification.dto.BadgePresentationDTO;
 import ch.heigvd.amt.gamification.dto.LevelPresentationDTO;
 import ch.heigvd.amt.gamification.dto.UserPresentationDTO;
+import ch.heigvd.amt.gamification.errors.ErrorMessageGenerator;
+import ch.heigvd.amt.gamification.errors.HttpStatusException;
 import ch.heigvd.amt.gamification.model.*;
 
 import java.math.BigDecimal;
@@ -60,26 +62,28 @@ public class UsersApiController implements UsersApi {
 
         List<Event> events = eventDao.findAllByApplicationIdAndUserId(appId, id.longValue());
 
+        if (events == null || events.size() == 0){
+            throw new HttpStatusException(HttpStatus.NOT_FOUND, ErrorMessageGenerator.notFoundById("User", String.valueOf(id.longValue())));
+        }
+
         HashMap<Eventtype, Integer> eventtypeIntegerHashMap = new HashMap<>();
 
         long points = 0;
 
-        if(events != null) {
-            for (Event event : events) {
-                points += event.getEventtype().getPoints().longValue();
-                Integer count = eventtypeIntegerHashMap.get(event.getEventtype());
-                if(count == null) {
-                    eventtypeIntegerHashMap.put(event.getEventtype(), 0);
-                } else {
-                    count = count + 1;
-                }
+        for (Event event : events) {
+            points += event.getEventtype().getPoints().longValue();
+            Integer count = eventtypeIntegerHashMap.get(event.getEventtype());
+            if (count == null) {
+                eventtypeIntegerHashMap.put(event.getEventtype(), 0);
+            } else {
+                count = count + 1;
             }
         }
 
         List<Achievement> potentialAchievements = new ArrayList<>();
         eventtypeIntegerHashMap.forEach((eventtype, integer) -> {
             achievementDao.findAllByApplicationIdAndEventtype(appId, eventtype).forEach(achievement -> {
-                if(!potentialAchievements.contains(achievement)){
+                if (!potentialAchievements.contains(achievement)) {
                     potentialAchievements.add(achievement);
                 }
             });
@@ -88,7 +92,7 @@ public class UsersApiController implements UsersApi {
         List<Achievement> achievements = new ArrayList<>();
         potentialAchievements.forEach(achievement -> {
             eventtypeIntegerHashMap.forEach((eventtype, integer) -> {
-                if(achievement.getEventtype() == eventtype && achievement.getCount() <= integer){
+                if (achievement.getEventtype() == eventtype && achievement.getCount() <= integer) {
                     achievements.add(achievement);
                 }
             });
@@ -99,12 +103,12 @@ public class UsersApiController implements UsersApi {
 
         potentialBadges.forEach(badge -> {
             int c = badge.getAchievements().size();
-            for (Achievement achievement : badge.getAchievements()){
-                if(achievements.contains(achievement)){
+            for (Achievement achievement : badge.getAchievements()) {
+                if (achievements.contains(achievement)) {
                     c--;
                 }
             }
-            if(c == 0){
+            if (c == 0) {
                 badges.add(badge);
             }
         });
@@ -126,8 +130,8 @@ public class UsersApiController implements UsersApi {
 
         return new ResponseEntity<UserPresentationDTO>(
                 new UserPresentationDTO(id.longValue(),
-                points,
-                levelPresentationDTO,
-                badgePresentationDTOList), HttpStatus.OK);
+                        points,
+                        levelPresentationDTO,
+                        badgePresentationDTOList), HttpStatus.OK);
     }
 }

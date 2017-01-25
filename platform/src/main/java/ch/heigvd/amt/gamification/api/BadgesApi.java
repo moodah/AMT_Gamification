@@ -1,5 +1,7 @@
 package ch.heigvd.amt.gamification.api;
 
+import ch.heigvd.amt.gamification.dto.BadgeCreationDTO;
+import ch.heigvd.amt.gamification.dto.BadgePresentationDTO;
 import ch.heigvd.amt.gamification.model.Badge;
 
 import java.math.BigDecimal;
@@ -70,7 +72,7 @@ public interface BadgesApi {
             produces = {"application/json"},
             consumes = {"application/json"},
             method = RequestMethod.POST)
-    ResponseEntity<Badge> badgesPost(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
-                                     @ApiParam(value = "", required = true) @RequestBody Badge badge);
+    ResponseEntity<BadgePresentationDTO> badgesPost(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
+                                                    @ApiParam(value = "", required = true) @RequestBody BadgeCreationDTO badge);
 
 }

@@ -2,8 +2,8 @@
 // ------
 
 // configuration for accessing the platform
-//let HOST = 'http://127.0.0.1:8080/';
-let HOST = 'http://192.168.99.100:8080/';
+let HOST = 'http://10.0.75.1:8080/';
+//let HOST = 'http://192.168.99.100:8080/';
 let API = 'gamification/';
 let APPNAME = '__lkakddzua879879';
 let APPPWD = '1234567890';

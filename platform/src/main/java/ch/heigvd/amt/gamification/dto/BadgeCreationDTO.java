@@ -2,6 +2,7 @@ package ch.heigvd.amt.gamification.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,15 +16,15 @@ public class BadgeCreationDTO {
     private String description;
 
     @JsonProperty("achievements")
-    private List<Long> achievements;
+    private List<Long> achievementsIds = new ArrayList<>();
 
     public BadgeCreationDTO() {
     }
 
-    public BadgeCreationDTO(String name, String description, List<Long> achievements) {
+    public BadgeCreationDTO(String name, String description, List<Long> achievementsIds) {
         this.name = name;
         this.description = description;
-        this.achievements = achievements;
+        this.achievementsIds = achievementsIds;
     }
 
     public String getName() {
@@ -34,8 +35,8 @@ public class BadgeCreationDTO {
         return description;
     }
 
-    public List<Long> getAchievements() {
-        return achievements;
+    public List<Long> getAchievementsIds() {
+        return achievementsIds;
     }
 
     public void setName(String name) {
@@ -46,7 +47,7 @@ public class BadgeCreationDTO {
         this.description = description;
     }
 
-    public void setAchievements(List<Long> achievements) {
-        this.achievements = achievements;
+    public void setAchievementsIds(List<Long> achievementsIds) {
+        this.achievementsIds = achievementsIds;
     }
 }

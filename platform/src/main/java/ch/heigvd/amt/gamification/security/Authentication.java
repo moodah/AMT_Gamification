@@ -1,5 +1,6 @@
 package ch.heigvd.amt.gamification.security;
 
+import ch.heigvd.amt.gamification.errors.ErrorMessageGenerator;
 import ch.heigvd.amt.gamification.model.Application;
 import ch.heigvd.amt.gamification.errors.HttpStatusException;
 import ch.heigvd.amt.gamification.model.Token;
@@ -24,6 +25,10 @@ public class Authentication {
     private static final String secret = "toto"; // TODO : with env variable for prod (or String.valueOf(new Random(System.currentTimeMillis()).nextLong()) ?);
 
     boolean authenticate(String token) {
+
+        if (token == null || token.length() == 0){
+            return false;
+        }
 
         JWT jwt;
 
@@ -74,12 +79,16 @@ public class Authentication {
     public static long getApplicationId(String token) {
         JWT jwt;
 
+        if (token == null || token.length() == 0){
+            throw new HttpStatusException(HttpStatus.FORBIDDEN, ErrorMessageGenerator.tokenMissing());
+        }
+
         // Decode token
         try {
             jwt = JWT.decode(token);
         } catch (JWTDecodeException exception){
             //Invalid token
-            return -1;
+            throw new HttpStatusException(HttpStatus.FORBIDDEN, ErrorMessageGenerator.tokenMissing());
         }
 
         return Long.parseLong(jwt.getIssuer());

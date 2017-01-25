@@ -64,6 +64,14 @@ public class Achievement   {
         this.id = id;
     }
 
+    public List<Badge> getBadges() {
+        return badges;
+    }
+
+    public void setBadges(List<Badge> badges) {
+        this.badges = badges;
+    }
+
     /**
      * Get count
      * @return count
