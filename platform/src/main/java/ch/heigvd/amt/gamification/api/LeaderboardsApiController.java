@@ -3,8 +3,6 @@ package ch.heigvd.amt.gamification.api;
 import ch.heigvd.amt.gamification.dao.*;
 import ch.heigvd.amt.gamification.dto.UserPresentationDTO;
 
-import java.math.BigDecimal;
-
 import ch.heigvd.amt.gamification.model.Event;
 import ch.heigvd.amt.gamification.security.Authentication;
 import io.swagger.annotations.*;
@@ -14,13 +12,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static ch.heigvd.amt.gamification.utils.getUserInfo;
+import static ch.heigvd.amt.gamification.utils.utils.getUserInfo;
 
 
 @javax.annotation.Generated(value = "class ch.heigvd.amt.gamification.codegen.languages.SpringCodegen", date = "2016-12-18T13:30:19.867Z")

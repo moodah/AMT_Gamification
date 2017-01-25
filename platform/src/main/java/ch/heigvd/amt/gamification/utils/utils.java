@@ -1,4 +1,4 @@
-package ch.heigvd.amt.gamification;
+package ch.heigvd.amt.gamification.utils;
 
 import ch.heigvd.amt.gamification.dao.AchievementDao;
 import ch.heigvd.amt.gamification.dao.BadgeDao;
@@ -37,7 +37,7 @@ public class utils {
             points += event.getEventtype().getPoints().longValue();
             Integer count = eventtypeIntegerHashMap.get(event.getEventtype());
             if (count == null) {
-                eventtypeIntegerHashMap.put(event.getEventtype(), 0);
+                eventtypeIntegerHashMap.put(event.getEventtype(), 1);
             } else {
                 count = count + 1;
             }
