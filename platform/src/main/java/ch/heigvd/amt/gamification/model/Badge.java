@@ -109,7 +109,6 @@ public class Badge {
 
     public void addAchievement(Achievement achievement){
         achievements.add(achievement);
-        achievement.getBadges().add(this);
     }
 
     @Override
