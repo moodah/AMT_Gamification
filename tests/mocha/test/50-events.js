@@ -29,7 +29,7 @@ describe('events/', function () {
                 })
                 .then(function (res) {
                     Utils.debug('res', res);
-                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.not.be.null;
                     chai.expect(res).to.have.status(201);
                     done();
                 })
@@ -50,7 +50,7 @@ describe('events/', function () {
                 })
                 .then(function (res) {
                     Utils.debug('res', res);
-                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.not.be.null;
                     chai.expect(res).to.have.status(201);
                     done();
                 })
@@ -71,7 +71,7 @@ describe('events/', function () {
                 })
                 .end(function(err, res) { 
                     Utils.debug('err', err);
-                    chai.expect(err).to.not.be.undefined;
+                    chai.expect(err).to.not.be.null;
                     chai.expect(err).to.have.status(400);
                     done();
                 });
@@ -91,7 +91,7 @@ describe('events/', function () {
                     .send(malformed)
                     .end(function(err, res) { 
                         Utils.debug('err', err);
-                        chai.expect(err).to.not.be.undefined;
+                        chai.expect(err).to.not.be.null;
                         chai.expect(err).to.have.status(400);
                         done();
                     });

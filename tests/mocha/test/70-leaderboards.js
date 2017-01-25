@@ -20,10 +20,10 @@ describe('leaderboards/', function () {
                 .set('authorization', shared.token)
                 .then(function (res) {
                     Utils.debug('res', res);
-                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.not.be.null;
                     chai.expect(res).to.have.status(200);
                     chai.expect(res).to.have.property('text');
-                    chai.expect(JSON.parse(res.text)).to.have.lenght(2);
+                    chai.expect(JSON.parse(res.text)).to.have.lengthOf(2);
                     // TODO
                     done();
                 })

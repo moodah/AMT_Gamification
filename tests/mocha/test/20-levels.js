@@ -24,7 +24,7 @@ describe('levels/', function () {
                 })
                 .then(function (res) {
                     Utils.debug('res', res);
-                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.not.be.null;
                     chai.expect(res).to.have.status(201);
                     chai.expect(res).to.have.property('text');
                     shared.level.push(JSON.parse(res.text));
@@ -47,7 +47,7 @@ describe('levels/', function () {
                 })
                 .then(function (res) {
                     Utils.debug('res', res);
-                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.not.be.null;
                     chai.expect(res).to.have.status(201);
                     chai.expect(res).to.have.property('text');
                     chai.expect(JSON.parse(res.text)).to.not.equal(shared.level[0]);
@@ -74,7 +74,7 @@ describe('levels/', function () {
                     .send(malformed)
                     .end(function(err, res) { 
                         Utils.debug('err', err);
-                        chai.expect(err).to.not.be.undefined;
+                        chai.expect(err).to.not.be.null;
                         chai.expect(err).to.have.status(400);
                         done();
                     });
@@ -96,14 +96,14 @@ describe('levels/', function () {
                 .set('authorization', shared.token)
                 .then(function (res) {
                     Utils.debug('res', res);
-                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.not.be.null;
                     chai.expect(res).to.have.status(200);
                     chai.expect(res).to.have.property('text');
-                    chai.expect(JSON.parse(res.text)).to.have.lenght(2);
-                    chai.expect(JSON.parse(res.text)[0].name).to.be.equal.to('rookie');
-                    chai.expect(JSON.parse(res.text)[0].points).to.be.equal.to(10);
-                    chai.expect(JSON.parse(res.text)[1].name).to.be.equal.to('pro');
-                    chai.expect(JSON.parse(res.text)[1].points).to.be.equal.to(100);
+                    chai.expect(JSON.parse(res.text)).to.have.lengthOf(2);
+                    chai.expect(JSON.parse(res.text)[0].name).to.equal('rookie');
+                    chai.expect(JSON.parse(res.text)[0].points).to.equal(10);
+                    chai.expect(JSON.parse(res.text)[1].name).to.equal('pro');
+                    chai.expect(JSON.parse(res.text)[1].points).to.equal(100);
                     done();
                 })
                 .catch(function(err) {
@@ -129,11 +129,11 @@ describe('levels/', function () {
                     .set('authorization', shared.token)
                     .then(function (res) {
                         Utils.debug('res', res);
-                        chai.expect(res).to.not.be.undefined;
+                        chai.expect(res).to.not.be.null;
                         chai.expect(res).to.have.status(200);
                         chai.expect(res).to.have.property('text');
-                        chai.expect(JSON.parse(res.text).name).to.be.equal.to('rookie');
-                        chai.expect(JSON.parse(res.text).points).to.be.equal.to(10);
+                        chai.expect(JSON.parse(res.text).name).to.equal('rookie');
+                        chai.expect(JSON.parse(res.text).points).to.equal(10);
                         done();
                     })
                     .catch(function(err) {
@@ -149,7 +149,7 @@ describe('levels/', function () {
                     .set('authorization', shared.token)
                     .end(function(err, res) { 
                         Utils.debug('err', err);
-                        chai.expect(err).to.not.be.undefined;
+                        chai.expect(err).to.not.be.null;
                         chai.expect(err).to.have.status(404);
                         done();
                     });
@@ -169,11 +169,11 @@ describe('levels/', function () {
                     })
                     .then(function (res) {
                         Utils.debug('res', res);
-                        chai.expect(res).to.not.be.undefined;
+                        chai.expect(res).to.not.be.null;
                         chai.expect(res).to.have.status(200);
                         chai.expect(res).to.have.property('text');
-                        chai.expect(JSON.parse(res.text).name).to.be.equal.to('semi-pro');
-                        chai.expect(JSON.parse(res.text).points).to.be.equal.to(50);
+                        chai.expect(JSON.parse(res.text).name).to.equal('semi-pro');
+                        chai.expect(JSON.parse(res.text).points).to.equal(50);
                         shared.level[0] = JSON.parse(res.text);
                         done();
                     })
@@ -193,8 +193,8 @@ describe('levels/', function () {
                     })
                     .end(function(err, res) { 
                         Utils.debug('err', err);
-                        chai.expect(err).to.not.be.undefined;
-                        chai.expect(err).to.have.status(400);
+                        chai.expect(err).to.not.be.null;
+                        chai.expect(err).to.have.status(409);
                         done();
                     });
             });
@@ -209,8 +209,8 @@ describe('levels/', function () {
                     })
                     .end(function(err, res) { 
                         Utils.debug('err', err);
-                        chai.expect(err).to.not.be.undefined;
-                        chai.expect(err).to.have.status(400);
+                        chai.expect(err).to.not.be.null;
+                        chai.expect(err).to.have.status(409);
                         done();
                     });
             });
@@ -226,7 +226,7 @@ describe('levels/', function () {
                     })
                     .end(function(err, res) { 
                         Utils.debug('err', err);
-                        chai.expect(err).to.not.be.undefined;
+                        chai.expect(err).to.not.be.null;
                         chai.expect(err).to.have.status(404);
                         done();
                     });

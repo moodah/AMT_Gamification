@@ -30,7 +30,7 @@ describe('badgeachievements/', function () {
                 })
                 .then(function (res) {
                     Utils.debug('res', res);
-                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.not.be.null;
                     chai.expect(res).to.have.status(201);
                     chai.expect(res).to.have.property('text');
                     shared.badgeachievement.push(JSON.parse(res.text));
@@ -53,7 +53,7 @@ describe('badgeachievements/', function () {
                 })
                 .then(function (res) {
                     Utils.debug('res', res);
-                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.not.be.null;
                     chai.expect(res).to.have.status(201);
                     chai.expect(res).to.have.property('text');
                     chai.expect(JSON.parse(res.text)).to.not.equal(shared.badgeachievement[0]);
@@ -77,7 +77,7 @@ describe('badgeachievements/', function () {
                 })
                 .end(function(err, res) { 
                     Utils.debug('err', err);
-                    chai.expect(err).to.not.be.undefined;
+                    chai.expect(err).to.not.be.null;
                     chai.expect(err).to.have.status(409);
                     done();
                 });
@@ -94,7 +94,7 @@ describe('badgeachievements/', function () {
                 })
                 .end(function(err, res) { 
                     Utils.debug('err', err);
-                    chai.expect(err).to.not.be.undefined;
+                    chai.expect(err).to.not.be.null;
                     chai.expect(err).to.have.status(400);
                     done();
                 });
@@ -111,7 +111,7 @@ describe('badgeachievements/', function () {
                 })
                 .end(function(err, res) { 
                     Utils.debug('err', err);
-                    chai.expect(err).to.not.be.undefined;
+                    chai.expect(err).to.not.be.null;
                     chai.expect(err).to.have.status(400);
                     done();
                 });
@@ -131,7 +131,7 @@ describe('badgeachievements/', function () {
                     .send(malformed)
                     .end(function(err, res) { 
                         Utils.debug('err', err);
-                        chai.expect(err).to.not.be.undefined;
+                        chai.expect(err).to.not.be.null;
                         chai.expect(err).to.have.status(400);
                         done();
                     });
@@ -153,14 +153,14 @@ describe('badgeachievements/', function () {
                 .set('authorization', shared.token)
                 .then(function (res) {
                     Utils.debug('res', res);
-                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.not.be.null;
                     chai.expect(res).to.have.status(200);
                     chai.expect(res).to.have.property('text');
-                    chai.expect(JSON.parse(res.text)).to.have.lenght(2);
-                    chai.expect(JSON.parse(res.text)[0].achievement_id).to.be.equal.to(shared.achievement[0].id);
-                    chai.expect(JSON.parse(res.text)[0].badge_id).to.be.equal.to(shared.badge[0].id);
-                    chai.expect(JSON.parse(res.text)[1].achievement_id).to.be.equal.to(shared.achievement[1].id);
-                    chai.expect(JSON.parse(res.text)[1].badge_id).to.be.equal.to(shared.badge[1].id);
+                    chai.expect(JSON.parse(res.text)).to.have.lengthOf(2);
+                    chai.expect(JSON.parse(res.text)[0].achievement_id).to.equal(shared.achievement[0].id);
+                    chai.expect(JSON.parse(res.text)[0].badge_id).to.equal(shared.badge[0].id);
+                    chai.expect(JSON.parse(res.text)[1].achievement_id).to.equal(shared.achievement[1].id);
+                    chai.expect(JSON.parse(res.text)[1].badge_id).to.equal(shared.badge[1].id);
                     done();
                 })
                 .catch(function(err) {
@@ -186,11 +186,11 @@ describe('badgeachievements/', function () {
                     .set('authorization', shared.token)
                     .then(function (res) {
                         Utils.debug('res', res);
-                        chai.expect(res).to.not.be.undefined;
+                        chai.expect(res).to.not.be.null;
                         chai.expect(res).to.have.status(200);
                         chai.expect(res).to.have.property('text');
-                        chai.expect(JSON.parse(res.text).achievement_id).to.be.equal.to(shared.achievement[0].id);
-                        chai.expect(JSON.parse(res.text).badge_id).to.be.equal.to(shared.badge[0].id);
+                        chai.expect(JSON.parse(res.text).achievement_id).to.equal(shared.achievement[0].id);
+                        chai.expect(JSON.parse(res.text).badge_id).to.equal(shared.badge[0].id);
                         done();
                     })
                     .catch(function(err) {
@@ -206,7 +206,7 @@ describe('badgeachievements/', function () {
                     .set('authorization', shared.token)
                     .end(function(err, res) { 
                         Utils.debug('err', err);
-                        chai.expect(err).to.not.be.undefined;
+                        chai.expect(err).to.not.be.null;
                         chai.expect(err).to.have.status(404);
                         done();
                     });

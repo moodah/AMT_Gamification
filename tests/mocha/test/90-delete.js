@@ -27,7 +27,7 @@ describe('badgeachievements/', function () {
                     .set('authorization', shared.token)
                     .then(function (res) {
                         Utils.debug('res', res);
-                        chai.expect(res).to.not.be.undefined;
+                        chai.expect(res).to.not.be.null;
                         chai.expect(res).to.have.status(204);
                         done();
                     })
@@ -44,7 +44,7 @@ describe('badgeachievements/', function () {
                     .set('authorization', shared.token)
                     .end(function(err, res) { 
                         Utils.debug('err', err);
-                        chai.expect(err).to.not.be.undefined;
+                        chai.expect(err).to.not.be.null;
                         chai.expect(err).to.have.status(404);
                         done();
                     });
@@ -61,7 +61,7 @@ describe('badgeachievements/', function () {
                 .set('authorization', shared.token)
                 .then(function (res) {
                     Utils.debug('res', res);
-                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.not.be.null;
                     chai.expect(res).to.have.status(204);
                     done();
                 })
@@ -91,7 +91,7 @@ describe('achievements/', function () {
                     .set('authorization', shared.token)
                     .then(function (res) {
                         Utils.debug('res', res);
-                        chai.expect(res).to.not.be.undefined;
+                        chai.expect(res).to.not.be.null;
                         chai.expect(res).to.have.status(204);
                         done();
                     })
@@ -108,7 +108,7 @@ describe('achievements/', function () {
                     .set('authorization', shared.token)
                     .end(function(err, res) { 
                         Utils.debug('err', err);
-                        chai.expect(err).to.not.be.undefined;
+                        chai.expect(err).to.not.be.null;
                         chai.expect(err).to.have.status(404);
                         done();
                     });
@@ -125,7 +125,7 @@ describe('achievements/', function () {
                 .set('authorization', shared.token)
                 .then(function (res) {
                     Utils.debug('res', res);
-                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.not.be.null;
                     chai.expect(res).to.have.status(204);
                     done();
                 })
@@ -155,7 +155,7 @@ describe('eventtypes/', function () {
                     .set('authorization', shared.token)
                     .then(function (res) {
                         Utils.debug('res', res);
-                        chai.expect(res).to.not.be.undefined;
+                        chai.expect(res).to.not.be.null;
                         chai.expect(res).to.have.status(204);
                         done();
                     })
@@ -172,7 +172,7 @@ describe('eventtypes/', function () {
                     .set('authorization', shared.token)
                     .end(function(err, res) { 
                         Utils.debug('err', err);
-                        chai.expect(err).to.not.be.undefined;
+                        chai.expect(err).to.not.be.null;
                         chai.expect(err).to.have.status(404);
                         done();
                     });
@@ -189,7 +189,7 @@ describe('eventtypes/', function () {
                 .set('authorization', shared.token)
                 .then(function (res) {
                     Utils.debug('res', res);
-                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.not.be.null;
                     chai.expect(res).to.have.status(204);
                     done();
                 })
@@ -219,7 +219,7 @@ describe('badges/', function () {
                     .set('authorization', shared.token)
                     .then(function (res) {
                         Utils.debug('res', res);
-                        chai.expect(res).to.not.be.undefined;
+                        chai.expect(res).to.not.be.null;
                         chai.expect(res).to.have.status(204);
                         done();
                     })
@@ -236,7 +236,7 @@ describe('badges/', function () {
                     .set('authorization', shared.token)
                     .end(function(err, res) { 
                         Utils.debug('err', err);
-                        chai.expect(err).to.not.be.undefined;
+                        chai.expect(err).to.not.be.null;
                         chai.expect(err).to.have.status(404);
                         done();
                     });
@@ -253,7 +253,7 @@ describe('badges/', function () {
                 .set('authorization', shared.token)
                 .then(function (res) {
                     Utils.debug('res', res);
-                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.not.be.null;
                     chai.expect(res).to.have.status(204);
                     done();
                 })
@@ -283,7 +283,7 @@ describe('levels/', function () {
                     .set('authorization', shared.token)
                     .then(function (res) {
                         Utils.debug('res', res);
-                        chai.expect(res).to.not.be.undefined;
+                        chai.expect(res).to.not.be.null;
                         chai.expect(res).to.have.status(204);
                         done();
                     })
@@ -300,7 +300,7 @@ describe('levels/', function () {
                     .set('authorization', shared.token)
                     .end(function(err, res) { 
                         Utils.debug('err', err);
-                        chai.expect(err).to.not.be.undefined;
+                        chai.expect(err).to.not.be.null;
                         chai.expect(err).to.have.status(404);
                         done();
                     });
@@ -317,7 +317,7 @@ describe('levels/', function () {
                 .set('authorization', shared.token)
                 .then(function (res) {
                     Utils.debug('res', res);
-                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.not.be.null;
                     chai.expect(res).to.have.status(204);
                     done();
                 })
@@ -340,7 +340,7 @@ describe('applications/', function () {
                 .set('authorization', shared.token)
                 .then(function (res) {
                     Utils.debug('res', res);
-                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.not.be.null;
                     chai.expect(res).to.have.status(204);
                     done();
                 })

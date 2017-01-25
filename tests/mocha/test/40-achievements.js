@@ -30,7 +30,7 @@ describe('achievements/', function () {
                 })
                 .then(function (res) {
                     Utils.debug('res', res);
-                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.not.be.null;
                     chai.expect(res).to.have.status(201);
                     chai.expect(res).to.have.property('text');
                     shared.achievement.push(JSON.parse(res.text));
@@ -54,7 +54,7 @@ describe('achievements/', function () {
                 })
                 .then(function (res) {
                     Utils.debug('res', res);
-                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.not.be.null;
                     chai.expect(res).to.have.status(201);
                     chai.expect(res).to.have.property('text');
                     chai.expect(JSON.parse(res.text)).to.not.equal(shared.achievement[0]);
@@ -79,7 +79,7 @@ describe('achievements/', function () {
                 })
                 .end(function(err, res) { 
                     Utils.debug('err', err);
-                    chai.expect(err).to.not.be.undefined;
+                    chai.expect(err).to.not.be.null;
                     chai.expect(err).to.have.status(400);
                     done();
                 });
@@ -100,7 +100,7 @@ describe('achievements/', function () {
                     .send(malformed)
                     .end(function(err, res) { 
                         Utils.debug('err', err);
-                        chai.expect(err).to.not.be.undefined;
+                        chai.expect(err).to.not.be.null;
                         chai.expect(err).to.have.status(400);
                         done();
                     });
@@ -122,16 +122,16 @@ describe('achievements/', function () {
                 .set('authorization', shared.token)
                 .then(function (res) {
                     Utils.debug('res', res);
-                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.not.be.null;
                     chai.expect(res).to.have.status(200);
                     chai.expect(res).to.have.property('text');
-                    chai.expect(JSON.parse(res.text)).to.have.lenght(2);
-                    chai.expect(JSON.parse(res.text)[0].count).to.be.equal.to(10);
-                    chai.expect(JSON.parse(res.text)[0].eventtype_id).to.be.equal.to(shared.eventtype[0].id);
-                    chai.expect(JSON.parse(res.text)[0].name).to.be.equal.to('wow');
-                    chai.expect(JSON.parse(res.text)[1].count).to.be.equal.to(20);
-                    chai.expect(JSON.parse(res.text)[1].eventtype_id).to.be.equal.to(shared.eventtype[1].id);
-                    chai.expect(JSON.parse(res.text)[1].name).to.be.equal.to('omg');
+                    chai.expect(JSON.parse(res.text)).to.have.lengthOf(2);
+                    chai.expect(JSON.parse(res.text)[0].count).to.equal(10);
+                    chai.expect(JSON.parse(res.text)[0].eventtype_id).to.equal(shared.eventtype[0].id);
+                    chai.expect(JSON.parse(res.text)[0].name).to.equal('wow');
+                    chai.expect(JSON.parse(res.text)[1].count).to.equal(20);
+                    chai.expect(JSON.parse(res.text)[1].eventtype_id).to.equal(shared.eventtype[1].id);
+                    chai.expect(JSON.parse(res.text)[1].name).to.equal('omg');
                     done();
                 })
                 .catch(function(err) {
@@ -157,12 +157,12 @@ describe('achievements/', function () {
                     .set('authorization', shared.token)
                     .then(function (res) {
                         Utils.debug('res', res);
-                        chai.expect(res).to.not.be.undefined;
+                        chai.expect(res).to.not.be.null;
                         chai.expect(res).to.have.status(200);
                         chai.expect(res).to.have.property('text');
-                        chai.expect(JSON.parse(res.text).count).to.be.equal.to(10);
-                        chai.expect(JSON.parse(res.text).eventtype_id).to.be.equal.to(shared.eventtype[0].id);
-                        chai.expect(JSON.parse(res.text).name).to.be.equal.to('wow');
+                        chai.expect(JSON.parse(res.text).count).to.equal(10);
+                        chai.expect(JSON.parse(res.text).eventtype_id).to.equal(shared.eventtype[0].id);
+                        chai.expect(JSON.parse(res.text).name).to.equal('wow');
                         done();
                     })
                     .catch(function(err) {
@@ -178,7 +178,7 @@ describe('achievements/', function () {
                     .set('authorization', shared.token)
                     .end(function(err, res) { 
                         Utils.debug('err', err);
-                        chai.expect(err).to.not.be.undefined;
+                        chai.expect(err).to.not.be.null;
                         chai.expect(err).to.have.status(404);
                         done();
                     });
@@ -199,12 +199,12 @@ describe('achievements/', function () {
                     })
                     .then(function (res) {
                         Utils.debug('res', res);
-                        chai.expect(res).to.not.be.undefined;
+                        chai.expect(res).to.not.be.null;
                         chai.expect(res).to.have.status(200);
                         chai.expect(res).to.have.property('text');
-                        chai.expect(JSON.parse(res.text).count).to.be.equal.to(50);
-                        chai.expect(JSON.parse(res.text).eventtype_id).to.be.equal.to(shared.eventtype[0].id);
-                        chai.expect(JSON.parse(res.text).name).to.be.equal.to('amazing');
+                        chai.expect(JSON.parse(res.text).count).to.equal(50);
+                        chai.expect(JSON.parse(res.text).eventtype_id).to.equal(shared.eventtype[0].id);
+                        chai.expect(JSON.parse(res.text).name).to.equal('amazing');
                         shared.achievement[0] = JSON.parse(res.text);
                         done();
                     })
@@ -225,7 +225,7 @@ describe('achievements/', function () {
                     })
                     .end(function(err, res) { 
                         Utils.debug('err', err);
-                        chai.expect(err).to.not.be.undefined;
+                        chai.expect(err).to.not.be.null;
                         chai.expect(err).to.have.status(404);
                         done();
                     });
