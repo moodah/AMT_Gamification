@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface BadgeDao extends CrudRepository<Badge, Long> {
 
-    Badge findByName(String name);
+    Badge findByApplicationIdAndName(long id, String name);
 
     Badge findById(Long id);
 
