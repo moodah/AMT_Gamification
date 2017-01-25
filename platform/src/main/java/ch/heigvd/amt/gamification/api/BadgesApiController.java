@@ -6,6 +6,7 @@ import ch.heigvd.amt.gamification.dao.BadgeDao;
 import ch.heigvd.amt.gamification.dto.BadgeCreationDTO;
 import ch.heigvd.amt.gamification.dto.BadgePresentationDTO;
 import ch.heigvd.amt.gamification.errors.ErrorMessageGenerator;
+import ch.heigvd.amt.gamification.model.Achievement;
 import ch.heigvd.amt.gamification.model.Badge;
 
 import java.math.BigDecimal;
@@ -105,7 +106,10 @@ public class BadgesApiController implements BadgesApi {
         if (newBadge.getAchievementsIds() != null){
             oldBadge.getAchievements().clear();
             newBadge.getAchievementsIds().forEach(aLong -> {
-                oldBadge.addAchievement(achievementDao.findByApplicationIdAndId(appId, aLong));
+                Achievement achievement = achievementDao.findByApplicationIdAndId(appId, aLong);
+                if (achievement == null)
+                    throw new HttpStatusException(HttpStatus.NOT_FOUND, ErrorMessageGenerator.notFoundById("Badge", "Achievements"));
+                oldBadge.addAchievement(achievement);
             });
         }
 
@@ -137,7 +141,10 @@ public class BadgesApiController implements BadgesApi {
         }
 
         achievementIds.forEach(aLong -> {
-            badge.addAchievement(achievementDao.findByApplicationIdAndId(appId, aLong));
+            Achievement achievement = achievementDao.findByApplicationIdAndId(appId, aLong);
+            if (achievement == null)
+                throw new HttpStatusException(HttpStatus.NOT_FOUND, ErrorMessageGenerator.notFoundById("Badge", "Achievements"));
+            badge.addAchievement(achievement);
         });
 
         badgeDao.save(badge);
