@@ -39,7 +39,7 @@ public class utils {
             if (count == null) {
                 eventtypeIntegerHashMap.put(event.getEventtype(), 1);
             } else {
-                count = count + 1;
+                eventtypeIntegerHashMap.put(event.getEventtype(), count + 1);
             }
         }
 
@@ -91,9 +91,15 @@ public class utils {
             badgePresentationDTOList.add(new BadgePresentationDTO(badge));
         });
 
-        return new UserPresentationDTO(id,
+        UserPresentationDTO userDTO = new UserPresentationDTO(id,
                 points,
                 levelPresentationDTO,
                 badgePresentationDTOList);
+
+        eventtypeIntegerHashMap.forEach((eventtype, integer) -> {
+            userDTO.getEventtypesAndCount().put(eventtype.getId(), new Long(integer));
+        });
+
+        return userDTO;
     }
 }

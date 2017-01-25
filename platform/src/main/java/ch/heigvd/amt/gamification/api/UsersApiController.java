@@ -69,6 +69,8 @@ public class UsersApiController implements UsersApi {
 
         long appId = Authentication.getApplicationId(authorization);
 
-        return new ResponseEntity<UserPresentationDTO>(getUserInfo(appId, id.longValue(), achievementDao, badgeDao, eventDao, levelDao), HttpStatus.OK);
+        UserPresentationDTO userDTO = getUserInfo(appId, id.longValue(), achievementDao, badgeDao, eventDao, levelDao);
+
+        return new ResponseEntity<UserPresentationDTO>(userDTO, HttpStatus.OK);
     }
 }
