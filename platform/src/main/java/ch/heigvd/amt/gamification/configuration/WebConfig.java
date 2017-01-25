@@ -20,14 +20,18 @@ public class WebConfig {
         registrationBean.setOrder(1);
 
         Collection<String> urlpatterns = new LinkedList<>();
+        urlpatterns.add("/achievements");
+        urlpatterns.add("/achievements/*");
         urlpatterns.add("/badges");
         urlpatterns.add("/badges/*");
         urlpatterns.add("/events");
+        urlpatterns.add("/events/*");
+        urlpatterns.add("/eventtypes");
+        urlpatterns.add("/eventtypes/*");
         urlpatterns.add("/leaderboards");
+        urlpatterns.add("/leaderboards/*");
         urlpatterns.add("/levels");
         urlpatterns.add("/levels/*");
-        urlpatterns.add("/rules");
-        urlpatterns.add("/rules/*");
         urlpatterns.add("/users");
         urlpatterns.add("/users/*");
 

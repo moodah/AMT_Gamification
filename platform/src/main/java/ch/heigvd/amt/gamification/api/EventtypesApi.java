@@ -43,6 +43,15 @@ public interface EventtypesApi {
     ResponseEntity<Void> eventtypesIdDelete(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                             @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization);
 
+    @ApiOperation(value = "Delete all eventtypes of applications", notes = "", response = Void.class, tags = {"Eventtypes",})
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Deleted successfully", response = Eventtype.class)})
+    @RequestMapping(value = "/eventtypes",
+            produces = {"application/json"},
+            consumes = {"application/json"},
+            method = RequestMethod.DELETE)
+    ResponseEntity<Void> eventtypesDelete(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization);
+
 
     @ApiOperation(value = "Get eventtype with specified id", notes = "", response = Eventtype.class, tags = {"Eventtypes",})
     @ApiResponses(value = {
