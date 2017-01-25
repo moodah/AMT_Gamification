@@ -63,3 +63,6 @@ dependencies {
 - Run `./gradlew bootRun`
 
 App is available at `localhost:8080/v1` (settings can be change in `src/main/resources/application.properties`)
+
+## Try out the API with a client app
+You can find a client app that uses our gamification platform [here](https://github.com/sebastienrichoz/TWEB-Interactive-Polls).
