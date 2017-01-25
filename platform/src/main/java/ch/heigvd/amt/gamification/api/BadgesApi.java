@@ -29,7 +29,7 @@ public interface BadgesApi {
             produces = {"application/json"},
             consumes = {"application/json"},
             method = RequestMethod.GET)
-    ResponseEntity<List<Badge>> badgesGet(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization);
+    ResponseEntity<List<BadgePresentationDTO>> badgesGet(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization);
 
 
     @ApiOperation(value = "Delete badge with specified", notes = "", response = Void.class, tags = {"Badges",})
@@ -50,7 +50,7 @@ public interface BadgesApi {
             produces = {"application/json"},
             consumes = {"application/json"},
             method = RequestMethod.GET)
-    ResponseEntity<Badge> badgesIdGet(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
+    ResponseEntity<BadgePresentationDTO> badgesIdGet(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                       @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization);
 
 
@@ -61,7 +61,7 @@ public interface BadgesApi {
             produces = {"application/json"},
             consumes = {"application/json"},
             method = RequestMethod.PATCH)
-    ResponseEntity<Badge> badgesIdPatch(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
+    ResponseEntity<BadgePresentationDTO> badgesIdPatch(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                         @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
                                         @ApiParam(value = "Updated badge", required = true) @RequestBody Badge badge);
 

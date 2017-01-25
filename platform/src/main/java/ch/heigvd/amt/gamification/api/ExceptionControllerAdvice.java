@@ -20,13 +20,13 @@ import javax.xml.ws.http.HTTPException;
 @ControllerAdvice
 public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
 
-    /*@ExceptionHandler(value = {org.springframework.dao.DataIntegrityViolationException.class})
+    @ExceptionHandler(value = {org.springframework.dao.DataIntegrityViolationException.class})
     protected ResponseEntity handleDataIntegrityViolation(RuntimeException ex, WebRequest request) {
         HttpErrorResponse err = new HttpErrorResponse();
-        err.setCode(HttpStatus.CONFLICT.value());
-        err.setMessage("Could not add this element. This is probably due to a duplicate column.");
-        return new ResponseEntity<HttpErrorResponse>(err, HttpStatus.CONFLICT);
-    }*/
+        err.setCode(HttpStatus.BAD_REQUEST.value());
+        err.setMessage("Bad request");
+        return new ResponseEntity<HttpErrorResponse>(err, HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler(value = {HttpStatusException.class})
     protected ResponseEntity handleHttpStatus(HttpStatusException ex) {

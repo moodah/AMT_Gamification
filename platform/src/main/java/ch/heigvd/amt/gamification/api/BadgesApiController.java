@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -51,8 +52,17 @@ public class BadgesApiController implements BadgesApi {
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
-    public ResponseEntity<List<Badge>> badgesGet(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
-        return new ResponseEntity<List<Badge>>(Lists.newArrayList(badgeDao.findAll()), HttpStatus.OK);
+    public ResponseEntity<List<BadgePresentationDTO>> badgesGet(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
+        long appId = Authentication.getApplicationId(authorization);
+        List<Badge> badges = badgeDao.findAllByApplicationId(appId);
+
+        List<BadgePresentationDTO> badgePresentationDTOList = new ArrayList<>();
+
+        badges.forEach(badge -> {
+            badgePresentationDTOList.add(new BadgePresentationDTO(badge));
+        });
+
+        return new ResponseEntity<List<BadgePresentationDTO>>(badgePresentationDTOList, HttpStatus.OK);
     }
 
     public ResponseEntity<Void> badgesIdDelete(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
@@ -69,7 +79,7 @@ public class BadgesApiController implements BadgesApi {
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
-    public ResponseEntity<Badge> badgesIdGet(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
+    public ResponseEntity<BadgePresentationDTO> badgesIdGet(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                              @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
         long appId = Authentication.getApplicationId(authorization);
 
@@ -78,10 +88,10 @@ public class BadgesApiController implements BadgesApi {
         if (badge == null)
             throw new HttpStatusException(HttpStatus.NOT_FOUND, ErrorMessageGenerator.notFoundById("Badge", id.toString()));
 
-        return new ResponseEntity<Badge>(badge, HttpStatus.OK);
+        return new ResponseEntity<BadgePresentationDTO>(new BadgePresentationDTO(badge), HttpStatus.OK);
     }
 
-    public ResponseEntity<Badge> badgesIdPatch(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
+    public ResponseEntity<BadgePresentationDTO> badgesIdPatch(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                                @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
                                                @ApiParam(value = "Updated badge", required = true) @RequestBody Badge newBadge) {
         long appId = Authentication.getApplicationId(authorization);
@@ -106,7 +116,7 @@ public class BadgesApiController implements BadgesApi {
 
         badgeDao.save(oldBadge);
 
-        return new ResponseEntity<Badge>(oldBadge, HttpStatus.OK);
+        return new ResponseEntity<BadgePresentationDTO>(new BadgePresentationDTO(oldBadge), HttpStatus.OK);
     }
 
 
@@ -125,14 +135,18 @@ public class BadgesApiController implements BadgesApi {
 
         Badge badge = new Badge(badgeDTO.getName(), badgeDTO.getDescription(), applicationsDao.findById(appId));
 
-        if (badgeDTO.getAchievementsIds() != null) {
-            badgeDTO.getAchievementsIds().forEach(aLong -> {
-                if(achievementDao.findByApplicationIdAndId(appId, aLong) == null){
-                    throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.notFoundById("Achievement", String.valueOf(aLong)));
-                }
-                badge.addAchievement(achievementDao.findByApplicationIdAndId(appId, aLong));
-            });
+        List<Long> achievementIds = badgeDTO.getAchievementsIds();
+
+        if (achievementIds == null || achievementIds.size() == 0) {
+            throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.fieldMissing("Badge", "Achievements"));
         }
+
+        achievementIds.forEach(aLong -> {
+            if(achievementDao.findByApplicationIdAndId(appId, aLong) == null){
+                throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.notFoundById("Achievement", String.valueOf(aLong)));
+            }
+            badge.addAchievement(achievementDao.findByApplicationIdAndId(appId, aLong));
+        });
 
         badgeDao.save(badge);
 
