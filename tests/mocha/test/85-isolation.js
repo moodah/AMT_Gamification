@@ -73,7 +73,7 @@ describe('ISOLATION', function () {
                         .set('authorization', tmptoken)
                         .end(function(err, res) {
                             Utils.debug('err', err);
-                            chai.expect(err).to.not.be.undefined;
+                            chai.expect(err).to.not.be.null;
                             chai.expect(err).to.have.status(403);
                             done();
                         });
@@ -89,7 +89,7 @@ describe('ISOLATION', function () {
                         .set('authorization', tmptoken)
                         .end(function(err, res) {
                             Utils.debug('err', err);
-                            chai.expect(err).to.not.be.undefined;
+                            chai.expect(err).to.not.be.null;
                             chai.expect(err).to.have.status(403);
                             done();
                         });
@@ -105,7 +105,7 @@ describe('ISOLATION', function () {
                         .set('authorization', tmptoken)
                         .end(function(err, res) {
                             Utils.debug('err', err);
-                            chai.expect(err).to.not.be.undefined;
+                            chai.expect(err).to.not.be.null;
                             chai.expect(err).to.have.status(403);
                             done();
                         });
@@ -121,7 +121,7 @@ describe('ISOLATION', function () {
                         .set('authorization', tmptoken)
                         .end(function(err, res) {
                             Utils.debug('err', err);
-                            chai.expect(err).to.not.be.undefined;
+                            chai.expect(err).to.not.be.null;
                             chai.expect(err).to.have.status(403);
                             done();
                         });
@@ -137,7 +137,7 @@ describe('ISOLATION', function () {
                         .set('authorization', tmptoken)
                         .end(function(err, res) {
                             Utils.debug('err', err);
-                            chai.expect(err).to.not.be.undefined;
+                            chai.expect(err).to.not.be.null;
                             chai.expect(err).to.have.status(403);
                             done();
                         });
@@ -161,7 +161,7 @@ describe('ISOLATION', function () {
                         })
                         .end(function(err, res) {
                             Utils.debug('err', err);
-                            chai.expect(err).to.not.be.undefined;
+                            chai.expect(err).to.not.be.null;
                             chai.expect(err).to.have.status(403);
                             done();
                         });
@@ -181,7 +181,7 @@ describe('ISOLATION', function () {
                         })
                         .end(function(err, res) {
                             Utils.debug('err', err);
-                            chai.expect(err).to.not.be.undefined;
+                            chai.expect(err).to.not.be.null;
                             chai.expect(err).to.have.status(403);
                             done();
                         });
@@ -198,7 +198,7 @@ describe('ISOLATION', function () {
                         })
                         .end(function(err, res) {
                             Utils.debug('err', err);
-                            chai.expect(err).to.not.be.undefined;
+                            chai.expect(err).to.not.be.null;
                             chai.expect(err).to.have.status(403);
                             done();
                         });
@@ -221,7 +221,7 @@ describe('ISOLATION', function () {
                         })
                         .end(function(err, res) {
                             Utils.debug('err', err);
-                            chai.expect(err).to.not.be.undefined;
+                            chai.expect(err).to.not.be.null;
                             chai.expect(err).to.have.status(403);
                             done();
                         });
@@ -241,7 +241,7 @@ describe('ISOLATION', function () {
                         })
                         .end(function(err, res) {
                             Utils.debug('err', err);
-                            chai.expect(err).to.not.be.undefined;
+                            chai.expect(err).to.not.be.null;
                             chai.expect(err).to.have.status(403);
                             done();
                         });
@@ -261,7 +261,7 @@ describe('ISOLATION', function () {
                         })
                         .end(function(err, res) {
                             Utils.debug('err', err);
-                            chai.expect(err).to.not.be.undefined;
+                            chai.expect(err).to.not.be.null;
                             chai.expect(err).to.have.status(403);
                             done();
                         });
@@ -282,7 +282,7 @@ describe('ISOLATION', function () {
                         })
                         .end(function(err, res) {
                             Utils.debug('err', err);
-                            chai.expect(err).to.not.be.undefined;
+                            chai.expect(err).to.not.be.null;
                             chai.expect(err).to.have.status(403);
                             done();
                         });
@@ -301,7 +301,7 @@ describe('ISOLATION', function () {
                         .set('authorization', tmptoken)
                         .end(function(err, res) {
                             Utils.debug('err', err);
-                            chai.expect(err).to.not.be.undefined;
+                            chai.expect(err).to.not.be.null;
                             chai.expect(err).to.have.status(403);
                             done();
                         });
@@ -317,7 +317,7 @@ describe('ISOLATION', function () {
                         .set('authorization', tmptoken)
                         .end(function(err, res) {
                             Utils.debug('err', err);
-                            chai.expect(err).to.not.be.undefined;
+                            chai.expect(err).to.not.be.null;
                             chai.expect(err).to.have.status(403);
                             done();
                         });
@@ -333,7 +333,7 @@ describe('ISOLATION', function () {
                         .set('authorization', tmptoken)
                         .end(function(err, res) {
                             Utils.debug('err', err);
-                            chai.expect(err).to.not.be.undefined;
+                            chai.expect(err).to.not.be.null;
                             chai.expect(err).to.have.status(403);
                             done();
                         });
@@ -349,7 +349,7 @@ describe('ISOLATION', function () {
                         .set('authorization', tmptoken)
                         .end(function(err, res) {
                             Utils.debug('err', err);
-                            chai.expect(err).to.not.be.undefined;
+                            chai.expect(err).to.not.be.null;
                             chai.expect(err).to.have.status(403);
                             done();
                         });
@@ -365,7 +365,7 @@ describe('ISOLATION', function () {
                         .set('authorization', tmptoken)
                         .end(function(err, res) {
                             Utils.debug('err', err);
-                            chai.expect(err).to.not.be.undefined;
+                            chai.expect(err).to.not.be.null;
                             chai.expect(err).to.have.status(403);
                             done();
                         });

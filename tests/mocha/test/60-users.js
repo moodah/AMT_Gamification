@@ -20,10 +20,10 @@ describe('users/', function () {
                 .set('authorization', shared.token)
                 .then(function (res) {
                     Utils.debug('res', res);
-                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.not.be.null;
                     chai.expect(res).to.have.status(200);
                     chai.expect(res).to.have.property('text');
-                    chai.expect(JSON.parse(res.text)).to.have.lenght(2);
+                    chai.expect(JSON.parse(res.text)).to.have.lengthOf(2);
                     // TODO
                     done();
                 })
@@ -77,7 +77,7 @@ describe('users/', function () {
                     .set('authorization', shared.token)
                     .then(function (res) {
                         Utils.debug('res', res);
-                        chai.expect(res).to.not.be.undefined;
+                        chai.expect(res).to.not.be.null;
                         chai.expect(res).to.have.status(200);
                         chai.expect(res).to.have.property('text');
                         // TODO
@@ -96,7 +96,7 @@ describe('users/', function () {
                     .set('authorization', shared.token)
                     .end(function(err, res) { 
                         Utils.debug('err', err);
-                        chai.expect(err).to.not.be.undefined;
+                        chai.expect(err).to.not.be.null;
                         chai.expect(err).to.have.status(404);
                         done();
                     });

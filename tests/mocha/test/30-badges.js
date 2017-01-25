@@ -24,7 +24,7 @@ describe('badges/', function () {
                 })
                 .then(function (res) {
                     Utils.debug('res', res);
-                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.not.be.null;
                     chai.expect(res).to.have.status(201);
                     chai.expect(res).to.have.property('text');
                     shared.badge.push(JSON.parse(res.text));
@@ -47,7 +47,7 @@ describe('badges/', function () {
                 })
                 .then(function (res) {
                     Utils.debug('res', res);
-                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.not.be.null;
                     chai.expect(res).to.have.status(201);
                     chai.expect(res).to.have.property('text');
                     chai.expect(JSON.parse(res.text)).to.not.equal(shared.badge[0]);
@@ -74,7 +74,7 @@ describe('badges/', function () {
                     .send(malformed)
                     .end(function(err, res) { 
                         Utils.debug('err', err);
-                        chai.expect(err).to.not.be.undefined;
+                        chai.expect(err).to.not.be.null;
                         chai.expect(err).to.have.status(400);
                         done();
                     });
@@ -96,14 +96,14 @@ describe('badges/', function () {
                 .set('authorization', shared.token)
                 .then(function (res) {
                     Utils.debug('res', res);
-                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.not.be.null;
                     chai.expect(res).to.have.status(200);
                     chai.expect(res).to.have.property('text');
-                    chai.expect(JSON.parse(res.text)).to.have.lenght(2);
-                    chai.expect(JSON.parse(res.text)[0].name).to.be.equal.to('writer');
-                    chai.expect(JSON.parse(res.text)[0].description).to.be.equal.to('post 1000 comments');
-                    chai.expect(JSON.parse(res.text)[1].name).to.be.equal.to('noob');
-                    chai.expect(JSON.parse(res.text)[1].description).to.be.equal.to('open 100 topics');
+                    chai.expect(JSON.parse(res.text)).to.have.lengthOf(2);
+                    chai.expect(JSON.parse(res.text)[0].name).to.equal('writer');
+                    chai.expect(JSON.parse(res.text)[0].description).to.equal('post 1000 comments');
+                    chai.expect(JSON.parse(res.text)[1].name).to.equal('noob');
+                    chai.expect(JSON.parse(res.text)[1].description).to.equal('open 100 topics');
                     done();
                 })
                 .catch(function(err) {
@@ -129,11 +129,11 @@ describe('badges/', function () {
                     .set('authorization', shared.token)
                     .then(function (res) {
                         Utils.debug('res', res);
-                        chai.expect(res).to.not.be.undefined;
+                        chai.expect(res).to.not.be.null;
                         chai.expect(res).to.have.status(200);
                         chai.expect(res).to.have.property('text');
-                        chai.expect(JSON.parse(res.text).name).to.be.equal.to('writer');
-                        chai.expect(JSON.parse(res.text).description).to.be.equal.to('post 1000 comments');
+                        chai.expect(JSON.parse(res.text).name).to.equal('writer');
+                        chai.expect(JSON.parse(res.text).description).to.equal('post 1000 comments');
                         done();
                     })
                     .catch(function(err) {
@@ -149,7 +149,7 @@ describe('badges/', function () {
                     .set('authorization', shared.token)
                     .end(function(err, res) { 
                         Utils.debug('err', err);
-                        chai.expect(err).to.not.be.undefined;
+                        chai.expect(err).to.not.be.null;
                         chai.expect(err).to.have.status(404);
                         done();
                     });
@@ -169,11 +169,11 @@ describe('badges/', function () {
                     })
                     .then(function (res) {
                         Utils.debug('res', res);
-                        chai.expect(res).to.not.be.undefined;
+                        chai.expect(res).to.not.be.null;
                         chai.expect(res).to.have.status(200);
                         chai.expect(res).to.have.property('text');
-                        chai.expect(JSON.parse(res.text).name).to.be.equal.to('super-writer');
-                        chai.expect(JSON.parse(res.text).description).to.be.equal.to('post 10000 comments');
+                        chai.expect(JSON.parse(res.text).name).to.equal('super-writer');
+                        chai.expect(JSON.parse(res.text).description).to.equal('post 10000 comments');
                         shared.badge[0] = JSON.parse(res.text);
                         done();
                     })
@@ -193,7 +193,7 @@ describe('badges/', function () {
                     })
                     .end(function(err, res) { 
                         Utils.debug('err', err);
-                        chai.expect(err).to.not.be.undefined;
+                        chai.expect(err).to.not.be.null;
                         chai.expect(err).to.have.status(400);
                         done();
                     });
@@ -210,7 +210,7 @@ describe('badges/', function () {
                     })
                     .end(function(err, res) { 
                         Utils.debug('err', err);
-                        chai.expect(err).to.not.be.undefined;
+                        chai.expect(err).to.not.be.null;
                         chai.expect(err).to.have.status(404);
                         done();
                     });

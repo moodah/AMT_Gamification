@@ -24,7 +24,7 @@ describe('eventtypes/', function () {
                 })
                 .then(function (res) {
                     Utils.debug('res', res);
-                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.not.be.null;
                     chai.expect(res).to.have.status(201);
                     chai.expect(res).to.have.property('text');
                     shared.eventtype.push(JSON.parse(res.text));
@@ -47,7 +47,7 @@ describe('eventtypes/', function () {
                 })
                 .then(function (res) {
                     Utils.debug('res', res);
-                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.not.be.null;
                     chai.expect(res).to.have.status(201);
                     chai.expect(res).to.have.property('text');
                     chai.expect(JSON.parse(res.text)).to.not.equal(shared.eventtype[0]);
@@ -74,7 +74,7 @@ describe('eventtypes/', function () {
                     .send(malformed)
                     .end(function(err, res) { 
                         Utils.debug('err', err);
-                        chai.expect(err).to.not.be.undefined;
+                        chai.expect(err).to.not.be.null;
                         chai.expect(err).to.have.status(400);
                         done();
                     });
@@ -96,14 +96,14 @@ describe('eventtypes/', function () {
                 .set('authorization', shared.token)
                 .then(function (res) {
                     Utils.debug('res', res);
-                    chai.expect(res).to.not.be.undefined;
+                    chai.expect(res).to.not.be.null;
                     chai.expect(res).to.have.status(200);
                     chai.expect(res).to.have.property('text');
-                    chai.expect(JSON.parse(res.text)).to.have.lenght(2);
-                    chai.expect(JSON.parse(res.text)[0].name).to.be.equal.to('write_comment');
-                    chai.expect(JSON.parse(res.text)[0].points).to.be.equal.to(10);
-                    chai.expect(JSON.parse(res.text)[1].name).to.be.equal.to('open_topic');
-                    chai.expect(JSON.parse(res.text)[1].points).to.be.equal.to(20);
+                    chai.expect(JSON.parse(res.text)).to.have.lengthOf(2);
+                    chai.expect(JSON.parse(res.text)[0].name).to.equal('write_comment');
+                    chai.expect(JSON.parse(res.text)[0].points).to.equal(10);
+                    chai.expect(JSON.parse(res.text)[1].name).to.equal('open_topic');
+                    chai.expect(JSON.parse(res.text)[1].points).to.equal(20);
                     done();
                 })
                 .catch(function(err) {
@@ -129,11 +129,11 @@ describe('eventtypes/', function () {
                     .set('authorization', shared.token)
                     .then(function (res) {
                         Utils.debug('res', res);
-                        chai.expect(res).to.not.be.undefined;
+                        chai.expect(res).to.not.be.null;
                         chai.expect(res).to.have.status(200);
                         chai.expect(res).to.have.property('text');
-                        chai.expect(JSON.parse(res.text).name).to.be.equal.to('write_comment');
-                        chai.expect(JSON.parse(res.text).points).to.be.equal.to(10);
+                        chai.expect(JSON.parse(res.text).name).to.equal('write_comment');
+                        chai.expect(JSON.parse(res.text).points).to.equal(10);
                         done();
                     })
                     .catch(function(err) {
@@ -149,7 +149,7 @@ describe('eventtypes/', function () {
                     .set('authorization', shared.token)
                     .end(function(err, res) { 
                         Utils.debug('err', err);
-                        chai.expect(err).to.not.be.undefined;
+                        chai.expect(err).to.not.be.null;
                         chai.expect(err).to.have.status(404);
                         done();
                     });
@@ -169,11 +169,11 @@ describe('eventtypes/', function () {
                     })
                     .then(function (res) {
                         Utils.debug('res', res);
-                        chai.expect(res).to.not.be.undefined;
+                        chai.expect(res).to.not.be.null;
                         chai.expect(res).to.have.status(200);
                         chai.expect(res).to.have.property('text');
-                        chai.expect(JSON.parse(res.text).name).to.be.equal.to('comment');
-                        chai.expect(JSON.parse(res.text).points).to.be.equal.to(5);
+                        chai.expect(JSON.parse(res.text).name).to.equal('comment');
+                        chai.expect(JSON.parse(res.text).points).to.equal(5);
                         shared.eventtype[0] = JSON.parse(res.text);
                         done();
                     })
@@ -194,7 +194,7 @@ describe('eventtypes/', function () {
                     })
                     .end(function(err, res) { 
                         Utils.debug('err', err);
-                        chai.expect(err).to.not.be.undefined;
+                        chai.expect(err).to.not.be.null;
                         chai.expect(err).to.have.status(404);
                         done();
                     });
