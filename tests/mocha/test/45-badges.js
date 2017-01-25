@@ -20,7 +20,8 @@ describe('badges/', function () {
                 .set('authorization', shared.token)
                 .send({
                     name: 'writer',
-                    description: 'post 1000 comments'
+                    description: 'post 1000 comments',
+                    achievements: [shared.achievement[0].id]
                 })
                 .then(function (res) {
                     Utils.debug('res', res);
@@ -43,7 +44,8 @@ describe('badges/', function () {
                 .set('authorization', shared.token)
                 .send({
                     name: 'noob',
-                    description: 'open 100 topics'
+                    description: 'open 100 topics',
+                    achievements: [shared.achievement[1].id]
                 })
                 .then(function (res) {
                     Utils.debug('res', res);
@@ -102,8 +104,12 @@ describe('badges/', function () {
                     chai.expect(JSON.parse(res.text)).to.have.lengthOf(2);
                     chai.expect(JSON.parse(res.text)[0].name).to.equal('writer');
                     chai.expect(JSON.parse(res.text)[0].description).to.equal('post 1000 comments');
+                    chai.expect(JSON.parse(res.text)[0].achievements).to.have.lengthOf(1);
+                    chai.expect(JSON.parse(res.text)[0].achievements[0]).to.equal(shared.achievement[0].id);
                     chai.expect(JSON.parse(res.text)[1].name).to.equal('noob');
                     chai.expect(JSON.parse(res.text)[1].description).to.equal('open 100 topics');
+                    chai.expect(JSON.parse(res.text)[1].achievements).to.have.lengthOf(1);
+                    chai.expect(JSON.parse(res.text)[1].achievements[0]).to.equal(shared.achievement[1].id);
                     done();
                 })
                 .catch(function(err) {
@@ -134,6 +140,8 @@ describe('badges/', function () {
                         chai.expect(res).to.have.property('text');
                         chai.expect(JSON.parse(res.text).name).to.equal('writer');
                         chai.expect(JSON.parse(res.text).description).to.equal('post 1000 comments');
+                        chai.expect(JSON.parse(res.text).achievements).to.have.lengthOf(1);
+                        chai.expect(JSON.parse(res.text).achievements[0]).to.equal(shared.achievement[0].id);
                         done();
                     })
                     .catch(function(err) {
@@ -165,7 +173,8 @@ describe('badges/', function () {
                     .set('authorization', shared.token)
                     .send({
                         name: 'super-writer',
-                        description: 'post 10000 comments'
+                        description: 'post 10000 comments',
+                        achievements: [shared.achievement[0].id]
                     })
                     .then(function (res) {
                         Utils.debug('res', res);
@@ -174,6 +183,8 @@ describe('badges/', function () {
                         chai.expect(res).to.have.property('text');
                         chai.expect(JSON.parse(res.text).name).to.equal('super-writer');
                         chai.expect(JSON.parse(res.text).description).to.equal('post 10000 comments');
+                        chai.expect(JSON.parse(res.text).achievements).to.have.lengthOf(1);
+                        chai.expect(JSON.parse(res.text).achievements[0]).to.equal(shared.achievement[0].id);
                         shared.badge[0] = JSON.parse(res.text);
                         done();
                     })

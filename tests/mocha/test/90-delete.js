@@ -9,20 +9,20 @@ let CONFIG = require('./config');
 let shared = require('./shared');
 let Utils = require('./utils');
 
-describe('badgeachievements/', function () {
+describe('badges/', function () {
 
-    describe('badgeachievements/{id}', function () {
+    describe('badges/{id}', function () {
 
         beforeEach(function() {
-            if(shared.badgeachievement.length < 2) 
+            if(shared.badge.length < 2) 
                 this.skip();
         });
 
         describe('DELETE', function () {
                         
-            it('should allow to delete a specific badgeachievement', function (done) {
+            it('should allow to delete a specific badge', function (done) {
                 chai.request(CONFIG.API)
-                    .delete('badgeachievements/' + shared.badgeachievement[0].id + '/')
+                    .delete('badges/' + shared.badge[0].id + '/')
                     .set('content-type', 'application/json')
                     .set('authorization', shared.token)
                     .then(function (res) {
@@ -39,7 +39,7 @@ describe('badgeachievements/', function () {
 
             it('should not allow an undefined ID', function (done) {
                 chai.request(CONFIG.API)
-                    .delete('badgeachievements/404/')
+                    .delete('badges/404/')
                     .set('content-type', 'application/json')
                     .set('authorization', shared.token)
                     .end(function(err, res) { 
@@ -54,9 +54,9 @@ describe('badgeachievements/', function () {
 
     describe('DELETE', function () {
                 
-        it('should allow to delete all badgeachievements', function (done) {
+        it('should allow to delete all badges', function (done) {
             chai.request(CONFIG.API)
-                .delete('badgeachievements/')
+                .delete('badges/')
                 .set('content-type', 'application/json')
                 .set('authorization', shared.token)
                 .then(function (res) {
@@ -185,70 +185,6 @@ describe('eventtypes/', function () {
         it('should allow to delete all eventtypes', function (done) {
             chai.request(CONFIG.API)
                 .delete('eventtypes/')
-                .set('content-type', 'application/json')
-                .set('authorization', shared.token)
-                .then(function (res) {
-                    Utils.debug('res', res);
-                    chai.expect(res).to.not.be.null;
-                    chai.expect(res).to.have.status(204);
-                    done();
-                })
-                .catch(function(err) { 
-                    Utils.debug('err', err);
-                    done(err);
-                });
-        });
-    });
-});
-
-describe('badges/', function () {
-
-    describe('badges/{id}', function () {
-
-        beforeEach(function() {
-            if(shared.badge.length < 2) 
-                this.skip();
-        });
-
-        describe('DELETE', function () {
-                        
-            it('should allow to delete a specific badge', function (done) {
-                chai.request(CONFIG.API)
-                    .delete('badges/' + shared.badge[0].id + '/')
-                    .set('content-type', 'application/json')
-                    .set('authorization', shared.token)
-                    .then(function (res) {
-                        Utils.debug('res', res);
-                        chai.expect(res).to.not.be.null;
-                        chai.expect(res).to.have.status(204);
-                        done();
-                    })
-                    .catch(function(err) { 
-                        Utils.debug('err', err);
-                        done(err);
-                    });
-            });
-
-            it('should not allow an undefined ID', function (done) {
-                chai.request(CONFIG.API)
-                    .delete('badges/404/')
-                    .set('content-type', 'application/json')
-                    .set('authorization', shared.token)
-                    .end(function(err, res) { 
-                        Utils.debug('err', err);
-                        chai.expect(err).to.not.be.null;
-                        chai.expect(err).to.have.status(404);
-                        done();
-                    });
-            });
-        });
-    });
-
-    describe('DELETE', function () {
-                
-        it('should allow to delete all badges', function (done) {
-            chai.request(CONFIG.API)
-                .delete('badges/')
                 .set('content-type', 'application/json')
                 .set('authorization', shared.token)
                 .then(function (res) {

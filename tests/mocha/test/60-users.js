@@ -13,7 +13,7 @@ describe('users/', function () {
 
     describe('GET', function () {
         
-        it('should return an array of users', function (done) {
+        it.skip('should return an array of users', function (done) {
             chai.request(CONFIG.API)
                 .get('users/')
                 .set('content-type', 'application/json')
@@ -70,7 +70,7 @@ describe('users/', function () {
         
         describe('GET', function () {
             
-            it('should return a specific user', function (done) {
+            it.skip('should return a specific user', function (done) {
                 chai.request(CONFIG.API)
                     .get('users/0/')
                     .set('content-type', 'application/json')

@@ -13,7 +13,7 @@ describe('leaderboards/', function () {
 
     describe('GET', function () {
         
-        it('should return an array of top users', function (done) {
+        it.skip('should return an array of top users', function (done) {
             chai.request(CONFIG.API)
                 .get('leaderboards/')
                 .set('content-type', 'application/json')

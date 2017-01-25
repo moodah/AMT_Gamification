@@ -12,19 +12,25 @@ let Utils = require('./utils');
 // Dynamically generated tests
 describe('SECURITY', function () {
 
+    beforeEach(function () {
+        if(shared.level.length < 2
+            || shared.badge.length < 2
+            || shared.eventtype.length < 2
+            || shared.achievement.length < 2) 
+            this.skip();
+    });
+
     // Here comes the request that need a valid token
     let TESTS = [
         { endpoint: 'applications/', ep: null, verbs: ['DELETE'], payload: { name: 'kjdfbskfjdsf', password: '8932792341' } },
         { endpoint: 'levels/', ep: null, verbs: ['GET', 'POST', 'DELETE'], payload: { name: 'qoiwqwq', points: 2389 } },
         { endpoint: 'levels/{id}/', ep: () => 'levels/' + shared.level[0].id + '/', verbs: ['GET', 'PATCH', 'DELETE'], payload: { name: 'dshfjks', points: 819 } },
-        { endpoint: 'badges/', ep: null, verbs: ['GET', 'POST', 'DELETE'], payload: { name: 'sakjn', description: 'lkjsaodiqjw' } },
-        { endpoint: 'badges/{id}/', ep: () => 'badges/' + shared.badge[0].id + '/', verbs: ['GET', 'PATCH', 'DELETE'], payload: { name: 'kdsajnc', description: 'qwlkd' } },
         { endpoint: 'eventtypes/', ep: null, verbs: ['GET', 'POST', 'DELETE'], payload: { name: 'oiedjoqw', points: 120 } },
         { endpoint: 'eventtypes/{id}/', ep: () => 'eventtypes/' + shared.eventtype[0].id + '/', verbs: ['GET', 'PATCH', 'DELETE'], payload: { name: 'kjdscnla', points: 102 } },
         { endpoint: 'achievements/', ep: null, verbs: ['GET', 'POST', 'DELETE'], payload: { count: 821, eventtype_id: 0, name: 'kajdqw' } },
         { endpoint: 'achievements/{id}/', ep: () => 'achievements/' + shared.achievement[0].id + '/', verbs: ['GET', 'PATCH', 'DELETE'], payload: { count: 292, eventtype_id: 0, name: 'salkd' } },
-        { endpoint: 'badgeachievements/', ep: null, verbs: ['GET', 'POST', 'DELETE'], payload: { achievement_id: 0, badge_id: 0 } },
-        { endpoint: 'badgeachievements/{id}/', ep: () => 'badgeachievements/' + shared.badgeachievement[0].id + '/', verbs: ['GET', 'DELETE'], payload: null },
+        { endpoint: 'badges/', ep: null, verbs: ['GET', 'POST', 'DELETE'], payload: { name: 'sakjn', description: 'lkjsaodiqjw', achievements: [0] } },
+        { endpoint: 'badges/{id}/', ep: () => 'badges/' + shared.badge[0].id + '/', verbs: ['GET', 'PATCH', 'DELETE'], payload: { name: 'kdsajnc', description: 'qwlkd', achievements: [0] } },
         { endpoint: 'events/', ep: null, verbs: ['POST'], payload: { user_id: 92, eventtype_id: 0 } },
         { endpoint: 'users/', ep: null, verbs: ['GET'], payload: null },
         { endpoint: 'users/{id}/', ep: () => 'users/0/', verbs: ['GET'], payload: null },

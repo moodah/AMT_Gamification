@@ -10,6 +10,5 @@ module.exports = {
     level: [],
     badge: [],
     eventtype: [],
-    achievement: [],
-    badgeachievement: []
+    achievement: []
 };

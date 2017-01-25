@@ -55,8 +55,7 @@ describe('ISOLATION', function () {
         if(shared.level.length < 2
             || shared.badge.length < 2
             || shared.eventtype.length < 2
-            || shared.achievement.length < 2
-            || shared.badgeachievement.length < 2) 
+            || shared.achievement.length < 2) 
             this.skip();
     });
 
@@ -127,22 +126,6 @@ describe('ISOLATION', function () {
                         });
                 });
             });
-
-            describe('badgeachievements/{id}/', function () {
-                                
-                it('should not be able to access an other application badgeachievement', function (done) {
-                    chai.request(CONFIG.API)
-                        .get('badgeachievements/' + shared.badgeachievement[0].id + '/')
-                        .set('content-type', 'application/json')
-                        .set('authorization', tmptoken)
-                        .end(function(err, res) {
-                            Utils.debug('err', err);
-                            chai.expect(err).to.not.be.null;
-                            chai.expect(err).to.have.status(403);
-                            done();
-                        });
-                });
-            });
         });
 
         describe('POST', function () {
@@ -158,43 +141,6 @@ describe('ISOLATION', function () {
                             count: 1000,
                             eventtype_id: shared.eventtype[0].id,
                             name: '!!!'
-                        })
-                        .end(function(err, res) {
-                            Utils.debug('err', err);
-                            chai.expect(err).to.not.be.null;
-                            chai.expect(err).to.have.status(403);
-                            done();
-                        });
-                }); 
-            });
-
-            describe('badgeachievements/', function () {
-                
-                it('should not be able to use an other application achievement_id', function (done) {
-                    chai.request(CONFIG.API)
-                        .post('achievements/')
-                        .set('content-type', 'application/json')
-                        .set('authorization', tmptoken)
-                        .send({
-                            achievement_id: shared.achievement[0].id,
-                            badge_id: shared.badge[0].id
-                        })
-                        .end(function(err, res) {
-                            Utils.debug('err', err);
-                            chai.expect(err).to.not.be.null;
-                            chai.expect(err).to.have.status(403);
-                            done();
-                        });
-                }); 
-
-                it('should not be able to use an other application badge_id', function (done) {
-                    chai.request(CONFIG.API)
-                        .post('achievements/')
-                        .set('content-type', 'application/json')
-                        .set('authorization', tmptoken)
-                        .send({
-                            badge_id: shared.badge[0].id,
-                            achievement_id: shared.achievement[0].id
                         })
                         .end(function(err, res) {
                             Utils.debug('err', err);
@@ -237,7 +183,8 @@ describe('ISOLATION', function () {
                         .set('authorization', tmptoken)
                         .send({
                             name: 'should not work',
-                            description: 'absolutely'
+                            description: 'absolutely',
+                            achievements: [shared.achievement[0].id]
                         })
                         .end(function(err, res) {
                             Utils.debug('err', err);
@@ -345,22 +292,6 @@ describe('ISOLATION', function () {
                 it('should not be able to delete an other application achievement', function (done) {
                     chai.request(CONFIG.API)
                         .delete('achievements/' + shared.achievement[0].id + '/')
-                        .set('content-type', 'application/json')
-                        .set('authorization', tmptoken)
-                        .end(function(err, res) {
-                            Utils.debug('err', err);
-                            chai.expect(err).to.not.be.null;
-                            chai.expect(err).to.have.status(403);
-                            done();
-                        });
-                });
-            });
-
-            describe('badgeachievements/{id}/', function () {
-                
-                it('should not be able to delete an other application badgeachievement', function (done) {
-                    chai.request(CONFIG.API)
-                        .delete('badgeachievements/' + shared.badgeachievement[0].id + '/')
                         .set('content-type', 'application/json')
                         .set('authorization', tmptoken)
                         .end(function(err, res) {
