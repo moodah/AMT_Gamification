@@ -127,10 +127,10 @@ describe('achievements/', function () {
                     chai.expect(res).to.have.property('text');
                     chai.expect(JSON.parse(res.text)).to.have.lengthOf(2);
                     chai.expect(JSON.parse(res.text)[0].count).to.equal(10);
-                    chai.expect(JSON.parse(res.text)[0].eventtype_id).to.equal(shared.eventtype[0].id);
+                    chai.expect(JSON.parse(res.text)[0].eventtype.id).to.equal(shared.eventtype[0].id);
                     chai.expect(JSON.parse(res.text)[0].name).to.equal('wow');
                     chai.expect(JSON.parse(res.text)[1].count).to.equal(20);
-                    chai.expect(JSON.parse(res.text)[1].eventtype_id).to.equal(shared.eventtype[1].id);
+                    chai.expect(JSON.parse(res.text)[1].eventtype.id).to.equal(shared.eventtype[1].id);
                     chai.expect(JSON.parse(res.text)[1].name).to.equal('omg');
                     done();
                 })
@@ -161,7 +161,7 @@ describe('achievements/', function () {
                         chai.expect(res).to.have.status(200);
                         chai.expect(res).to.have.property('text');
                         chai.expect(JSON.parse(res.text).count).to.equal(10);
-                        chai.expect(JSON.parse(res.text).eventtype_id).to.equal(shared.eventtype[0].id);
+                        chai.expect(JSON.parse(res.text).eventtype.id).to.equal(shared.eventtype[0].id);
                         chai.expect(JSON.parse(res.text).name).to.equal('wow');
                         done();
                     })
@@ -203,7 +203,7 @@ describe('achievements/', function () {
                         chai.expect(res).to.have.status(200);
                         chai.expect(res).to.have.property('text');
                         chai.expect(JSON.parse(res.text).count).to.equal(50);
-                        chai.expect(JSON.parse(res.text).eventtype_id).to.equal(shared.eventtype[0].id);
+                        chai.expect(JSON.parse(res.text).eventtype.id).to.equal(shared.eventtype[0].id);
                         chai.expect(JSON.parse(res.text).name).to.equal('amazing');
                         shared.achievement[0] = JSON.parse(res.text);
                         done();
