@@ -35,7 +35,11 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         if (authAnnotation != null) {
             if (authAnnotation.auth()) {
                 jwt = request.getHeader(AppConfig.X_GAMIFICATION_TOKEN);
-                return auth.authenticate(jwt);
+                if(auth.authenticate(jwt)){
+                    return true;
+                } else {
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN, "The Authorization token is missing or malformed!");
+                }
             } else {
                 return false;
             }

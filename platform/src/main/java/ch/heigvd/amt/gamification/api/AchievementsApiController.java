@@ -82,9 +82,10 @@ public class AchievementsApiController implements AchievementsApi {
 
         Achievement achievement = achievementDao.findByApplicationIdAndId(appId, id.longValue());
 
-        if (achievement == null)
-            throw new HttpStatusException(HttpStatus.NOT_FOUND, ErrorMessageGenerator.notFoundById("Badge", id.toString()));
-
+        if(newAchievement.getName() != null) {
+            achievement.setName(newAchievement.getName());
+        }
+        
         if (newAchievement.getCount() != null) {
             achievement.setCount(newAchievement.getCount().intValue());
         }

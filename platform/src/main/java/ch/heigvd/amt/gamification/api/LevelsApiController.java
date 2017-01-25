@@ -61,9 +61,6 @@ public class LevelsApiController implements LevelsApi {
         long appId = Authentication.getApplicationId(authorization);
 
         Level persistentLevel = levelDao.findByApplicationIdAndId(appId, id.longValue());
-        if (persistentLevel == null)
-            throw new HttpStatusException(HttpStatus.NOT_FOUND,
-                    ErrorMessageGenerator.notFoundById("Level", id.toString()));
 
         return new ResponseEntity<LevelPresentationDTO>(toPresentationDTO(persistentLevel), HttpStatus.OK);
     }
