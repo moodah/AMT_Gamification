@@ -14,4 +14,6 @@ public interface EventDao extends CrudRepository<Event, Long> {
 
     List<Event> findAllByApplicationIdAndUserId(long appId, long userId);
 
+    List<Event> findAllByApplicationId(long appId);
+
 }

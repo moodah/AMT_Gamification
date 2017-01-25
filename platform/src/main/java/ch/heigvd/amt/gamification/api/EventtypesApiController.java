@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.Null;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,6 +74,8 @@ public class EventtypesApiController implements EventtypesApi {
         long appId = Authentication.getApplicationId(authorization);
 
         Eventtype eventtype = eventtypeDao.findByApplicationIdAndId(appId, id.intValue());
+
+
 
         if(eventtypeDTO.getName() != null){
             eventtype.setName(eventtypeDTO.getName());

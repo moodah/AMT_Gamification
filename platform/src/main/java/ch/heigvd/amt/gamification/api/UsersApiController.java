@@ -46,13 +46,26 @@ public class UsersApiController implements UsersApi {
     @Autowired
     private BadgeDao badgeDao;
 
-    public ResponseEntity<ArrayList<UserPresentationDTO>> usersGet(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
-                                                                   @ApiParam(value = "The page number", defaultValue = "1") @RequestParam(value = "page", required = false, defaultValue = "1") BigDecimal page,
-                                                                   @ApiParam(value = "Number of result per page", defaultValue = "10") @RequestParam(value = "perPage", required = false, defaultValue = "10") BigDecimal perPage) {
+    public ResponseEntity<List<UserPresentationDTO>> usersGet(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
 
         long appId = Authentication.getApplicationId(authorization);
 
-        return new ResponseEntity<ArrayList<UserPresentationDTO>>(HttpStatus.OK);
+        List<Event> events = eventDao.findAllByApplicationId(appId);
+        List<Long> userIds = new ArrayList<>();
+
+        events.forEach(event -> {
+            if(!userIds.contains(event.getUserId())){
+                userIds.add(event.getUserId());
+            }
+        });
+
+        List<UserPresentationDTO> userPresentationDTOS = new ArrayList<>();
+
+        userIds.forEach(aLong -> {
+            userPresentationDTOS.add(getUserInfo(appId, aLong));
+        });
+
+        return new ResponseEntity<List<UserPresentationDTO>>(userPresentationDTOS, HttpStatus.OK);
     }
 
     public ResponseEntity<UserPresentationDTO> usersIdGet(@ApiParam(value = "The user's ID", required = true) @PathVariable("id") BigDecimal id,
@@ -60,10 +73,15 @@ public class UsersApiController implements UsersApi {
 
         long appId = Authentication.getApplicationId(authorization);
 
-        List<Event> events = eventDao.findAllByApplicationIdAndUserId(appId, id.longValue());
+        return new ResponseEntity<UserPresentationDTO>(getUserInfo(appId, id.longValue()), HttpStatus.OK);
+    }
+
+    private UserPresentationDTO getUserInfo(long appId, long id){
+
+        List<Event> events = eventDao.findAllByApplicationIdAndUserId(appId, id);
 
         if (events == null || events.size() == 0){
-            throw new HttpStatusException(HttpStatus.NOT_FOUND, ErrorMessageGenerator.notFoundById("User", String.valueOf(id.longValue())));
+            throw new HttpStatusException(HttpStatus.NOT_FOUND, ErrorMessageGenerator.notFoundById("User", String.valueOf(id)));
         }
 
         HashMap<Eventtype, Integer> eventtypeIntegerHashMap = new HashMap<>();
@@ -128,10 +146,9 @@ public class UsersApiController implements UsersApi {
             badgePresentationDTOList.add(new BadgePresentationDTO(badge));
         });
 
-        return new ResponseEntity<UserPresentationDTO>(
-                new UserPresentationDTO(id.longValue(),
-                        points,
-                        levelPresentationDTO,
-                        badgePresentationDTOList), HttpStatus.OK);
+        return new UserPresentationDTO(id,
+                points,
+                levelPresentationDTO,
+                badgePresentationDTOList);
     }
 }

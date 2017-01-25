@@ -35,4 +35,12 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
         err.setMessage(ex.getMessage());
         return new ResponseEntity<HttpErrorResponse>(err, ex.getStatus());
     }
+
+    @ExceptionHandler(value = {NullPointerException.class})
+    protected ResponseEntity handleNullPointer(NullPointerException ex) {
+        HttpErrorResponse err = new HttpErrorResponse();
+        err.setCode(HttpStatus.NOT_FOUND.value());
+        err.setMessage("Ressource not found");
+        return new ResponseEntity<HttpErrorResponse>(err,HttpStatus.NOT_FOUND);
+    }
 }
