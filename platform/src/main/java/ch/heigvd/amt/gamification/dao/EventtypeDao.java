@@ -2,8 +2,8 @@ package ch.heigvd.amt.gamification.dao;
 
 import ch.heigvd.amt.gamification.model.Eventtype;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -16,4 +16,7 @@ public interface EventtypeDao extends CrudRepository<Eventtype, Long> {
     Eventtype findByApplicationIdAndId(long applicationId, long id);
 
     List<Eventtype> findAllByApplicationId(long applicationId);
+
+    @Transactional
+    Long deleteByApplicationId(long appId);
 }

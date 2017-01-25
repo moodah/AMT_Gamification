@@ -11,9 +11,7 @@ import ch.heigvd.amt.gamification.dto.AchievementPresentationDTO;
 import ch.heigvd.amt.gamification.errors.ErrorMessageGenerator;
 import ch.heigvd.amt.gamification.errors.HttpStatusException;
 import ch.heigvd.amt.gamification.model.Achievement;
-import ch.heigvd.amt.gamification.model.Badge;
 import ch.heigvd.amt.gamification.security.Authentication;
-import com.google.common.collect.Lists;
 import io.swagger.annotations.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +57,11 @@ public class AchievementsApiController implements AchievementsApi {
                                                      @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
         long appId = Authentication.getApplicationId(authorization);
 
-        achievementDao.delete(achievementDao.findByApplicationIdAndId(appId, id.longValue()));
+        Achievement achievement = achievementDao.findByApplicationIdAndId(appId, id.longValue());
+        if (achievement == null)
+            throw new HttpStatusException(HttpStatus.NOT_FOUND, ErrorMessageGenerator.notFoundById("Achievement", id.toString()));
+
+        achievementDao.delete(achievement);
 
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
@@ -115,9 +117,7 @@ public class AchievementsApiController implements AchievementsApi {
     public ResponseEntity<Void> achievementsDelete(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
         long appId = Authentication.getApplicationId(authorization);
 
-        achievementDao.findAllByApplicationId(appId).forEach(achievement -> {
-            achievementDao.delete(achievement);
-        });
+        achievementDao.deleteByApplicationId(appId);
 
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }

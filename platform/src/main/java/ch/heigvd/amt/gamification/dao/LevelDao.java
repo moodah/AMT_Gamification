@@ -2,6 +2,7 @@ package ch.heigvd.amt.gamification.dao;
 
 import ch.heigvd.amt.gamification.model.Level;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -19,16 +20,14 @@ public interface LevelDao extends CrudRepository<Level, Long> {
 
     Level findByName(String name);
 
-    Long deleteByApplicationId(long applicationId);
-
     List<Level> findAllByApplicationId(long applicationId);
 
     List<Level> findAllByApplicationIdOrderByPointsAsc(long applicationId);
-
-    Long deleteAllByApplicationId(long applicationId);
 
     Level findTopByOrderByPointsAsc();
 
     Level findTopByPointsLessThanEqualOrderByPointsDesc(BigDecimal points);
 
+    @Transactional
+    Long deleteByApplicationId(long appId);
 }

@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 
 import ch.heigvd.amt.gamification.errors.HttpStatusException;
 import ch.heigvd.amt.gamification.security.Authentication;
-import com.google.common.collect.Lists;
 import io.swagger.annotations.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,12 +41,9 @@ public class BadgesApiController implements BadgesApi {
     private AchievementDao achievementDao;
 
     public ResponseEntity<Void> badgesDelete(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
-
         long appId = Authentication.getApplicationId(authorization);
 
-        badgeDao.findAllByApplicationId(appId).forEach(badge -> {
-            badgeDao.delete(badge);
-        });
+        badgeDao.deleteByApplicationId(appId);
 
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
@@ -69,7 +65,11 @@ public class BadgesApiController implements BadgesApi {
                                                @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
         long appId = Authentication.getApplicationId(authorization);
 
-        badgeDao.delete(badgeDao.findByApplicationIdAndId(appId, id.longValue()));
+        Badge badge = badgeDao.findByApplicationIdAndId(appId, id.longValue());
+        if (badge == null)
+            throw new HttpStatusException(HttpStatus.NOT_FOUND, ErrorMessageGenerator.notFoundById("Badge", id.toString()));
+
+        badgeDao.delete(badge);
 
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
@@ -79,7 +79,6 @@ public class BadgesApiController implements BadgesApi {
         long appId = Authentication.getApplicationId(authorization);
 
         Badge badge = badgeDao.findByApplicationIdAndId(appId, id.longValue());
-
         if (badge == null)
             throw new HttpStatusException(HttpStatus.NOT_FOUND, ErrorMessageGenerator.notFoundById("Badge", id.toString()));
 

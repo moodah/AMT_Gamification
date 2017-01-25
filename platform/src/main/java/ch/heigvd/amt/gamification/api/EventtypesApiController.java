@@ -8,8 +8,6 @@ import ch.heigvd.amt.gamification.dto.EventtypeCreationDTO;
 import ch.heigvd.amt.gamification.dto.EventtypePresentationDTO;
 import ch.heigvd.amt.gamification.errors.ErrorMessageGenerator;
 import ch.heigvd.amt.gamification.errors.HttpStatusException;
-import ch.heigvd.amt.gamification.model.Error;
-import ch.heigvd.amt.gamification.model.Event;
 import ch.heigvd.amt.gamification.model.Eventtype;
 import ch.heigvd.amt.gamification.security.Authentication;
 import io.swagger.annotations.*;
@@ -21,11 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.Null;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,18 +50,23 @@ public class EventtypesApiController implements EventtypesApi {
 
     public ResponseEntity<Void> eventtypesIdDelete(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                                    @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
-        eventtypeDao.delete(id.longValue());
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        long appId = Authentication.getApplicationId(authorization);
+
+        Eventtype eventtype = eventtypeDao.findByApplicationIdAndId(appId, id.longValue());
+        if (eventtype == null)
+            throw new HttpStatusException(HttpStatus.NOT_FOUND, ErrorMessageGenerator.notFoundById("Eventtype", id.toString()));
+
+        eventtypeDao.delete(eventtype);
+
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
     public ResponseEntity<Void> eventtypesDelete(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization){
         long appId = Authentication.getApplicationId(authorization);
 
-        eventtypeDao.findAllByApplicationId(appId).forEach(eventtype -> {
-            eventtypeDao.delete(eventtype);
-        });
+        eventtypeDao.deleteByApplicationId(appId);
 
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
     public ResponseEntity<EventtypePresentationDTO> eventtypesIdGet(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,

@@ -51,7 +51,11 @@ public class LevelsApiController implements LevelsApi {
                                                @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
         long appId = Authentication.getApplicationId(authorization);
 
-        levelDao.delete(id.longValue());
+        Level level = levelDao.findByApplicationIdAndId(appId, id.longValue());
+        if (level == null)
+            throw new HttpStatusException(HttpStatus.NOT_FOUND, ErrorMessageGenerator.notFoundById("Level", id.toString()));
+
+        levelDao.delete(level);
 
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
@@ -145,9 +149,7 @@ public class LevelsApiController implements LevelsApi {
     public ResponseEntity<Void> levelsDelete(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
         long appId = Authentication.getApplicationId(authorization);
 
-        levelDao.findAllByApplicationId(appId).forEach(level -> {
-            levelDao.delete(level);
-        });
+        levelDao.deleteByApplicationId(appId);
 
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
