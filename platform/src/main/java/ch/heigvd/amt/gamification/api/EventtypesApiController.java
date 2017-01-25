@@ -9,6 +9,7 @@ import ch.heigvd.amt.gamification.dto.EventtypePresentationDTO;
 import ch.heigvd.amt.gamification.errors.ErrorMessageGenerator;
 import ch.heigvd.amt.gamification.errors.HttpStatusException;
 import ch.heigvd.amt.gamification.model.Error;
+import ch.heigvd.amt.gamification.model.Event;
 import ch.heigvd.amt.gamification.model.Eventtype;
 import ch.heigvd.amt.gamification.security.Authentication;
 import io.swagger.annotations.*;
@@ -56,6 +57,18 @@ public class EventtypesApiController implements EventtypesApi {
     public ResponseEntity<Void> eventtypesIdDelete(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                                    @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
         eventtypeDao.delete(id.longValue());
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+    public ResponseEntity<Void> eventtypesDelete(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization){
+        long appId = Authentication.getApplicationId(authorization);
+
+        List<Eventtype> eventtypes = eventtypeDao.findAllByApplicationId(appId);
+
+        eventtypes.forEach(eventtype -> {
+            eventtypeDao.delete(eventtype);
+        });
+
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
