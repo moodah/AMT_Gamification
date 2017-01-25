@@ -12,7 +12,6 @@ import org.hibernate.annotations.CascadeType;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.math.BigDecimal;
 
 /**
  * Eventtype
@@ -21,7 +20,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "eventtype")
-public class Eventtype   {
+public class Eventtype {
 
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +30,7 @@ public class Eventtype   {
     private String name;
 
     @Column(nullable = false)
-    private BigDecimal points;
+    private long points;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "eventtype")
     @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
@@ -48,7 +47,7 @@ public class Eventtype   {
     public Eventtype() {
     }
 
-    public Eventtype(String name, BigDecimal points, Application application) {
+    public Eventtype(String name, long points, Application application) {
         this.name = name;
         this.points = points;
         this.application = application;
@@ -71,11 +70,11 @@ public class Eventtype   {
         return id;
     }
 
-    public BigDecimal getPoints() {
+    public long getPoints() {
         return points;
     }
 
-    public void setPoints(BigDecimal points) {
+    public void setPoints(long points) {
         this.points = points;
     }
 

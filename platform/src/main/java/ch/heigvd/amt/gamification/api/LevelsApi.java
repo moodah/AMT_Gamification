@@ -64,7 +64,7 @@ public interface LevelsApi {
             method = RequestMethod.PATCH)
     ResponseEntity<LevelPresentationDTO> levelsIdPatch(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                                        @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
-                                                       @ApiParam(value = "Updated level", required = true) @RequestBody Level level);
+                                                       @ApiParam(value = "Updated level", required = true) @RequestBody LevelCreationDTO level);
 
 
     @ApiOperation(value = "Create a new level", notes = "", response = Level.class, tags = {"Levels",})

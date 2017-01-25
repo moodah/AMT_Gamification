@@ -2,27 +2,25 @@ package ch.heigvd.amt.gamification.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.math.BigDecimal;
-
 /**
  * AchievementCreationDTO
  */
 public class AchievementCreationDTO {
 
     @JsonProperty("count")
-    private BigDecimal count;
+    private Long count;
 
     @JsonProperty("eventtype_id")
-    private BigDecimal eventtype_id;
+    private Long eventtype_id;
 
     @JsonProperty("name")
     private String name;
 
-    public BigDecimal getCount() {
+    public Long getCount() {
         return count;
     }
 
-    public BigDecimal getEventtype_id() {
+    public Long getEventtype_id() {
         return eventtype_id;
     }
 
@@ -30,11 +28,11 @@ public class AchievementCreationDTO {
         return name;
     }
 
-    public void setCount(BigDecimal count) {
+    public void setCount(Long count) {
         this.count = count;
     }
 
-    public void setEventtype_id(BigDecimal eventtype_id) {
+    public void setEventtype_id(Long eventtype_id) {
         this.eventtype_id = eventtype_id;
     }
 

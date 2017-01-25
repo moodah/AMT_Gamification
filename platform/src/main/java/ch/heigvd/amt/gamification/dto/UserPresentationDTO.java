@@ -3,7 +3,6 @@ package ch.heigvd.amt.gamification.dto;
 import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.math.BigDecimal;
 
 /**
  * UserDTO

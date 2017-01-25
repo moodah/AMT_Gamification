@@ -1,7 +1,6 @@
 package ch.heigvd.amt.gamification.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.math.BigDecimal;
 
 /**
  * Level
@@ -11,13 +10,13 @@ public class LevelCreationDTO {
     private String name;
 
     @JsonProperty("points")
-    private BigDecimal points;
+    private Long points;
 
     public String getName() {
         return name;
     }
 
-    public BigDecimal getPoints() {
+    public Long getPoints() {
         return points;
     }
 
@@ -25,7 +24,7 @@ public class LevelCreationDTO {
         this.name = name;
     }
 
-    public void setPoints(BigDecimal points) {
+    public void setPoints(Long points) {
         this.points = points;
     }
 }

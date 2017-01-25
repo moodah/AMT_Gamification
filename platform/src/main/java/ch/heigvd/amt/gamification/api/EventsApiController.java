@@ -40,9 +40,9 @@ public class EventsApiController implements EventsApi {
 
     public ResponseEntity<EventPresentationDTO> eventsPost(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization,
                                                            @ApiParam(value = "New event" ,required=true ) @RequestBody EventCreationDTO eventDTO) {
-        dataValidation(authorization, eventDTO);
-
         long appId = Authentication.getApplicationId(authorization);
+
+        dataValidation(eventDTO, appId);
 
         Event event = new Event(new Date(),
                 eventDTO.getUser_id(),
@@ -54,8 +54,11 @@ public class EventsApiController implements EventsApi {
         return new ResponseEntity<EventPresentationDTO>(new EventPresentationDTO(event), HttpStatus.CREATED);
     }
 
-    private void dataValidation(String authorization, EventCreationDTO eventDTO){
-        if(eventtypeDao.findByApplicationIdAndId(Authentication.getApplicationId(authorization), eventDTO.getEventtype_id()) == null){
+    private void dataValidation(EventCreationDTO eventDTO, long appId){
+        if (eventDTO.getUser_id() == null) {
+            throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.notFoundById("user", String.valueOf(eventDTO.getUser_id())));
+        }
+        if (eventDTO.getEventtype_id() == null || eventtypeDao.findByApplicationIdAndId(appId, eventDTO.getEventtype_id()) == null) {
             throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.notFoundById("eventtype", String.valueOf(eventDTO.getEventtype_id())));
         }
     }

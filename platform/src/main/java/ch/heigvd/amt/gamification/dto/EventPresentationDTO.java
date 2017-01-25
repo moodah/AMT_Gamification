@@ -3,8 +3,6 @@ package ch.heigvd.amt.gamification.dto;
 import ch.heigvd.amt.gamification.model.Event;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.util.Date;
 
 /**

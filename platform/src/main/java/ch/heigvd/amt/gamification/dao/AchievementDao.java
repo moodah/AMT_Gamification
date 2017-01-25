@@ -10,12 +10,12 @@ import java.util.List;
 
 public interface AchievementDao extends CrudRepository<Achievement, Long> {
 
-    List<Achievement> findAllByApplicationId(Long appId);
+    List<Achievement> findAllByApplicationId(long appId);
 
-    Achievement findByApplicationIdAndId(Long appId, Long id);
+    Achievement findByApplicationIdAndId(long appId, long id);
 
     List<Achievement> findAllByApplicationIdAndEventtype(long appId, Eventtype eventtype);
 
     @Transactional
-    Long deleteByApplicationId(long appId);
+    long deleteByApplicationId(long appId);
 }

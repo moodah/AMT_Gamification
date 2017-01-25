@@ -3,8 +3,6 @@ package ch.heigvd.amt.gamification.dto;
 import ch.heigvd.amt.gamification.model.Eventtype;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.math.BigDecimal;
-
 /**
  * @author Sébastien Richoz
  * @version 1.0
@@ -19,7 +17,7 @@ public class EventtypePresentationDTO {
     private String name;
 
     @JsonProperty("points")
-    private BigDecimal points;
+    private long points;
 
     public EventtypePresentationDTO(Eventtype eventtype) {
         this.id = eventtype.getId();
@@ -35,7 +33,7 @@ public class EventtypePresentationDTO {
         return name;
     }
 
-    public BigDecimal getPoints() {
+    public long getPoints() {
         return points;
     }
 
@@ -47,7 +45,7 @@ public class EventtypePresentationDTO {
         this.name = name;
     }
 
-    public void setPoints(BigDecimal points) {
+    public void setPoints(long points) {
         this.points = points;
     }
 }

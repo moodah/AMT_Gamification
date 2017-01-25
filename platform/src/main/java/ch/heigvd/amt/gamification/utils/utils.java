@@ -34,7 +34,7 @@ public class utils {
         long points = 0;
 
         for (Event event : events) {
-            points += event.getEventtype().getPoints().longValue();
+            points += event.getEventtype().getPoints();
             Integer count = eventtypeIntegerHashMap.get(event.getEventtype());
             if (count == null) {
                 eventtypeIntegerHashMap.put(event.getEventtype(), 1);
@@ -76,12 +76,12 @@ public class utils {
             }
         });
 
-        Level level = levelDao.findTopByPointsLessThanEqualOrderByPointsDesc(new BigDecimal(points));
+        Level level = levelDao.findTopByPointsLessThanEqualOrderByPointsDesc(points);
 
         LevelPresentationDTO levelPresentationDTO;
 
         if (level == null) {
-            levelPresentationDTO = new LevelPresentationDTO(0, "none", new BigDecimal(0));
+            levelPresentationDTO = new LevelPresentationDTO(0, "none", 0);
         } else {
             levelPresentationDTO = new LevelPresentationDTO(level);
         }

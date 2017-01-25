@@ -1,20 +1,15 @@
 package ch.heigvd.amt.gamification.model;
 
-import java.util.HashSet;
 import java.util.Objects;
 
 import ch.heigvd.amt.gamification.dto.LevelCreationDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
-import org.hibernate.annotations.*;
-import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
-import java.util.Set;
 
 /**
  * Level
@@ -23,7 +18,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "level")
-public class Level   {
+public class Level {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +32,7 @@ public class Level   {
     @JsonProperty("points")
     @NotNull
     @Column(nullable = false)
-    private BigDecimal points;
+    private long points;
 
     @ManyToOne
     @JoinColumn(name = "application_id", nullable = false)
@@ -81,7 +76,7 @@ public class Level   {
         this.name = name;
     }
 
-    public Level points(BigDecimal points) {
+    public Level points(long points) {
         this.points = points;
         return this;
     }
@@ -91,11 +86,11 @@ public class Level   {
      * @return points
      **/
     @ApiModelProperty(value = "")
-    public BigDecimal getPoints() {
+    public long getPoints() {
         return points;
     }
 
-    public void setPoints(BigDecimal points) {
+    public void setPoints(long points) {
         this.points = points;
     }
 

@@ -1,7 +1,5 @@
 package ch.heigvd.amt.gamification.dto;
 
-import java.math.BigDecimal;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -12,16 +10,16 @@ public class EventtypeCreationDTO {
     private String name;
 
     @JsonProperty("points")
-    private BigDecimal points;
+    private Long points;
 
     @JsonProperty("application_id")
-    private BigDecimal applicationId;
+    private Long applicationId;
 
-    public BigDecimal getApplicationId() {
+    public Long getApplicationId() {
         return applicationId;
     }
 
-    public void setApplicationId(BigDecimal applicationId) {
+    public void setApplicationId(Long applicationId) {
         this.applicationId = applicationId;
     }
 
@@ -29,7 +27,7 @@ public class EventtypeCreationDTO {
         return name;
     }
 
-    public BigDecimal getPoints() {
+    public Long getPoints() {
         return points;
     }
 
@@ -37,7 +35,7 @@ public class EventtypeCreationDTO {
         this.name = name;
     }
 
-    public void setPoints(BigDecimal points) {
+    public void setPoints(Long points) {
         this.points = points;
     }
 }

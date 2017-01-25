@@ -71,7 +71,7 @@ public class LevelsApiController implements LevelsApi {
 
     public ResponseEntity<LevelPresentationDTO> levelsIdPatch(@ApiParam(value = "", required = true) @PathVariable("id") BigDecimal id,
                                                               @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
-                                                              @ApiParam(value = "Updated level", required = true) @RequestBody Level newLevel) {
+                                                              @ApiParam(value = "Updated level", required = true) @RequestBody LevelCreationDTO newLevel) {
         long appId = Authentication.getApplicationId(authorization);
         Level oldLevel = levelDao.findByApplicationIdAndId(appId, id.longValue());
 
@@ -99,9 +99,9 @@ public class LevelsApiController implements LevelsApi {
             levels.forEach(level -> {
                 if (level.getId() != id.longValue()) {
                     System.out.println("level points = " + level.getPoints() + ", newlevel pints = " + newLevel.getPoints());
-                    if (level.getPoints().doubleValue() == newLevel.getPoints().doubleValue())
+                    if (level.getPoints() == newLevel.getPoints())
                         throw new HttpStatusException(HttpStatus.CONFLICT,
-                                ErrorMessageGenerator.valueAlreadyExists("Level", "points", newLevel.getPoints().longValue()));
+                                ErrorMessageGenerator.valueAlreadyExists("Level", "points", newLevel.getPoints()));
                 }
             });
 
@@ -117,7 +117,7 @@ public class LevelsApiController implements LevelsApi {
                                             @ApiParam(value = "", required = true) @RequestBody LevelCreationDTO levelDTO) {    // levels payload verification
 
         String levelName = levelDTO.getName();
-        BigDecimal levelPoints = levelDTO.getPoints();
+        Long levelPoints = levelDTO.getPoints();
 
         if (levelName == null)
             throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.fieldMissing("Level", "name"));

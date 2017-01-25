@@ -10,8 +10,6 @@ import org.hibernate.annotations.*;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.Null;
-import java.math.BigDecimal;
 
 /**
  * Achievement

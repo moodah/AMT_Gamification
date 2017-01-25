@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.Objects;
 
 import ch.heigvd.amt.gamification.configuration.AppConfig;
-import ch.heigvd.amt.gamification.dto.EventCreationDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 

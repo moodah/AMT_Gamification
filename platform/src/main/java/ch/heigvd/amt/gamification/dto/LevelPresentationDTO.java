@@ -3,8 +3,6 @@ package ch.heigvd.amt.gamification.dto;
 import ch.heigvd.amt.gamification.model.Level;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.math.BigDecimal;
-
 /**
  * @author Sébastien Richoz
  * @version 1.0
@@ -19,9 +17,9 @@ public class LevelPresentationDTO {
     private String name;
 
     @JsonProperty("points")
-    private BigDecimal points;
+    private long points;
 
-    public LevelPresentationDTO(long id, String name, BigDecimal points) {
+    public LevelPresentationDTO(long id, String name, long points) {
         this.id = id;
         this.name = name;
         this.points = points;
@@ -41,7 +39,7 @@ public class LevelPresentationDTO {
         return name;
     }
 
-    public BigDecimal getPoints() {
+    public long getPoints() {
         return points;
     }
 
@@ -53,7 +51,7 @@ public class LevelPresentationDTO {
         this.name = name;
     }
 
-    public void setPoints(BigDecimal points) {
+    public void setPoints(long points) {
         this.points = points;
     }
 }
