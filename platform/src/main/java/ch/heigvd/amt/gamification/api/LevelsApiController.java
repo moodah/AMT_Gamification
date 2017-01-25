@@ -123,51 +123,37 @@ public class LevelsApiController implements LevelsApi {
         return new ResponseEntity<LevelPresentationDTO>(toPresentationDTO(oldLevel), HttpStatus.OK);
     }
 
-    public ResponseEntity<ArrayList<String>> levelsPost(@ApiParam(value = "", required = true) @RequestBody List<LevelCreationDTO> levels,
-                                                        @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization) {
-        // levels payload verification
-        levels.forEach(level -> {
-            String levelName = level.getName();
-            BigDecimal levelPoints = level.getPoints();
+    public ResponseEntity<LevelPresentationDTO> levelsPost(@ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
+                                            @ApiParam(value = "", required = true) @RequestBody LevelCreationDTO levelDTO) {    // levels payload verification
 
-            if (levelName == null)
-                throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.fieldMissing("Level", "name"));
+        String levelName = levelDTO.getName();
+        BigDecimal levelPoints = levelDTO.getPoints();
 
-            if (levelPoints == null)
-                throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.fieldMissing("Level", "points"));
+        if (levelName == null)
+            throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.fieldMissing("Level", "name"));
 
-            if (levelName.length() < 0)
-                throw new HttpStatusException(HttpStatus.BAD_REQUEST,
-                        ErrorMessageGenerator.fieldTooShort("Level", "name", AppConfig.MIN_APP_NAME_LENGTH));
+        if (levelPoints == null)
+            throw new HttpStatusException(HttpStatus.BAD_REQUEST, ErrorMessageGenerator.fieldMissing("Level", "points"));
 
-            if (levelPoints.longValue() < 0L)
-                throw new HttpStatusException(HttpStatus.BAD_REQUEST,
-                        ErrorMessageGenerator.valueTooSmall("Level", "points", 0));
-        });
+        if (levelName.length() < 0)
+            throw new HttpStatusException(HttpStatus.BAD_REQUEST,
+                    ErrorMessageGenerator.fieldTooShort("Level", "name", AppConfig.MIN_APP_NAME_LENGTH));
+
+        if (levelPoints.longValue() < 0L)
+            throw new HttpStatusException(HttpStatus.BAD_REQUEST,
+                    ErrorMessageGenerator.valueTooSmall("Level", "points", 0));
+
 
         // Get application id from token
         long appId = Authentication.getApplicationId(authorization);
         Application app = applicationDao.findOne(appId);
 
-        // levels insertion (only if not existing yet)
-        ArrayList<String> urls = new ArrayList<>();
-        levels.forEach(level -> {
-            long levelId = 0;
-            Level oldLevel = levelDao.findByApplicationIdAndName(appId, level.getName());
+        Level level = new Level(levelDTO);
+        level.setApplication(app);
 
-            if (oldLevel == null) {
-                // create the new level
-                Level newLevel = new Level(level);
-                newLevel.setApplication(app);
-                levelId = levelDao.save(newLevel).getId();
-            } else {
-                levelId = oldLevel.getId();
-            }
+        levelDao.save(level);
 
-            urls.add("/levels/" + levelId);
-        });
-
-        return new ResponseEntity<ArrayList<String>>(urls, HttpStatus.CREATED);
+        return new ResponseEntity<LevelPresentationDTO>(new LevelPresentationDTO(level), HttpStatus.CREATED);
     }
 
     private LevelPresentationDTO toPresentationDTO(Level level) {

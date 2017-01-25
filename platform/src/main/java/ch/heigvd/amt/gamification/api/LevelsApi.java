@@ -74,7 +74,6 @@ public interface LevelsApi {
             produces = {"application/json"},
             consumes = {"application/json"},
             method = RequestMethod.POST)
-    ResponseEntity<ArrayList<String>> levelsPost(@ApiParam(value = "", required = true) @RequestBody List<LevelCreationDTO> levels,
-                                                 @ApiParam(value = "Application token", required = true) @RequestHeader(value = "Authorization", required = true) String authorization);
-
+    ResponseEntity<LevelPresentationDTO> levelsPost(@ApiParam(value = "Application token" ,required=true ) @RequestHeader(value="Authorization", required=true) String authorization,
+                                     @ApiParam(value = "" ,required=true ) @RequestBody LevelCreationDTO level);
 }
