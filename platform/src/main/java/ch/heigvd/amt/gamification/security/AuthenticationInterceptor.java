@@ -39,6 +39,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
                     return true;
                 } else {
                     response.sendError(HttpServletResponse.SC_FORBIDDEN, "The Authorization token is missing or malformed!");
+                    return false;
                 }
             } else {
                 return false;
