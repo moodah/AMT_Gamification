@@ -80,7 +80,7 @@ describe('achievements/', function () {
                 .end(function(err, res) { 
                     Utils.debug('err', err);
                     chai.expect(err).to.not.be.null;
-                    chai.expect(err).to.have.status(400);
+                    chai.expect(err).to.have.status(404);
                     done();
                 });
         });

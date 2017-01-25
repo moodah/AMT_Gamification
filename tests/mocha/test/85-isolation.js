@@ -15,37 +15,48 @@ describe('ISOLATION', function () {
     let tmptoken = null;
 
     // get the token
-    before(function () {
+    before(function (done) {
+        this.timeout(0);
         chai.request(CONFIG.API)
             .post('applications/')
             .set('content-type', 'application/json')
             .send({
-                name: '__tempapp3219038',
+                name: '__tempapp32190s38',
                 password: '23891ldas'
             })
             .then(function(res) {
-                return chai.request(CONFIG.API)
+                chai.request(CONFIG.API)
                     .post('applications/auth/')
                     .set('content-type', 'application/json')
                     .send({
-                        name: '__tempapp3219038',
+                        name: '__tempapp32190s38',
                         password: '23891ldas'
+                    })
+                    .then(function(res) {
+                        tmptoken = res.body.token;
+                        Utils.debug('tmptoken', tmptoken);
+                        done();
+                    })
+                    .catch(function(err) {
+                        Utils.debug('err', err);
+                        done(err);
                     });
-            })
-            .then(function(res) {
-                tmptoken = res.body.token;
             })
             .catch(function(err) {
                 Utils.debug('err', err);
+                done(err);
             });
     });
 
     // cleanup
-    after(function () {
+    after(function (done) {
         chai.request(CONFIG.API)
             .delete('applications/')
             .set('content-type', 'application/json')
             .set('authorization', tmptoken)
+            .then(function(res) {
+                done();
+            })
             .catch(function(err) {
                 Utils.debug('err', err);
             });
@@ -145,7 +156,7 @@ describe('ISOLATION', function () {
                         .end(function(err, res) {
                             Utils.debug('err', err);
                             chai.expect(err).to.not.be.null;
-                            chai.expect(err).to.have.status(404);
+                            chai.expect(err).to.have.status(400);
                             done();
                         });
                 }); 
@@ -166,7 +177,7 @@ describe('ISOLATION', function () {
                         .end(function(err, res) {
                             Utils.debug('err', err);
                             chai.expect(err).to.not.be.null;
-                            chai.expect(err).to.have.status(404);
+                            chai.expect(err).to.have.status(400);
                             done();
                         });
                 }); 
